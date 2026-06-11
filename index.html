@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>期货研报入口</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+            color: #172033;
+            background: #f5f7fa;
+            line-height: 1.55;
+        }
+
+        main {
+            width: min(1040px, calc(100% - 32px));
+            margin: 32px auto;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 30px;
+        }
+
+        p {
+            margin: 0 0 24px;
+            color: #5d6678;
+        }
+
+        section {
+            margin-top: 24px;
+            padding: 20px;
+            border: 1px solid #dce2ea;
+            border-radius: 8px;
+            background: #ffffff;
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            font-size: 20px;
+        }
+
+        ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 10px 18px;
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        li {
+            padding-right: 8px;
+        }
+
+        a {
+            color: #0b63ce;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        small {
+            display: block;
+            margin-top: 2px;
+            color: #697386;
+            font-weight: 400;
+        }
+
+        code {
+            display: block;
+            margin-top: 6px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            background: #edf1f7;
+            color: #263243;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>期货研报入口</h1>
+        <p>用于集中查看期货品种、多家期货公司观点、日报、周报、专题报告和行情数据。</p>
+
+        <section>
+            <h2>当前关注</h2>
+            <ul>
+                <li>
+                    <a href="https://fxq.founderfu.com/fangzheng-forward/app/#/pages/openQuotation/moreOptions?breeds=&smallBreedsCodeList=[%22ma%22]"
+                        target="_blank" rel="noopener">方正中期期货 MA 行情</a>
+                    <small>甲醇相关行情入口</small>
+                </li>
+                <li>
+                    <a href="https://zhfx.founderfu.com:13001/todayrankings/api/productRealData" target="_blank"
+                        rel="noopener">方正中期期货产品实时数据 API</a>
+                    <small>当前参数记录：<code>{products: ["ma"]}</code></small>
+                </li>
+                <li>
+                    <a href="https://fxq.founderfu.com/fangzheng-forward/app/#/pages/research/index" target="_blank"
+                        rel="noopener">方正中期期货研究入口</a>
+                    <small>研报、策略、品种研究</small>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>多家期货观点聚合</h2>
+            <ul>
+                <li>
+                    <a href="https://www.hibor.com.cn/microns_8.html" target="_blank" rel="noopener">慧博投研资讯 - 期货研究</a>
+                    <small>多家期货公司研报聚合</small>
+                </li>
+                <li>
+                    <a href="https://www.51pdf.cn/report_futures/" target="_blank" rel="noopener">51PDF - 期货研究</a>
+                    <small>期货晨报、日报、专题报告</small>
+                </li>
+                <li>
+                    <a href="https://futures.100ppi.com/" target="_blank" rel="noopener">生意社 - 商品与期货</a>
+                    <small>机构看盘、商品资讯、期货观点</small>
+                </li>
+                <li>
+                    <a href="https://www.7hcn.com/" target="_blank" rel="noopener">七禾网</a>
+                    <small>期货机构专区和产业观点</small>
+                </li>
+                <li>
+                    <a href="https://www.fxbaogao.com/category/20" target="_blank" rel="noopener">发现报告 - 期货研究</a>
+                    <small>综合库里的期货研报分类</small>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>期货公司官方研报</h2>
+            <ul>
+                <li>
+                    <a href="https://inst.citicsf.com/research-report/researchReportQuery" target="_blank"
+                        rel="noopener">中信期货 - 研报查询</a>
+                    <small>商品策略、黑色、有色、能源化工等</small>
+                </li>
+                <li>
+                    <a href="https://www.gtjaqh.com/pc/report?pid=910" target="_blank" rel="noopener">国泰君安期货 - 研究报告</a>
+                    <small>晨报、日报、周报、专题</small>
+                </li>
+                <li>
+                    <a href="https://www.yhqh.com.cn/col15/list.html" target="_blank" rel="noopener">银河期货 - 研究分析</a>
+                    <small>宏观、基本面、品种分析</small>
+                </li>
+                <li>
+                    <a href="https://www.yafco.com/report.html" target="_blank" rel="noopener">永安期货 - 研究报告</a>
+                    <small>商品和产业链研究</small>
+                </li>
+                <li>
+                    <a href="https://www.ccbfutures.com/main/research/research_report/week_paper/index.shtml"
+                        target="_blank" rel="noopener">建信期货 - 研究报告</a>
+                    <small>日报、周报、月报、年报</small>
+                </li>
+                <li>
+                    <a href="https://www.wkjyqh.com/main/research_center/index.shtml" target="_blank"
+                        rel="noopener">五矿期货 - 研究中心</a>
+                    <small>黑色、有色、能源化工等商品研究</small>
+                </li>
+
+
+
+
+                <li>
+                    <a href="https://www.rdqh.com/content/index/62" target="_blank" rel="noopener">瑞达期货 - 日度报告</a>
+                    <small>品种日报入口</small>
+                </li>
+
+            </ul>
+        </section>
+
+        <section>
+            <h2>推荐搜索语句</h2>
+            <code>品种名 + 期货日报
+品种名 + 期货周报
+品种名 + 期货公司名
+site:51pdf.cn/report_futures 纯碱
+site:futures.100ppi.com 甲醇 期货
+site:cfachina.org 铁矿石 期货</code>
+        </section>
+    </main>
+</body>
+
+</html>
