@@ -1,0 +1,3007 @@
+{
+    "AP": {
+        "code": "AP",
+        "contractSize": 10,
+        "unit": "吨/手",
+        "contract": "AP2610",
+        "name": "苹果2610",
+        "exchange": "郑",
+        "tradeDate": "2026-06-10",
+        "time": "150000",
+        "open": 7380,
+        "high": 7429,
+        "low": 7306,
+        "lastPrice": 7400,
+        "close": 7400,
+        "previousSettlement": 7427,
+        "avgPrice": 7364,
+        "volume": 112504,
+        "openInterest": 87538,
+        "priceChange": -27,
+        "priceChangePct": -0.003635,
+        "rangePct": 0.016561,
+        "spotPrice": 7450,
+        "basis": 50,
+        "basisRate": "0.67%",
+        "basisComparable": true,
+        "basisQualityNote": null,
+        "warrant": 0,
+        "warrantChange": 0,
+        "warrant5dChange": 0,
+        "warrantDate": "2026-05-29",
+        "warrantLots": 0,
+        "warrantHistory": [
+            {
+                "date": "2026-05-29",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-13",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-12",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-11",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-08",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-07",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-06",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-04-30",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-04-29",
+                "warrant": 0,
+                "change": 0
+            }
+        ],
+        "annualProduction": "约4500万吨",
+        "annualConsumption": "约4300万吨",
+        "supplyDemandBalance": "供需整体平衡，阶段性供给压力大",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0,
+        "qualityWarnings": [
+            "仓单日期(2026-05-29)早于行情日期(2026-06-10)"
+        ],
+        "productionCost": 7000,
+        "cashCost": 6000,
+        "industrialProfit": 1400,
+        "industrialProfitRate": 0.23333333333333334,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "苹果生产完全成本约7000元/吨，果农冷库出货现金折算价约6000元/吨"
+    },
+    "SP": {
+        "code": "SP",
+        "contractSize": 10,
+        "unit": "吨/手",
+        "contract": "SP2609",
+        "name": "纸浆2609",
+        "exchange": "沪",
+        "tradeDate": "2026-06-10",
+        "time": "230000",
+        "open": 4868,
+        "high": 4870,
+        "low": 4838,
+        "lastPrice": 4858,
+        "close": 4858,
+        "previousSettlement": 4874,
+        "avgPrice": 4852.699,
+        "volume": 403530,
+        "openInterest": 87150,
+        "priceChange": -16,
+        "priceChangePct": -0.003283,
+        "rangePct": 0.006565,
+        "spotPrice": 4983.33,
+        "basis": 115,
+        "basisRate": "2.31%",
+        "basisComparable": true,
+        "basisQualityNote": null,
+        "warrant": 235809,
+        "warrantChange": 0,
+        "warrant5dChange": 8691,
+        "warrantDate": "2026-06-10",
+        "warrantLots": 23580.9,
+        "warrantHistory": [
+            {
+                "date": "2026-06-10",
+                "warrant": 235809,
+                "change": 0
+            },
+            {
+                "date": "2026-06-09",
+                "warrant": 235809,
+                "change": 4627
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 231182,
+                "change": 2370
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 228812,
+                "change": -3929
+            },
+            {
+                "date": "2026-06-04",
+                "warrant": 232741,
+                "change": 5623
+            },
+            {
+                "date": "2026-06-03",
+                "warrant": 227118,
+                "change": 304
+            },
+            {
+                "date": "2026-06-02",
+                "warrant": 226814,
+                "change": 8786
+            },
+            {
+                "date": "2026-06-01",
+                "warrant": 218028,
+                "change": 10762
+            },
+            {
+                "date": "2026-05-29",
+                "warrant": 207266,
+                "change": 0
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 207266,
+                "change": 0
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 207266,
+                "change": 0
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 207266,
+                "change": 2933
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 204333,
+                "change": 2509
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 201824,
+                "change": 0
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 201824,
+                "change": 2980
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 198844,
+                "change": -7101
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 205945,
+                "change": -1930
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 207875,
+                "change": 0
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 207875,
+                "change": 0
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 207875,
+                "change": 1828
+            }
+        ],
+        "annualProduction": "极低(主要进口针叶浆)",
+        "annualConsumption": "约4400万吨",
+        "supplyDemandBalance": "高度依赖进口，供求平稳",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0.270578,
+        "qualityWarnings": [
+            "仓单折手占持仓比例偏高，注意交割/套保压力"
+        ],
+        "productionCost": 5500,
+        "cashCost": 4800,
+        "industrialProfit": 58,
+        "industrialProfitRate": 0.012083333333333333,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "针叶浆外盘进口折算完全成本约5500元/吨，部分低成本外商长协折算现金底线4800元/吨"
+    },
+    "UR": {
+        "code": "UR",
+        "contractSize": 20,
+        "unit": "吨/手",
+        "contract": "UR2609",
+        "name": "尿素2609",
+        "exchange": "郑",
+        "tradeDate": "2026-06-10",
+        "time": "150000",
+        "open": 1807,
+        "high": 1815,
+        "low": 1785,
+        "lastPrice": 1793,
+        "close": 1793,
+        "previousSettlement": 1805,
+        "avgPrice": 1799,
+        "volume": 287666,
+        "openInterest": 230064,
+        "priceChange": -12,
+        "priceChangePct": -0.006648,
+        "rangePct": 0.01662,
+        "spotPrice": 1822.5,
+        "basis": 29,
+        "basisRate": "1.59%",
+        "basisComparable": true,
+        "basisQualityNote": null,
+        "warrant": 8239,
+        "warrantChange": -170,
+        "warrant5dChange": -3844,
+        "warrantDate": "2026-06-10",
+        "warrantLots": 411.95,
+        "warrantHistory": [
+            {
+                "date": "2026-06-10",
+                "warrant": 8239,
+                "change": -170
+            },
+            {
+                "date": "2026-06-09",
+                "warrant": 8409,
+                "change": -479
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 8888,
+                "change": -512
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 9400,
+                "change": -1071
+            },
+            {
+                "date": "2026-06-04",
+                "warrant": 10471,
+                "change": -1612
+            },
+            {
+                "date": "2026-06-03",
+                "warrant": 12083,
+                "change": -31
+            },
+            {
+                "date": "2026-06-02",
+                "warrant": 12114,
+                "change": -560
+            },
+            {
+                "date": "2026-06-01",
+                "warrant": 12674,
+                "change": -517
+            },
+            {
+                "date": "2026-05-29",
+                "warrant": 13191,
+                "change": -40
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 13231,
+                "change": -303
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 13534,
+                "change": -58
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 13592,
+                "change": -14
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 13606,
+                "change": 174
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 13432,
+                "change": -24
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 13456,
+                "change": -123
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 13579,
+                "change": 0
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 13579,
+                "change": -289
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 13868,
+                "change": -143
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 14011,
+                "change": -268
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 14279,
+                "change": -369
+            }
+        ],
+        "annualProduction": "约6200万吨",
+        "annualConsumption": "约5800万吨",
+        "supplyDemandBalance": "供大于求，整体产能过剩",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0.001791,
+        "qualityWarnings": [],
+        "productionCost": 1600,
+        "cashCost": 1350,
+        "industrialProfit": 443,
+        "industrialProfitRate": 0.32814814814814813,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "尿素新型煤气化完全成本线约1600元/吨，固定床与气头边际现金底线1350元/吨"
+    },
+    "FG": {
+        "code": "FG",
+        "contractSize": 20,
+        "unit": "吨/手",
+        "contract": "FG2609",
+        "name": "玻璃2609",
+        "exchange": "郑",
+        "tradeDate": "2026-06-10",
+        "time": "230000",
+        "open": 990,
+        "high": 995,
+        "low": 987,
+        "lastPrice": 990,
+        "close": 990,
+        "previousSettlement": 991,
+        "avgPrice": 991,
+        "volume": 1780485,
+        "openInterest": 377785,
+        "priceChange": -1,
+        "priceChangePct": -0.001009,
+        "rangePct": 0.008073,
+        "spotPrice": 12.85,
+        "basis": 39,
+        "basisRate": "3.79%",
+        "basisComparable": false,
+        "basisQualityNote": "现货常见口径为元/平方米或元/重量箱，需折算后才能与期货元/吨比较",
+        "warrant": 838,
+        "warrantChange": 0,
+        "warrant5dChange": 763,
+        "warrantDate": "2026-06-10",
+        "warrantLots": 41.9,
+        "warrantHistory": [
+            {
+                "date": "2026-06-10",
+                "warrant": 838,
+                "change": 0
+            },
+            {
+                "date": "2026-06-09",
+                "warrant": 838,
+                "change": 0
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 838,
+                "change": 24
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 814,
+                "change": 0
+            },
+            {
+                "date": "2026-06-04",
+                "warrant": 814,
+                "change": 739
+            },
+            {
+                "date": "2026-06-03",
+                "warrant": 75,
+                "change": 0
+            },
+            {
+                "date": "2026-06-02",
+                "warrant": 75,
+                "change": 75
+            },
+            {
+                "date": "2026-06-01",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-29",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 0,
+                "change": -367
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 367,
+                "change": -314
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 681,
+                "change": -1101
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 1782,
+                "change": -28
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 1810,
+                "change": -50
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 1860,
+                "change": -58
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 1918,
+                "change": -20
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 1938,
+                "change": -24
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 1962,
+                "change": -59
+            }
+        ],
+        "annualProduction": "约5000万吨",
+        "annualConsumption": "约4800万吨",
+        "supplyDemandBalance": "产能过剩，下游地产需求承压",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0.000111,
+        "qualityWarnings": [
+            "基差口径需校验：现货常见口径为元/平方米或元/重量箱，需折算后才能与期货元/吨比较"
+        ],
+        "productionCost": 1250,
+        "cashCost": 1100,
+        "industrialProfit": -110,
+        "industrialProfitRate": -0.1,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "玻璃纯碱/石英完全成本降至约1250元/吨，沙河龙头玻璃厂现金流底线约1100元/吨"
+    },
+    "LC": {
+        "code": "LC",
+        "contractSize": 1,
+        "unit": "吨/手",
+        "contract": "LC2609",
+        "name": "碳酸锂2609",
+        "exchange": null,
+        "tradeDate": "2026-06-10",
+        "time": "150116",
+        "open": 167980,
+        "high": 169300,
+        "low": 164800,
+        "lastPrice": 167400,
+        "close": 167400,
+        "previousSettlement": 165300,
+        "avgPrice": 167186.289,
+        "volume": 443549,
+        "openInterest": 206477,
+        "priceChange": 2100,
+        "priceChangePct": 0.012704,
+        "rangePct": 0.027223,
+        "spotPrice": 164000,
+        "basis": -3400,
+        "basisRate": "-2.07%",
+        "basisComparable": true,
+        "basisQualityNote": null,
+        "warrant": null,
+        "warrantChange": null,
+        "warrant5dChange": null,
+        "warrantDate": null,
+        "warrantLots": null,
+        "warrantHistory": [],
+        "annualProduction": "国内约60万吨",
+        "annualConsumption": "约75万吨",
+        "supplyDemandBalance": "全球供给过剩，去库周期中",
+        "update_time": "2026/6/11 02:33:55",
+        "qualityWarnings": [],
+        "productionCost": 75000,
+        "cashCost": 55000,
+        "industrialProfit": 112400,
+        "industrialProfitRate": 2.0436363636363635,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "碳酸锂外购辉石完全成本已沉淀至75000元/吨，盐湖及自有锂矿先进现金成本线55000元/吨"
+    },
+    "JM": {
+        "code": "JM",
+        "contractSize": 60,
+        "unit": "吨/手",
+        "contract": "JM2609",
+        "name": "焦煤2609",
+        "exchange": "连",
+        "tradeDate": "2026-06-10",
+        "time": "230000",
+        "open": 1373.5,
+        "high": 1379,
+        "low": 1358,
+        "lastPrice": 1363,
+        "close": 1363,
+        "previousSettlement": 1357,
+        "avgPrice": 1365.485,
+        "volume": 554644,
+        "openInterest": 401945,
+        "priceChange": 6,
+        "priceChangePct": 0.004422,
+        "rangePct": 0.015475,
+        "spotPrice": 1851.25,
+        "basis": 487,
+        "basisRate": "26.31%",
+        "basisComparable": true,
+        "basisQualityNote": null,
+        "warrant": 0,
+        "warrantChange": -200,
+        "warrant5dChange": -700,
+        "warrantDate": "2026-06-09",
+        "warrantLots": 0,
+        "warrantHistory": [
+            {
+                "date": "2026-06-09",
+                "warrant": 0,
+                "change": -200
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 200,
+                "change": 0
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 200,
+                "change": -120
+            },
+            {
+                "date": "2026-06-04",
+                "warrant": 320,
+                "change": -380
+            },
+            {
+                "date": "2026-06-03",
+                "warrant": 700,
+                "change": 0
+            },
+            {
+                "date": "2026-06-02",
+                "warrant": 700,
+                "change": 0
+            },
+            {
+                "date": "2026-06-01",
+                "warrant": 700,
+                "change": 700
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 0,
+                "change": -49
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 49,
+                "change": 0
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 49,
+                "change": -151
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 200,
+                "change": -300
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 500,
+                "change": 0
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 500,
+                "change": -350
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 850,
+                "change": -634
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 1484,
+                "change": -1967
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 3451,
+                "change": 30
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 3421,
+                "change": 322
+            },
+            {
+                "date": "2026-05-13",
+                "warrant": 3099,
+                "change": -250
+            },
+            {
+                "date": "2026-05-12",
+                "warrant": 3349,
+                "change": 499
+            },
+            {
+                "date": "2026-05-11",
+                "warrant": 2850,
+                "change": 400
+            }
+        ],
+        "annualProduction": "约4.9亿吨",
+        "annualConsumption": "约5.5亿吨",
+        "supplyDemandBalance": "结构性短缺，高度依赖蒙俄进口",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0,
+        "qualityWarnings": [
+            "仓单日期(2026-06-09)早于行情日期(2026-06-10)"
+        ],
+        "productionCost": 1200,
+        "cashCost": 1000,
+        "industrialProfit": 363,
+        "industrialProfitRate": 0.363,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "焦煤国内主流原煤洗选完全成本约1200元/吨，山西主力煤企大井口现金成本底线1000元/吨"
+    },
+    "BU": {
+        "code": "BU",
+        "contractSize": 10,
+        "unit": "吨/手",
+        "contract": "BU2609",
+        "name": "沥青2609",
+        "exchange": "沪",
+        "tradeDate": "2026-06-10",
+        "time": "230000",
+        "open": 4442,
+        "high": 4495,
+        "low": 4431,
+        "lastPrice": 4487,
+        "close": 4487,
+        "previousSettlement": 4438,
+        "avgPrice": 4473.337,
+        "volume": 326005,
+        "openInterest": 206294,
+        "priceChange": 49,
+        "priceChangePct": 0.011041,
+        "rangePct": 0.014421,
+        "spotPrice": 4495,
+        "basis": 78,
+        "basisRate": "1.74%",
+        "basisComparable": true,
+        "basisQualityNote": null,
+        "warrant": 21120,
+        "warrantChange": 0,
+        "warrant5dChange": 0,
+        "warrantDate": "2026-06-10",
+        "warrantLots": 2112,
+        "warrantHistory": [
+            {
+                "date": "2026-06-10",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-06-09",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-06-04",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-06-03",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-06-02",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-06-01",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-05-29",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 21120,
+                "change": 0
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 21120,
+                "change": -3080
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 24200,
+                "change": 0
+            }
+        ],
+        "annualProduction": "约3200万吨",
+        "annualConsumption": "约3100万吨",
+        "supplyDemandBalance": "产能严重过剩，需求较为低迷",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0.010238,
+        "qualityWarnings": [],
+        "productionCost": 3500,
+        "cashCost": 3100,
+        "industrialProfit": 1387,
+        "industrialProfitRate": 0.4474193548387097,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "沥青国内主港原油折算完全加工成本约3500元/吨，炼厂边际副产品现金折算成本3100元/吨"
+    },
+    "PP": {
+        "code": "PP",
+        "contractSize": 5,
+        "unit": "吨/手",
+        "contract": "PP2609",
+        "name": "聚丙烯2609",
+        "exchange": "连",
+        "tradeDate": "2026-06-10",
+        "time": "230000",
+        "open": 8666,
+        "high": 8727,
+        "low": 8661,
+        "lastPrice": 8700,
+        "close": 8700,
+        "previousSettlement": 8641,
+        "avgPrice": 8697.615,
+        "volume": 594320,
+        "openInterest": 195456,
+        "priceChange": 59,
+        "priceChangePct": 0.006828,
+        "rangePct": 0.007638,
+        "spotPrice": 9656.67,
+        "basis": 1007,
+        "basisRate": "10.43%",
+        "basisComparable": true,
+        "basisQualityNote": null,
+        "warrant": 17017,
+        "warrantChange": 0,
+        "warrant5dChange": 0,
+        "warrantDate": "2026-06-10",
+        "warrantLots": 3403.4,
+        "warrantHistory": [
+            {
+                "date": "2026-06-10",
+                "warrant": 17017,
+                "change": 0
+            },
+            {
+                "date": "2026-06-09",
+                "warrant": 17017,
+                "change": 0
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 17017,
+                "change": 0
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 17017,
+                "change": 0
+            },
+            {
+                "date": "2026-06-04",
+                "warrant": 17017,
+                "change": 0
+            },
+            {
+                "date": "2026-06-03",
+                "warrant": 17017,
+                "change": 0
+            },
+            {
+                "date": "2026-06-02",
+                "warrant": 17017,
+                "change": 240
+            },
+            {
+                "date": "2026-06-01",
+                "warrant": 16777,
+                "change": 0
+            },
+            {
+                "date": "2026-05-29",
+                "warrant": 16777,
+                "change": 1200
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 15577,
+                "change": 0
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 15577,
+                "change": 200
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 15377,
+                "change": 0
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 15377,
+                "change": -1059
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 16436,
+                "change": 500
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 15936,
+                "change": 0
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 15936,
+                "change": 0
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 15936,
+                "change": 0
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 15936,
+                "change": 0
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 15936,
+                "change": 0
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 15936,
+                "change": 900
+            }
+        ],
+        "annualProduction": "约3400万吨",
+        "annualConsumption": "约3500万吨",
+        "supplyDemandBalance": "处于产能扩张期，供求宽松",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0.017413,
+        "qualityWarnings": [],
+        "productionCost": 7500,
+        "cashCost": 7000,
+        "industrialProfit": 1700,
+        "industrialProfitRate": 0.24285714285714285,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "聚丙烯拉丝完全成本7500元/吨，油头与PDH先进装置边际现金底线7000元/吨"
+    },
+    "V": {
+        "code": "V",
+        "contractSize": 5,
+        "unit": "吨/手",
+        "contract": "V2609",
+        "name": "PVC2609",
+        "exchange": "连",
+        "tradeDate": "2026-06-10",
+        "time": "230000",
+        "open": 4707,
+        "high": 4722,
+        "low": 4682,
+        "lastPrice": 4689,
+        "close": 4689,
+        "previousSettlement": 4690,
+        "avgPrice": 4698.893,
+        "volume": 1181449,
+        "openInterest": 304059,
+        "priceChange": -1,
+        "priceChangePct": -0.000213,
+        "rangePct": 0.008529,
+        "spotPrice": 4545,
+        "basis": -161,
+        "basisRate": "-3.54%",
+        "basisComparable": true,
+        "basisQualityNote": null,
+        "warrant": 107076,
+        "warrantChange": 3570,
+        "warrant5dChange": 3357,
+        "warrantDate": "2026-06-10",
+        "warrantLots": 21415.2,
+        "warrantHistory": [
+            {
+                "date": "2026-06-10",
+                "warrant": 107076,
+                "change": 3570
+            },
+            {
+                "date": "2026-06-09",
+                "warrant": 103506,
+                "change": -400
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 103906,
+                "change": 40
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 103866,
+                "change": 0
+            },
+            {
+                "date": "2026-06-04",
+                "warrant": 103866,
+                "change": 147
+            },
+            {
+                "date": "2026-06-03",
+                "warrant": 103719,
+                "change": -140
+            },
+            {
+                "date": "2026-06-02",
+                "warrant": 103859,
+                "change": 149
+            },
+            {
+                "date": "2026-06-01",
+                "warrant": 103710,
+                "change": 308
+            },
+            {
+                "date": "2026-05-29",
+                "warrant": 103402,
+                "change": 0
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 103402,
+                "change": -53
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 103455,
+                "change": 303
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 103152,
+                "change": -40
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 103192,
+                "change": -493
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 103685,
+                "change": 267
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 103418,
+                "change": -38
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 103456,
+                "change": 0
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 103456,
+                "change": 469
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 102987,
+                "change": 10618
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 92369,
+                "change": 7034
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 85335,
+                "change": 3244
+            }
+        ],
+        "annualProduction": "约2200万吨",
+        "annualConsumption": "约2000万吨",
+        "supplyDemandBalance": "供大于求，依赖出口消化库存",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0.070431,
+        "qualityWarnings": [],
+        "productionCost": 5500,
+        "cashCost": 4900,
+        "industrialProfit": -211,
+        "industrialProfitRate": -0.04306122448979592,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "PVC外购电石法完全生产成本约5500元/吨，西北一体化大厂边际现金成本底线4900元/吨"
+    },
+    "SA": {
+        "code": "SA",
+        "contractSize": 20,
+        "unit": "吨/手",
+        "contract": "SA2609",
+        "name": "纯碱2609",
+        "exchange": "郑",
+        "tradeDate": "2026-06-10",
+        "time": "230000",
+        "open": 1150,
+        "high": 1160,
+        "low": 1149,
+        "lastPrice": 1156,
+        "close": 1156,
+        "previousSettlement": 1150,
+        "avgPrice": 1155,
+        "volume": 1354271,
+        "openInterest": 276086,
+        "priceChange": 6,
+        "priceChangePct": 0.005217,
+        "rangePct": 0.009565,
+        "spotPrice": 1214.29,
+        "basis": 62,
+        "basisRate": "5.11%",
+        "basisComparable": true,
+        "basisQualityNote": null,
+        "warrant": 7680,
+        "warrantChange": -1,
+        "warrant5dChange": 2860,
+        "warrantDate": "2026-06-10",
+        "warrantLots": 384,
+        "warrantHistory": [
+            {
+                "date": "2026-06-10",
+                "warrant": 7680,
+                "change": -1
+            },
+            {
+                "date": "2026-06-09",
+                "warrant": 7681,
+                "change": -500
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 8181,
+                "change": 548
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 7633,
+                "change": 0
+            },
+            {
+                "date": "2026-06-04",
+                "warrant": 7633,
+                "change": 2813
+            },
+            {
+                "date": "2026-06-03",
+                "warrant": 4820,
+                "change": 0
+            },
+            {
+                "date": "2026-06-02",
+                "warrant": 4820,
+                "change": 525
+            },
+            {
+                "date": "2026-06-01",
+                "warrant": 4295,
+                "change": 75
+            },
+            {
+                "date": "2026-05-29",
+                "warrant": 4220,
+                "change": 1681
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 2539,
+                "change": 552
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 1987,
+                "change": 1987
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 0,
+                "change": -335
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 335,
+                "change": -335
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 670,
+                "change": -1848
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 2518,
+                "change": 0
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 2518,
+                "change": -24
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 2542,
+                "change": -25
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 2567,
+                "change": -65
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 2632,
+                "change": -746
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 3378,
+                "change": -584
+            }
+        ],
+        "annualProduction": "约3200万吨",
+        "annualConsumption": "约2900万吨",
+        "supplyDemandBalance": "新增产能集中释放，供大于求",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0.001391,
+        "qualityWarnings": [],
+        "productionCost": 1200,
+        "cashCost": 900,
+        "industrialProfit": 256,
+        "industrialProfitRate": 0.28444444444444444,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "纯碱天然碱完全成本600-800，先进联碱完全成本1200，此处使用联碱完全成本与天然碱现金底防守"
+    },
+    "SH": {
+        "code": "SH",
+        "contractSize": 30,
+        "unit": "吨/手",
+        "contract": "SH2609",
+        "name": "烧碱2609",
+        "exchange": "郑",
+        "tradeDate": "2026-06-10",
+        "time": "225959",
+        "open": 2024,
+        "high": 2036,
+        "low": 2019,
+        "lastPrice": 2026,
+        "close": 2026,
+        "previousSettlement": 2015,
+        "avgPrice": 2026,
+        "volume": 149464,
+        "openInterest": 48002,
+        "priceChange": 11,
+        "priceChangePct": 0.005459,
+        "rangePct": 0.008437,
+        "spotPrice": 622,
+        "basis": 54,
+        "basisRate": "2.78%",
+        "basisComparable": false,
+        "basisQualityNote": "现货常见口径为液碱不同浓度报价，需折百/合约规格换算",
+        "warrant": 100,
+        "warrantChange": -48,
+        "warrant5dChange": -148,
+        "warrantDate": "2026-06-10",
+        "warrantLots": 3.33,
+        "warrantHistory": [
+            {
+                "date": "2026-06-10",
+                "warrant": 100,
+                "change": -48
+            },
+            {
+                "date": "2026-06-09",
+                "warrant": 148,
+                "change": -35
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 183,
+                "change": -46
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 229,
+                "change": -16
+            },
+            {
+                "date": "2026-06-04",
+                "warrant": 245,
+                "change": -3
+            },
+            {
+                "date": "2026-06-03",
+                "warrant": 248,
+                "change": -2
+            },
+            {
+                "date": "2026-06-02",
+                "warrant": 250,
+                "change": -50
+            },
+            {
+                "date": "2026-06-01",
+                "warrant": 300,
+                "change": 161
+            },
+            {
+                "date": "2026-05-29",
+                "warrant": 139,
+                "change": 0
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 139,
+                "change": 139
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 0,
+                "change": -12
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 12,
+                "change": -42
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 54,
+                "change": -60
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 114,
+                "change": 0
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 114,
+                "change": -31
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 145,
+                "change": -9
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 154,
+                "change": -10
+            }
+        ],
+        "annualProduction": "约4650万吨",
+        "annualConsumption": "约4400万吨",
+        "supplyDemandBalance": "过剩格局，氧化铝实际消耗不及预期",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0.000069,
+        "qualityWarnings": [
+            "基差口径需校验：现货常见口径为液碱不同浓度报价，需折百/合约规格换算"
+        ],
+        "productionCost": 2400,
+        "cashCost": 2000,
+        "industrialProfit": 26,
+        "industrialProfitRate": 0.013,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "烧碱折百完全生产成本约2400元/吨，氯碱平衡下的先进边际现金底线2000元/吨"
+    },
+    "FU": {
+        "code": "FU",
+        "contractSize": 10,
+        "unit": "吨/手",
+        "contract": "FU2609",
+        "name": "燃料油2609",
+        "exchange": "沪",
+        "tradeDate": "2026-06-10",
+        "time": "230000",
+        "open": 3701,
+        "high": 3765,
+        "low": 3699,
+        "lastPrice": 3764,
+        "close": 3764,
+        "previousSettlement": 3693,
+        "avgPrice": 3737.877,
+        "volume": 202067,
+        "openInterest": 118319,
+        "priceChange": 71,
+        "priceChangePct": 0.019226,
+        "rangePct": 0.017872,
+        "spotPrice": 5987.5,
+        "basis": 2310,
+        "basisRate": "38.58%",
+        "basisComparable": false,
+        "basisQualityNote": "现货口径与燃料油期货交割规格可能不一致，需确认硫含量/地区/单位",
+        "warrant": 201390,
+        "warrantChange": 0,
+        "warrant5dChange": -32630,
+        "warrantDate": "2025-12-31",
+        "warrantLots": 20139,
+        "warrantHistory": [
+            {
+                "date": "2025-12-31",
+                "warrant": 201390,
+                "change": 0
+            },
+            {
+                "date": "2025-12-30",
+                "warrant": 201390,
+                "change": -10000
+            },
+            {
+                "date": "2025-12-29",
+                "warrant": 211390,
+                "change": -22630
+            },
+            {
+                "date": "2025-12-26",
+                "warrant": 234020,
+                "change": 0
+            },
+            {
+                "date": "2025-12-25",
+                "warrant": 234020,
+                "change": 0
+            },
+            {
+                "date": "2025-12-24",
+                "warrant": 234020,
+                "change": 0
+            },
+            {
+                "date": "2025-12-23",
+                "warrant": 234020,
+                "change": 164470
+            },
+            {
+                "date": "2025-12-22",
+                "warrant": 69550,
+                "change": 0
+            },
+            {
+                "date": "2025-12-19",
+                "warrant": 69550,
+                "change": 0
+            },
+            {
+                "date": "2025-12-18",
+                "warrant": 69550,
+                "change": 0
+            },
+            {
+                "date": "2025-12-17",
+                "warrant": 69550,
+                "change": 0
+            },
+            {
+                "date": "2025-12-16",
+                "warrant": 69550,
+                "change": 0
+            },
+            {
+                "date": "2025-12-15",
+                "warrant": 69550,
+                "change": 0
+            },
+            {
+                "date": "2025-12-12",
+                "warrant": 69550,
+                "change": 67490
+            },
+            {
+                "date": "2025-12-11",
+                "warrant": 2060,
+                "change": -4040
+            },
+            {
+                "date": "2025-12-10",
+                "warrant": 6100,
+                "change": 0
+            },
+            {
+                "date": "2025-12-09",
+                "warrant": 6100,
+                "change": -19990
+            },
+            {
+                "date": "2025-12-08",
+                "warrant": 26090,
+                "change": 0
+            },
+            {
+                "date": "2025-12-05",
+                "warrant": 26090,
+                "change": 0
+            },
+            {
+                "date": "2025-12-04",
+                "warrant": 26090,
+                "change": -7950
+            }
+        ],
+        "annualProduction": "国内约1500万吨",
+        "annualConsumption": "约2000万吨",
+        "supplyDemandBalance": "国内高硫资源偏紧，主要靠进口",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0.170209,
+        "qualityWarnings": [
+            "基差口径需校验：现货口径与燃料油期货交割规格可能不一致，需确认硫含量/地区/单位",
+            "仓单日期(2025-12-31)早于行情日期(2026-06-10)"
+        ],
+        "productionCost": 3200,
+        "cashCost": 2800,
+        "industrialProfit": 964,
+        "industrialProfitRate": 0.3442857142857143,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "高硫燃料油进口到岸完税成本约3200元/吨，中东/新加坡裂解现金流成本2800元/吨"
+    },
+    "AO": {
+        "code": "AO",
+        "contractSize": 20,
+        "unit": "吨/手",
+        "contract": "AO2609",
+        "name": "氧化铝2609",
+        "exchange": "沪",
+        "tradeDate": "2026-06-11",
+        "time": "010000",
+        "open": 2900,
+        "high": 2926,
+        "low": 2864,
+        "lastPrice": 2889,
+        "close": 2889,
+        "previousSettlement": 2868,
+        "avgPrice": 2891.902,
+        "volume": 286403,
+        "openInterest": 307687,
+        "priceChange": 21,
+        "priceChangePct": 0.007322,
+        "rangePct": 0.021618,
+        "spotPrice": 2800,
+        "basis": -89,
+        "basisRate": "-3.18%",
+        "basisComparable": true,
+        "basisQualityNote": null,
+        "warrant": 410347,
+        "warrantChange": -3605,
+        "warrant5dChange": 6922,
+        "warrantDate": "2026-06-10",
+        "warrantLots": 20517.35,
+        "warrantHistory": [
+            {
+                "date": "2026-06-10",
+                "warrant": 410347,
+                "change": -3605
+            },
+            {
+                "date": "2026-06-09",
+                "warrant": 413952,
+                "change": -900
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 414852,
+                "change": -5703
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 420555,
+                "change": 3892
+            },
+            {
+                "date": "2026-06-04",
+                "warrant": 416663,
+                "change": 13238
+            },
+            {
+                "date": "2026-06-03",
+                "warrant": 403425,
+                "change": -16810
+            },
+            {
+                "date": "2026-06-02",
+                "warrant": 420235,
+                "change": -596
+            },
+            {
+                "date": "2026-06-01",
+                "warrant": 420831,
+                "change": -10189
+            },
+            {
+                "date": "2026-05-29",
+                "warrant": 431020,
+                "change": -15610
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 446630,
+                "change": -6030
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 452660,
+                "change": -8111
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 460771,
+                "change": -5386
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 466157,
+                "change": -1813
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 467970,
+                "change": -3883
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 471853,
+                "change": -4813
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 476666,
+                "change": -17141
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 493807,
+                "change": -10827
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 504634,
+                "change": -4491
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 509125,
+                "change": 0
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 509125,
+                "change": -1518
+            }
+        ],
+        "annualProduction": "约8200万吨",
+        "annualConsumption": "约8300万吨",
+        "supplyDemandBalance": "受矿石紧缺制约，开工率受限",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0.066683,
+        "qualityWarnings": [
+            "仓单日期(2026-06-10)早于行情日期(2026-06-11)"
+        ],
+        "productionCost": 3200,
+        "cashCost": 2800,
+        "industrialProfit": 89,
+        "industrialProfitRate": 0.031785714285714285,
+        "profitDate": "2026-06-11",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "氧化铝国内完全成本在3200元/吨左右，国产矿石提炼的先进企业现金流底线2800元/吨"
+    },
+    "JD": {
+        "code": "JD",
+        "contractSize": 5,
+        "unit": "吨/手",
+        "contract": "JD2609",
+        "name": "鸡蛋2609",
+        "exchange": "连",
+        "tradeDate": "2026-06-10",
+        "time": "150440",
+        "open": 4401,
+        "high": 4433,
+        "low": 4355,
+        "lastPrice": 4395,
+        "close": 4395,
+        "previousSettlement": 4339,
+        "avgPrice": 4394.013,
+        "volume": 172415,
+        "openInterest": 183248,
+        "priceChange": 56,
+        "priceChangePct": 0.012906,
+        "rangePct": 0.017976,
+        "spotPrice": 10.53,
+        "basis": 517,
+        "basisRate": "9.82%",
+        "basisComparable": false,
+        "basisQualityNote": "现货常见口径为元/斤，需换算至期货合约报价口径",
+        "warrant": 0,
+        "warrantChange": -8,
+        "warrant5dChange": -2,
+        "warrantDate": "2026-05-29",
+        "warrantLots": 0,
+        "warrantHistory": [
+            {
+                "date": "2026-05-29",
+                "warrant": 0,
+                "change": -8
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 8,
+                "change": 0
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 8,
+                "change": 8
+            },
+            {
+                "date": "2026-04-28",
+                "warrant": 0,
+                "change": -2
+            },
+            {
+                "date": "2026-04-27",
+                "warrant": 2,
+                "change": 0
+            },
+            {
+                "date": "2026-04-24",
+                "warrant": 2,
+                "change": 2
+            },
+            {
+                "date": "2026-04-10",
+                "warrant": 0,
+                "change": -5
+            },
+            {
+                "date": "2026-04-09",
+                "warrant": 5,
+                "change": 0
+            },
+            {
+                "date": "2026-04-08",
+                "warrant": 5,
+                "change": 5
+            },
+            {
+                "date": "2026-04-07",
+                "warrant": 0,
+                "change": -5
+            },
+            {
+                "date": "2026-04-03",
+                "warrant": 5,
+                "change": -5
+            },
+            {
+                "date": "2026-04-02",
+                "warrant": 10,
+                "change": 5
+            },
+            {
+                "date": "2026-04-01",
+                "warrant": 5,
+                "change": 5
+            },
+            {
+                "date": "2026-03-31",
+                "warrant": 0,
+                "change": -20
+            },
+            {
+                "date": "2026-03-30",
+                "warrant": 20,
+                "change": 0
+            },
+            {
+                "date": "2026-03-27",
+                "warrant": 20,
+                "change": 20
+            },
+            {
+                "date": "2026-03-26",
+                "warrant": 0,
+                "change": -2
+            },
+            {
+                "date": "2026-03-25",
+                "warrant": 2,
+                "change": 0
+            },
+            {
+                "date": "2026-03-24",
+                "warrant": 2,
+                "change": 2
+            },
+            {
+                "date": "2026-03-23",
+                "warrant": 0,
+                "change": -5
+            }
+        ],
+        "annualProduction": "约2200万吨",
+        "annualConsumption": "约2150万吨",
+        "supplyDemandBalance": "供求基本平衡，有季节性波动",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0,
+        "qualityWarnings": [
+            "基差口径需校验：现货常见口径为元/斤，需换算至期货合约报价口径",
+            "仓单日期(2026-05-29)早于行情日期(2026-06-10)"
+        ],
+        "productionCost": 3400,
+        "cashCost": 3100,
+        "industrialProfit": 1295,
+        "industrialProfitRate": 0.41774193548387095,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "鸡蛋饲料配比完全成本3400元/吨，老鸡淘汰折算现金存栏成本3100元/吨"
+    },
+    "PK": {
+        "code": "PK",
+        "contractSize": 5,
+        "unit": "吨/手",
+        "contract": "PK2610",
+        "name": "花生2610",
+        "exchange": "郑",
+        "tradeDate": "2026-06-10",
+        "time": "150000",
+        "open": 8374,
+        "high": 8464,
+        "low": 8362,
+        "lastPrice": 8392,
+        "close": 8392,
+        "previousSettlement": 8366,
+        "avgPrice": 8414,
+        "volume": 227707,
+        "openInterest": 161942,
+        "priceChange": 26,
+        "priceChangePct": 0.003108,
+        "rangePct": 0.012192,
+        "spotPrice": 8400,
+        "basis": 8,
+        "basisRate": "0.10%",
+        "basisComparable": true,
+        "basisQualityNote": null,
+        "warrant": 0,
+        "warrantChange": 0,
+        "warrant5dChange": 0,
+        "warrantDate": "2026-06-10",
+        "warrantLots": 0,
+        "warrantHistory": [
+            {
+                "date": "2026-06-10",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-06-09",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-06-04",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-06-03",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-06-02",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-06-01",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-29",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 0,
+                "change": -400
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 400,
+                "change": -500
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 900,
+                "change": 0
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 900,
+                "change": 0
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 900,
+                "change": 0
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 900,
+                "change": 0
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 900,
+                "change": 0
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 900,
+                "change": 0
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 900,
+                "change": 0
+            }
+        ],
+        "annualProduction": "约1800万吨",
+        "annualConsumption": "约1750万吨",
+        "supplyDemandBalance": "供需平稳，进口米有一定冲击",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0,
+        "qualityWarnings": [],
+        "productionCost": 8200,
+        "cashCost": 7800,
+        "industrialProfit": 592,
+        "industrialProfitRate": 0.0758974358974359,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "花生农户种植完全成本8200元/吨，主产区收购/中间环节周转现金底线7800元/吨"
+    },
+    "RM": {
+        "code": "RM",
+        "contractSize": 10,
+        "unit": "吨/手",
+        "contract": "RM2609",
+        "name": "菜粕2609",
+        "exchange": "郑",
+        "tradeDate": "2026-06-10",
+        "time": "225959",
+        "open": 2244,
+        "high": 2250,
+        "low": 2236,
+        "lastPrice": 2246,
+        "close": 2246,
+        "previousSettlement": 2228,
+        "avgPrice": 2244,
+        "volume": 1064392,
+        "openInterest": 191492,
+        "priceChange": 18,
+        "priceChangePct": 0.008079,
+        "rangePct": 0.006284,
+        "spotPrice": 2342,
+        "basis": 103,
+        "basisRate": "4.40%",
+        "basisComparable": true,
+        "basisQualityNote": null,
+        "warrant": 2761,
+        "warrantChange": -20,
+        "warrant5dChange": -20,
+        "warrantDate": "2026-06-10",
+        "warrantLots": 276.1,
+        "warrantHistory": [
+            {
+                "date": "2026-06-10",
+                "warrant": 2761,
+                "change": -20
+            },
+            {
+                "date": "2026-06-09",
+                "warrant": 2781,
+                "change": 0
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 2781,
+                "change": 0
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 2781,
+                "change": 0
+            },
+            {
+                "date": "2026-06-04",
+                "warrant": 2781,
+                "change": 0
+            },
+            {
+                "date": "2026-06-03",
+                "warrant": 2781,
+                "change": 0
+            },
+            {
+                "date": "2026-06-02",
+                "warrant": 2781,
+                "change": -120
+            },
+            {
+                "date": "2026-06-01",
+                "warrant": 2901,
+                "change": 0
+            },
+            {
+                "date": "2026-05-29",
+                "warrant": 2901,
+                "change": -20
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 2921,
+                "change": 0
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 2921,
+                "change": 0
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 2921,
+                "change": -13
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 2934,
+                "change": -30
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 2964,
+                "change": -36
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 3000,
+                "change": 0
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 3000,
+                "change": 0
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 3000,
+                "change": -90
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 3090,
+                "change": -110
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 3200,
+                "change": 0
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 3200,
+                "change": 0
+            }
+        ],
+        "annualProduction": "国内约650万吨",
+        "annualConsumption": "约680万吨",
+        "supplyDemandBalance": "多为进口菜籽压榨，看进口节奏",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0.001442,
+        "qualityWarnings": [],
+        "productionCost": 2200,
+        "cashCost": 1950,
+        "industrialProfit": 296,
+        "industrialProfitRate": 0.1517948717948718,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "菜粕进口菜籽压榨完全折算成本约2200元/吨，油厂压榨加工现金运转底线1950元/吨"
+    },
+    "OI": {
+        "code": "OI",
+        "contractSize": 10,
+        "unit": "吨/手",
+        "contract": "OI2609",
+        "name": "菜油2609",
+        "exchange": "郑",
+        "tradeDate": "2026-06-10",
+        "time": "230000",
+        "open": 9883,
+        "high": 9992,
+        "low": 9881,
+        "lastPrice": 9959,
+        "close": 9959,
+        "previousSettlement": 9902,
+        "avgPrice": 9952,
+        "volume": 343975,
+        "openInterest": 116441,
+        "priceChange": 57,
+        "priceChangePct": 0.005756,
+        "rangePct": 0.01121,
+        "spotPrice": 10170,
+        "basis": 287,
+        "basisRate": "2.82%",
+        "basisComparable": true,
+        "basisQualityNote": null,
+        "warrant": 0,
+        "warrantChange": 0,
+        "warrant5dChange": 0,
+        "warrantDate": "2026-06-10",
+        "warrantLots": 0,
+        "warrantHistory": [
+            {
+                "date": "2026-06-10",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-06-09",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-06-04",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-06-03",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-06-02",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-06-01",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-29",
+                "warrant": 0,
+                "change": -271
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 271,
+                "change": -128
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 399,
+                "change": 0
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 399,
+                "change": 0
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 399,
+                "change": -45
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 444,
+                "change": -353
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 797,
+                "change": -100
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 897,
+                "change": 0
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 897,
+                "change": -72
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 969,
+                "change": -100
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 1069,
+                "change": 0
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 1069,
+                "change": 98
+            }
+        ],
+        "annualProduction": "国内约300万吨",
+        "annualConsumption": "约380万吨",
+        "supplyDemandBalance": "大豆菜籽压榨量大，油脂供求宽松",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0,
+        "qualityWarnings": [],
+        "productionCost": 8200,
+        "cashCost": 7800,
+        "industrialProfit": 2159,
+        "industrialProfitRate": 0.2767948717948718,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "菜油进口压榨完全折算成本8200元/吨，港口精炼出库现金成本7800元/吨"
+    },
+    "SR": {
+        "code": "SR",
+        "contractSize": 10,
+        "unit": "吨/手",
+        "contract": "SR2609",
+        "name": "白糖2609",
+        "exchange": "郑",
+        "tradeDate": "2026-06-10",
+        "time": "230000",
+        "open": 5315,
+        "high": 5322,
+        "low": 5307,
+        "lastPrice": 5314,
+        "close": 5314,
+        "previousSettlement": 5312,
+        "avgPrice": 5315,
+        "volume": 725410,
+        "openInterest": 95758,
+        "priceChange": 2,
+        "priceChangePct": 0.000377,
+        "rangePct": 0.002824,
+        "spotPrice": 5335,
+        "basis": 21,
+        "basisRate": "0.39%",
+        "basisComparable": true,
+        "basisQualityNote": null,
+        "warrant": 22500,
+        "warrantChange": -57,
+        "warrant5dChange": -120,
+        "warrantDate": "2026-06-10",
+        "warrantLots": 2250,
+        "warrantHistory": [
+            {
+                "date": "2026-06-10",
+                "warrant": 22500,
+                "change": -57
+            },
+            {
+                "date": "2026-06-09",
+                "warrant": 22557,
+                "change": 0
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 22557,
+                "change": 0
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 22557,
+                "change": -63
+            },
+            {
+                "date": "2026-06-04",
+                "warrant": 22620,
+                "change": 0
+            },
+            {
+                "date": "2026-06-03",
+                "warrant": 22620,
+                "change": 0
+            },
+            {
+                "date": "2026-06-02",
+                "warrant": 22620,
+                "change": 0
+            },
+            {
+                "date": "2026-06-01",
+                "warrant": 22620,
+                "change": -100
+            },
+            {
+                "date": "2026-05-29",
+                "warrant": 22720,
+                "change": -320
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 23040,
+                "change": 0
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 23040,
+                "change": 0
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 23040,
+                "change": -200
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 23240,
+                "change": -45
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 23285,
+                "change": -8
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 23293,
+                "change": 0
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 23293,
+                "change": 0
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 23293,
+                "change": 358
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 22935,
+                "change": 402
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 22533,
+                "change": 450
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 22083,
+                "change": 0
+            }
+        ],
+        "annualProduction": "1280万吨(25/26榨季)",
+        "annualConsumption": "1573万吨",
+        "supplyDemandBalance": "供需偏紧，严重依赖配额内外进口",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0.023497,
+        "qualityWarnings": [],
+        "productionCost": 6000,
+        "cashCost": 5500,
+        "industrialProfit": -186,
+        "industrialProfitRate": -0.03381818181818182,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "白糖广西糖料蔗完全成本6000元/吨，甜菜糖/进口糖现金底线5500元/吨"
+    },
+    "MA": {
+        "code": "MA",
+        "contractSize": 10,
+        "unit": "吨/手",
+        "contract": "MA2609",
+        "name": "甲醇2609",
+        "exchange": "郑",
+        "tradeDate": "2026-06-10",
+        "time": "230000",
+        "open": 2986,
+        "high": 3019,
+        "low": 2982,
+        "lastPrice": 2996,
+        "close": 2996,
+        "previousSettlement": 2956,
+        "avgPrice": 3001,
+        "volume": 802605,
+        "openInterest": 295877,
+        "priceChange": 40,
+        "priceChangePct": 0.013532,
+        "rangePct": 0.012517,
+        "spotPrice": 3356.67,
+        "basis": 384,
+        "basisRate": "11.44%",
+        "basisComparable": true,
+        "basisQualityNote": null,
+        "warrant": 2920,
+        "warrantChange": 0,
+        "warrant5dChange": 1120,
+        "warrantDate": "2026-06-10",
+        "warrantLots": 292,
+        "warrantHistory": [
+            {
+                "date": "2026-06-10",
+                "warrant": 2920,
+                "change": 0
+            },
+            {
+                "date": "2026-06-09",
+                "warrant": 2920,
+                "change": 1060
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 1860,
+                "change": 60
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 1800,
+                "change": 0
+            },
+            {
+                "date": "2026-06-04",
+                "warrant": 1800,
+                "change": 0
+            },
+            {
+                "date": "2026-06-03",
+                "warrant": 1800,
+                "change": 1000
+            },
+            {
+                "date": "2026-06-02",
+                "warrant": 800,
+                "change": 0
+            },
+            {
+                "date": "2026-06-01",
+                "warrant": 800,
+                "change": 0
+            },
+            {
+                "date": "2026-05-29",
+                "warrant": 800,
+                "change": 800
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 0,
+                "change": 0
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 0,
+                "change": -6911
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 6911,
+                "change": -116
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 7027,
+                "change": -1839
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 8866,
+                "change": 0
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 8866,
+                "change": -119
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 8985,
+                "change": -15
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 9000,
+                "change": 0
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 9000,
+                "change": -201
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 9201,
+                "change": 190
+            }
+        ],
+        "annualProduction": "约8600万吨",
+        "annualConsumption": "约9000万吨",
+        "supplyDemandBalance": "高产能低开工，港口高度看进口量",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0.000987,
+        "qualityWarnings": [],
+        "productionCost": 2200,
+        "cashCost": 1900,
+        "industrialProfit": 1096,
+        "industrialProfitRate": 0.5768421052631579,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "甲醇内地煤制完全成本降至2200元/吨左右，西北大装置边际现金底线1900元/吨"
+    },
+    "LH": {
+        "code": "LH",
+        "contractSize": 16,
+        "unit": "吨/手",
+        "contract": "LH2609",
+        "name": "生猪2609",
+        "exchange": "连",
+        "tradeDate": "2026-06-10",
+        "time": "150440",
+        "open": 11920,
+        "high": 12095,
+        "low": 11855,
+        "lastPrice": 11950,
+        "close": 11950,
+        "previousSettlement": 11865,
+        "avgPrice": 11973.911,
+        "volume": 189344,
+        "openInterest": 164747,
+        "priceChange": 85,
+        "priceChangePct": 0.007164,
+        "rangePct": 0.020228,
+        "spotPrice": 9.52,
+        "basis": -2430,
+        "basisRate": "-25.53%",
+        "basisComparable": false,
+        "basisQualityNote": "生猪现货报价多为元/公斤，需乘1000折算为元/吨方可与期货比较",
+        "warrant": 700,
+        "warrantChange": 0,
+        "warrant5dChange": -23,
+        "warrantDate": "2026-06-10",
+        "warrantLots": 43.75,
+        "warrantHistory": [
+            {
+                "date": "2026-06-10",
+                "warrant": 700,
+                "change": 0
+            },
+            {
+                "date": "2026-06-09",
+                "warrant": 700,
+                "change": 0
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 700,
+                "change": 600
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 100,
+                "change": 100
+            },
+            {
+                "date": "2026-05-29",
+                "warrant": 0,
+                "change": -723
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 723,
+                "change": -512
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 1235,
+                "change": -70
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 1305,
+                "change": -50
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 1355,
+                "change": -2
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 1357,
+                "change": -62
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 1419,
+                "change": -20
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 1439,
+                "change": -3
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 1442,
+                "change": -10
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 1452,
+                "change": 10
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 1442,
+                "change": -13
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 1455,
+                "change": 0
+            },
+            {
+                "date": "2026-05-13",
+                "warrant": 1455,
+                "change": -3
+            },
+            {
+                "date": "2026-05-12",
+                "warrant": 1458,
+                "change": -4
+            },
+            {
+                "date": "2026-05-11",
+                "warrant": 1462,
+                "change": -3
+            },
+            {
+                "date": "2026-05-08",
+                "warrant": 1465,
+                "change": -10
+            }
+        ],
+        "annualProduction": "猪肉约5400万吨",
+        "annualConsumption": "约5500万吨",
+        "supplyDemandBalance": "生猪去产能周期尾声，供求趋紧",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0.000266,
+        "qualityWarnings": [
+            "基差口径需校验：生猪现货报价多为元/公斤，需乘1000折算为元/吨方可与期货比较"
+        ],
+        "productionCost": 15000,
+        "cashCost": 13000,
+        "industrialProfit": -1050,
+        "industrialProfitRate": -0.08076923076923077,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "生猪规模化养殖平均完全成本约15000元/吨（15元/kg），现金流底线约13000元/吨（13元/kg）"
+    },
+    "CJ": {
+        "code": "CJ",
+        "contractSize": 5,
+        "unit": "吨/手",
+        "contract": "CJ2609",
+        "name": "红枣2609",
+        "exchange": "郑",
+        "tradeDate": "2026-06-10",
+        "time": "150000",
+        "open": 9055,
+        "high": 9055,
+        "low": 8505,
+        "lastPrice": 8880,
+        "close": 8880,
+        "previousSettlement": 9075,
+        "avgPrice": 8865,
+        "volume": 115543,
+        "openInterest": 159405,
+        "priceChange": -195,
+        "priceChangePct": -0.021488,
+        "rangePct": 0.060606,
+        "spotPrice": 8600,
+        "basis": -280,
+        "basisRate": "-3.26%",
+        "basisComparable": true,
+        "basisQualityNote": null,
+        "warrant": 7859,
+        "warrantChange": -13,
+        "warrant5dChange": 90,
+        "warrantDate": "2026-06-10",
+        "warrantLots": 1571.8,
+        "warrantHistory": [
+            {
+                "date": "2026-06-10",
+                "warrant": 7859,
+                "change": -13
+            },
+            {
+                "date": "2026-06-09",
+                "warrant": 7872,
+                "change": -1
+            },
+            {
+                "date": "2026-06-08",
+                "warrant": 7873,
+                "change": 108
+            },
+            {
+                "date": "2026-06-05",
+                "warrant": 7765,
+                "change": -4
+            },
+            {
+                "date": "2026-06-04",
+                "warrant": 7769,
+                "change": 0
+            },
+            {
+                "date": "2026-06-03",
+                "warrant": 7769,
+                "change": 0
+            },
+            {
+                "date": "2026-06-02",
+                "warrant": 7769,
+                "change": -1
+            },
+            {
+                "date": "2026-06-01",
+                "warrant": 7770,
+                "change": 0
+            },
+            {
+                "date": "2026-05-29",
+                "warrant": 7770,
+                "change": 0
+            },
+            {
+                "date": "2026-05-28",
+                "warrant": 7770,
+                "change": 0
+            },
+            {
+                "date": "2026-05-27",
+                "warrant": 7770,
+                "change": 0
+            },
+            {
+                "date": "2026-05-26",
+                "warrant": 7770,
+                "change": 216
+            },
+            {
+                "date": "2026-05-25",
+                "warrant": 7554,
+                "change": 0
+            },
+            {
+                "date": "2026-05-22",
+                "warrant": 7554,
+                "change": 0
+            },
+            {
+                "date": "2026-05-21",
+                "warrant": 7554,
+                "change": 0
+            },
+            {
+                "date": "2026-05-20",
+                "warrant": 7554,
+                "change": 0
+            },
+            {
+                "date": "2026-05-19",
+                "warrant": 7554,
+                "change": 0
+            },
+            {
+                "date": "2026-05-18",
+                "warrant": 7554,
+                "change": 5
+            },
+            {
+                "date": "2026-05-15",
+                "warrant": 7549,
+                "change": 12
+            },
+            {
+                "date": "2026-05-14",
+                "warrant": 7537,
+                "change": 280
+            }
+        ],
+        "annualProduction": "约26万吨",
+        "annualConsumption": "约28万吨",
+        "supplyDemandBalance": "结转旧作库存高企，新季存在减产与天气炒作预期",
+        "update_time": "2026/6/11 02:33:55",
+        "warrantToOpenInterest": 0.00986,
+        "qualityWarnings": [],
+        "productionCost": 9200,
+        "cashCost": 8300,
+        "industrialProfit": 580,
+        "industrialProfitRate": 0.06987951807228916,
+        "profitDate": "2026-06-10",
+        "profitSource": "default_hardcoded_costs",
+        "profitNote": "红枣仓单注册完全成本约9000-9500元/吨，主产区灰枣初加工折算现金流底线8000-8500元/吨"
+    }
+}

@@ -1,0 +1,1569 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>期货大周期左侧筛选报告</title>
+    <style>
+        :root { color-scheme: light; --bg:#f6f7f9; --panel:#fff; --text:#111827; --muted:#6b7280; --line:#e5e7eb; }
+        * { box-sizing: border-box; }
+        body { margin:0; background:var(--bg); color:var(--text); font:14px/1.55 "Microsoft YaHei", "PingFang SC", Arial, sans-serif; }
+        .wrap { max-width: 1480px; margin: 0 auto; padding: 24px; }
+        header { display:flex; justify-content:space-between; gap:16px; align-items:flex-end; margin-bottom:18px; }
+        h1 { margin:0; font-size:28px; letter-spacing:0; }
+        .sub { color:var(--muted); margin-top:6px; }
+        .cards { display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:12px; margin:18px 0; }
+        .card { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:14px 16px; }
+        .card b { display:block; font-size:26px; }
+        .note { background:#fff7ed; border:1px solid #fed7aa; color:#9a3412; border-radius:8px; padding:12px 14px; margin-bottom:16px; }
+        .advice { margin:0; padding:10px 12px; background:#f8fafc; border:1px solid var(--line); border-radius:8px; font-weight:700; }
+        .table-panel { background:var(--panel); border:1px solid var(--line); border-radius:8px; overflow:auto; width:100%; }
+        table { width:100%; min-width:1450px; border-collapse:collapse; table-layout: fixed; }
+        th, td { padding:10px 12px; border-bottom:1px solid var(--line); text-align:left; vertical-align:middle; word-wrap: break-word; }
+        th { position:sticky; top:0; background:#f9fafb; z-index:1; color:#374151; font-weight:700; white-space:nowrap; }
+        td { min-width:60px; }
+        /* Explicit Column Width Control */
+        th:nth-child(1), td:nth-child(1) { width: 50px; }   /* 排名 */
+        th:nth-child(2), td:nth-child(2) { width: 120px; }  /* 品种合约 */
+        th:nth-child(3), td:nth-child(3) { width: 60px; }   /* 评分 */
+        th:nth-child(4), td:nth-child(4) { width: 160px; }  /* 方向(状态) */
+        th:nth-child(5), td:nth-child(5) { width: 90px; }   /* 最新价(涨跌) */
+        th:nth-child(6), td:nth-child(6) { width: 95px; }   /* 现货价(基差) */
+        th:nth-child(7), td:nth-child(7) { width: 110px; }  /* 成本线(现金/完全) */
+        th:nth-child(8), td:nth-child(8) { width: 80px; }   /* 产业利润 */
+        th:nth-child(9), td:nth-child(9) { width: 190px; }  /* 产业供需(年供需/格局) */
+        th:nth-child(10), td:nth-child(10) { width: 270px; } /* 核心原因 */
+        th:nth-child(11), td:nth-child(11) { width: 230px; } /* 长线计划 */
+        .num, .score, .rank { text-align:right; font-variant-numeric: tabular-nums; }
+        .score { font-weight:800; }
+        .muted { color:var(--muted); }
+        .up { color:#dc2626; font-weight:700; }
+        .down { color:#059669; font-weight:700; }
+        .badge { display:inline-flex; align-items:center; margin:2px 4px 2px 0; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:700; white-space:nowrap; border:1px solid transparent; }
+        .badge.long { background:#dcfce7; color:#166534; border-color:#86efac; }
+        .badge.watch { background:#fef9c3; color:#854d0e; border-color:#fde047; }
+        .badge.weak { background:#f3f4f6; color:#374151; border-color:#d1d5db; }
+        .badge.risk { background:#fee2e2; color:#991b1b; border-color:#fecaca; }
+        tr.long { background:#f8fff9; }
+        tr.watch { background:#fffdf2; }
+        tr.risk { background:#fff7f7; }
+        .details { margin-top:18px; display:grid; gap:10px; }
+        .detail-card { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:0; overflow:hidden; }
+        .detail-card summary { cursor:pointer; display:flex; justify-content:space-between; gap:12px; align-items:center; padding:12px 14px; list-style:none; }
+        .detail-card summary::-webkit-details-marker { display:none; }
+        .score-pill { margin-left:8px; background:#111827; color:white; border-radius:999px; padding:2px 8px; font-size:12px; }
+        .detail-grid { display:grid; grid-template-columns: 340px 1fr; gap:16px; padding:0 14px 14px; border-top:1px solid var(--line); }
+        h2 { margin:22px 0 10px; font-size:20px; }
+        h3 { margin:14px 0 8px; font-size:15px; }
+        ul { margin:0; padding-left:18px; }
+        .mini th, .mini td { padding:7px 8px; }
+        .mini th { position:static; }
+        footer { color:var(--muted); margin:22px 0 4px; }
+        @media (max-width: 980px) {
+            .wrap { padding:14px; }
+            header { display:block; }
+            .cards { grid-template-columns: repeat(2, minmax(0,1fr)); }
+            .detail-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <main class="wrap">
+        <header>
+            <div>
+                <h1>期货大周期左侧筛选报告</h1>
+                <div class="sub">更新时间：2026/6/11 02:33:55</div>
+            </div>
+            <div class="sub">数据源：新浪行情 / 生意社基差 / 东财仓单</div>
+        </header>
+        <section class="cards">
+            <div class="card"><span>监控品种</span><b>21</b></div>
+            <div class="card"><span>大周期做多/抄底</span><b>9</b></div>
+            <div class="card"><span>估值中性观望</span><b>10</b></div>
+            <div class="card"><span>大周期做空/摸顶</span><b>2</b></div>
+        </section>
+        <div class="note"><b>左侧逻辑提示：</b>自动评分纯粹以生产成本、现金流底线和现货基差为核心，剔除一切趋势追踪等滞后性技术指标，践行“买在行业大亏损、卖在行业大暴利”的长线左侧逻辑。</div>
+        <section class="table-panel">
+            <table>
+                <thead>
+                    <tr><th>排名</th><th>品种/合约</th><th>评分</th><th>方向 (左侧状态)</th><th>最新价</th><th>现货 (基差)</th><th>成本线(现/全)</th><th>产业利润</th><th>产业供需(年产量/消费)</th><th>核心原因</th><th>长线计划</th></tr>
+                </thead>
+                <tbody>
+            <tr class="long">
+                <td class="rank">1</td>
+                <td>
+                    <strong>白糖2609</strong><br>
+                    <span class="muted" style="font-size:12px;">SR2609</span>
+                </td>
+                <td class="score">90.2</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge long">大周期做多/抄底</span>
+                        <span class="badge long">绝对抄底区</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>5314</strong><br>
+                    <span class="up" style="font-size:12px;">0.04%</span>
+                </td>
+                <td class="num">
+                    <strong>5335</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: +21</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 5500</span><br>
+                    <span class="muted" style="font-size:12px;">全: 6000</span>
+                </td>
+                <td class="num down">
+                    <strong>-186</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">1280万吨(25/26榨季) / 1573万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">供需偏紧，严重依赖配额内外进口</span>
+                </td>
+                <td><small>最新价(5314)低于或贴近现金成本底线(5500)，具备极高安全垫，行业面临大面积亏损减产</small></td>
+                <td><small>死守认错线，大周期持有不动，静待供给侧出清</small></td>
+            </tr>
+            <tr class="long">
+                <td class="rank">2</td>
+                <td>
+                    <strong>玻璃2609</strong><br>
+                    <span class="muted" style="font-size:12px;">FG2609</span>
+                </td>
+                <td class="score">90</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge long">大周期做多/抄底</span>
+                        <span class="badge long">绝对抄底区</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>990</strong><br>
+                    <span class="down" style="font-size:12px;">-0.10%</span>
+                </td>
+                <td class="num">
+                    <strong>12.85</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: +39</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 1100</span><br>
+                    <span class="muted" style="font-size:12px;">全: 1250</span>
+                </td>
+                <td class="num down">
+                    <strong>-110</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">约5000万吨 / 约4800万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">产能过剩，下游地产需求承压</span>
+                </td>
+                <td><small>最新价(990)低于或贴近现金成本底线(1100)，具备极高安全垫，行业面临大面积亏损减产</small></td>
+                <td><small>死守认错线，大周期持有不动，静待供给侧出清</small></td>
+            </tr>
+            <tr class="long">
+                <td class="rank">3</td>
+                <td>
+                    <strong>生猪2609</strong><br>
+                    <span class="muted" style="font-size:12px;">LH2609</span>
+                </td>
+                <td class="score">90</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge long">大周期做多/抄底</span>
+                        <span class="badge long">绝对抄底区</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>11950</strong><br>
+                    <span class="up" style="font-size:12px;">0.72%</span>
+                </td>
+                <td class="num">
+                    <strong>9.52</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: -2430</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 13000</span><br>
+                    <span class="muted" style="font-size:12px;">全: 15000</span>
+                </td>
+                <td class="num down">
+                    <strong>-1050</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">猪肉约5400万吨 / 约5500万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">生猪去产能周期尾声，供求趋紧</span>
+                </td>
+                <td><small>最新价(11950)低于或贴近现金成本底线(13000)，具备极高安全垫，行业面临大面积亏损减产</small></td>
+                <td><small>死守认错线，大周期持有不动，静待供给侧出清</small></td>
+            </tr>
+            <tr class="long">
+                <td class="rank">4</td>
+                <td>
+                    <strong>PVC2609</strong><br>
+                    <span class="muted" style="font-size:12px;">V2609</span>
+                </td>
+                <td class="score">88.28</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge long">大周期做多/抄底</span>
+                        <span class="badge long">绝对抄底区</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>4689</strong><br>
+                    <span class="down" style="font-size:12px;">-0.02%</span>
+                </td>
+                <td class="num">
+                    <strong>4545</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: -161</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 4900</span><br>
+                    <span class="muted" style="font-size:12px;">全: 5500</span>
+                </td>
+                <td class="num down">
+                    <strong>-211</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">约2200万吨 / 约2000万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">供大于求，依赖出口消化库存</span>
+                </td>
+                <td><small>最新价(4689)低于或贴近现金成本底线(4900)，具备极高安全垫，行业面临大面积亏损减产</small></td>
+                <td><small>死守认错线，大周期持有不动，静待供给侧出清</small></td>
+            </tr>
+            <tr class="long">
+                <td class="rank">5</td>
+                <td>
+                    <strong>纯碱2609</strong><br>
+                    <span class="muted" style="font-size:12px;">SA2609</span>
+                </td>
+                <td class="score">77.68</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge long">大周期做多/抄底</span>
+                        <span class="badge long">生产成本线</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>1156</strong><br>
+                    <span class="up" style="font-size:12px;">0.52%</span>
+                </td>
+                <td class="num">
+                    <strong>1214.29</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: +62</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 900</span><br>
+                    <span class="muted" style="font-size:12px;">全: 1200</span>
+                </td>
+                <td class="num up">
+                    <strong>256</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">约3200万吨 / 约2900万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">新增产能集中释放，供大于求</span>
+                </td>
+                <td><small>最新价(1156)低于或逼近生产成本线(1200)，行业整体亏损，供给收缩拐点将至</small></td>
+                <td><small>生产成本附近，左侧轻仓布局，跌破现金成本认错</small></td>
+            </tr>
+            <tr class="long">
+                <td class="rank">6</td>
+                <td>
+                    <strong>纸浆2609</strong><br>
+                    <span class="muted" style="font-size:12px;">SP2609</span>
+                </td>
+                <td class="score">76.18</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge long">大周期做多/抄底</span>
+                        <span class="badge long">生产成本线</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>4858</strong><br>
+                    <span class="down" style="font-size:12px;">-0.33%</span>
+                </td>
+                <td class="num">
+                    <strong>4983.33</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: +115</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 4800</span><br>
+                    <span class="muted" style="font-size:12px;">全: 5500</span>
+                </td>
+                <td class="num up">
+                    <strong>58</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">极低(主要进口针叶浆) / 约4400万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">高度依赖进口，供求平稳</span>
+                </td>
+                <td><small>最新价(4858)低于或逼近生产成本线(5500)，行业整体亏损，供给收缩拐点将至</small></td>
+                <td><small>生产成本附近，左侧轻仓布局，跌破现金成本认错</small></td>
+            </tr>
+            <tr class="long">
+                <td class="rank">7</td>
+                <td>
+                    <strong>烧碱2609</strong><br>
+                    <span class="muted" style="font-size:12px;">SH2609</span>
+                </td>
+                <td class="score">75</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge long">大周期做多/抄底</span>
+                        <span class="badge long">生产成本线</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>2026</strong><br>
+                    <span class="up" style="font-size:12px;">0.55%</span>
+                </td>
+                <td class="num">
+                    <strong>622</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: +54</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 2000</span><br>
+                    <span class="muted" style="font-size:12px;">全: 2400</span>
+                </td>
+                <td class="num up">
+                    <strong>26</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">约4650万吨 / 约4400万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">过剩格局，氧化铝实际消耗不及预期</span>
+                </td>
+                <td><small>最新价(2026)低于或逼近生产成本线(2400)，行业整体亏损，供给收缩拐点将至</small></td>
+                <td><small>生产成本附近，左侧轻仓布局，跌破现金成本认错</small></td>
+            </tr>
+            <tr class="long">
+                <td class="rank">8</td>
+                <td>
+                    <strong>氧化铝2609</strong><br>
+                    <span class="muted" style="font-size:12px;">AO2609</span>
+                </td>
+                <td class="score">73.46</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge long">大周期做多/抄底</span>
+                        <span class="badge long">生产成本线</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>2889</strong><br>
+                    <span class="up" style="font-size:12px;">0.73%</span>
+                </td>
+                <td class="num">
+                    <strong>2800</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: -89</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 2800</span><br>
+                    <span class="muted" style="font-size:12px;">全: 3200</span>
+                </td>
+                <td class="num up">
+                    <strong>89</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">约8200万吨 / 约8300万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">受矿石紧缺制约，开工率受限</span>
+                </td>
+                <td><small>最新价(2889)低于或逼近生产成本线(3200)，行业整体亏损，供给收缩拐点将至</small></td>
+                <td><small>生产成本附近，左侧轻仓布局，跌破现金成本认错</small></td>
+            </tr>
+            <tr class="long">
+                <td class="rank">9</td>
+                <td>
+                    <strong>红枣2609</strong><br>
+                    <span class="muted" style="font-size:12px;">CJ2609</span>
+                </td>
+                <td class="score">73.42</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge long">大周期做多/抄底</span>
+                        <span class="badge long">生产成本线</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>8880</strong><br>
+                    <span class="down" style="font-size:12px;">-2.15%</span>
+                </td>
+                <td class="num">
+                    <strong>8600</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: -280</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 8300</span><br>
+                    <span class="muted" style="font-size:12px;">全: 9200</span>
+                </td>
+                <td class="num up">
+                    <strong>580</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">约26万吨 / 约28万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">结转旧作库存高企，新季存在减产与天气炒作预期</span>
+                </td>
+                <td><small>最新价(8880)低于或逼近生产成本线(9200)，行业整体亏损，供给收缩拐点将至</small></td>
+                <td><small>生产成本附近，左侧轻仓布局，跌破现金成本认错</small></td>
+            </tr>
+            <tr class="weak">
+                <td class="rank">10</td>
+                <td>
+                    <strong>焦煤2609</strong><br>
+                    <span class="muted" style="font-size:12px;">JM2609</span>
+                </td>
+                <td class="score">55</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge weak">观望/拿着不动</span>
+                        <span class="badge weak">中位震荡</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>1363</strong><br>
+                    <span class="up" style="font-size:12px;">0.44%</span>
+                </td>
+                <td class="num">
+                    <strong>1851.25</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: +487</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 1000</span><br>
+                    <span class="muted" style="font-size:12px;">全: 1200</span>
+                </td>
+                <td class="num up">
+                    <strong>363</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">约4.9亿吨 / 约5.5亿吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">结构性短缺，高度依赖蒙俄进口</span>
+                </td>
+                <td><small>最新价(1363)处于成本线(1200)与现金成本(1000)上方，估值中性</small></td>
+                <td><small>估值中性，散户不参与灰色震荡，拿着现金不动</small></td>
+            </tr>
+            <tr class="weak">
+                <td class="rank">11</td>
+                <td>
+                    <strong>聚丙烯2609</strong><br>
+                    <span class="muted" style="font-size:12px;">PP2609</span>
+                </td>
+                <td class="score">50.79</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge weak">观望/拿着不动</span>
+                        <span class="badge weak">中位震荡</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>8700</strong><br>
+                    <span class="up" style="font-size:12px;">0.68%</span>
+                </td>
+                <td class="num">
+                    <strong>9656.67</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: +1007</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 7000</span><br>
+                    <span class="muted" style="font-size:12px;">全: 7500</span>
+                </td>
+                <td class="num up">
+                    <strong>1700</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">约3400万吨 / 约3500万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">处于产能扩张期，供求宽松</span>
+                </td>
+                <td><small>最新价(8700)处于成本线(7500)与现金成本(7000)上方，估值中性</small></td>
+                <td><small>估值中性，散户不参与灰色震荡，拿着现金不动</small></td>
+            </tr>
+            <tr class="weak">
+                <td class="rank">12</td>
+                <td>
+                    <strong>菜粕2609</strong><br>
+                    <span class="muted" style="font-size:12px;">RM2609</span>
+                </td>
+                <td class="score">47.29</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge weak">观望/拿着不动</span>
+                        <span class="badge weak">中位震荡</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>2246</strong><br>
+                    <span class="up" style="font-size:12px;">0.81%</span>
+                </td>
+                <td class="num">
+                    <strong>2342</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: +103</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 1950</span><br>
+                    <span class="muted" style="font-size:12px;">全: 2200</span>
+                </td>
+                <td class="num up">
+                    <strong>296</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">国内约650万吨 / 约680万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">多为进口菜籽压榨，看进口节奏</span>
+                </td>
+                <td><small>最新价(2246)处于成本线(2200)与现金成本(1950)上方，估值中性</small></td>
+                <td><small>估值中性，散户不参与灰色震荡，拿着现金不动</small></td>
+            </tr>
+            <tr class="weak">
+                <td class="rank">13</td>
+                <td>
+                    <strong>菜油2609</strong><br>
+                    <span class="muted" style="font-size:12px;">OI2609</span>
+                </td>
+                <td class="score">46.44</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge weak">观望/拿着不动</span>
+                        <span class="badge weak">中位震荡</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>9959</strong><br>
+                    <span class="up" style="font-size:12px;">0.58%</span>
+                </td>
+                <td class="num">
+                    <strong>10170</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: +287</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 7800</span><br>
+                    <span class="muted" style="font-size:12px;">全: 8200</span>
+                </td>
+                <td class="num up">
+                    <strong>2159</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">国内约300万吨 / 约380万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">大豆菜籽压榨量大，油脂供求宽松</span>
+                </td>
+                <td><small>最新价(9959)处于成本线(8200)与现金成本(7800)上方，估值中性</small></td>
+                <td><small>估值中性，散户不参与灰色震荡，拿着现金不动</small></td>
+            </tr>
+            <tr class="weak">
+                <td class="rank">14</td>
+                <td>
+                    <strong>沥青2609</strong><br>
+                    <span class="muted" style="font-size:12px;">BU2609</span>
+                </td>
+                <td class="score">45.87</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge weak">观望/拿着不动</span>
+                        <span class="badge weak">中位震荡</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>4487</strong><br>
+                    <span class="up" style="font-size:12px;">1.10%</span>
+                </td>
+                <td class="num">
+                    <strong>4495</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: +78</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 3100</span><br>
+                    <span class="muted" style="font-size:12px;">全: 3500</span>
+                </td>
+                <td class="num up">
+                    <strong>1387</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">约3200万吨 / 约3100万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">产能严重过剩，需求较为低迷</span>
+                </td>
+                <td><small>最新价(4487)处于成本线(3500)与现金成本(3100)上方，估值中性</small></td>
+                <td><small>估值中性，散户不参与灰色震荡，拿着现金不动</small></td>
+            </tr>
+            <tr class="weak">
+                <td class="rank">15</td>
+                <td>
+                    <strong>尿素2609</strong><br>
+                    <span class="muted" style="font-size:12px;">UR2609</span>
+                </td>
+                <td class="score">45.81</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge weak">观望/拿着不动</span>
+                        <span class="badge weak">中位震荡</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>1793</strong><br>
+                    <span class="down" style="font-size:12px;">-0.66%</span>
+                </td>
+                <td class="num">
+                    <strong>1822.5</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: +29</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 1350</span><br>
+                    <span class="muted" style="font-size:12px;">全: 1600</span>
+                </td>
+                <td class="num up">
+                    <strong>443</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">约6200万吨 / 约5800万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">供大于求，整体产能过剩</span>
+                </td>
+                <td><small>最新价(1793)处于成本线(1600)与现金成本(1350)上方，估值中性</small></td>
+                <td><small>估值中性，散户不参与灰色震荡，拿着现金不动</small></td>
+            </tr>
+            <tr class="weak">
+                <td class="rank">16</td>
+                <td>
+                    <strong>苹果2610</strong><br>
+                    <span class="muted" style="font-size:12px;">AP2610</span>
+                </td>
+                <td class="score">45.34</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge weak">观望/拿着不动</span>
+                        <span class="badge weak">中位震荡</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>7400</strong><br>
+                    <span class="down" style="font-size:12px;">-0.36%</span>
+                </td>
+                <td class="num">
+                    <strong>7450</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: +50</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 6000</span><br>
+                    <span class="muted" style="font-size:12px;">全: 7000</span>
+                </td>
+                <td class="num up">
+                    <strong>1400</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">约4500万吨 / 约4300万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">供需整体平衡，阶段性供给压力大</span>
+                </td>
+                <td><small>最新价(7400)处于成本线(7000)与现金成本(6000)上方，估值中性</small></td>
+                <td><small>估值中性，散户不参与灰色震荡，拿着现金不动</small></td>
+            </tr>
+            <tr class="weak">
+                <td class="rank">17</td>
+                <td>
+                    <strong>花生2610</strong><br>
+                    <span class="muted" style="font-size:12px;">PK2610</span>
+                </td>
+                <td class="score">45.05</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge weak">观望/拿着不动</span>
+                        <span class="badge weak">中位震荡</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>8392</strong><br>
+                    <span class="up" style="font-size:12px;">0.31%</span>
+                </td>
+                <td class="num">
+                    <strong>8400</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: +8</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 7800</span><br>
+                    <span class="muted" style="font-size:12px;">全: 8200</span>
+                </td>
+                <td class="num up">
+                    <strong>592</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">约1800万吨 / 约1750万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">供需平稳，进口米有一定冲击</span>
+                </td>
+                <td><small>最新价(8392)处于成本线(8200)与现金成本(7800)上方，估值中性</small></td>
+                <td><small>估值中性，散户不参与灰色震荡，拿着现金不动</small></td>
+            </tr>
+            <tr class="weak">
+                <td class="rank">18</td>
+                <td>
+                    <strong>燃料油2609</strong><br>
+                    <span class="muted" style="font-size:12px;">FU2609</span>
+                </td>
+                <td class="score">45</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge weak">观望/拿着不动</span>
+                        <span class="badge weak">中位震荡</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>3764</strong><br>
+                    <span class="up" style="font-size:12px;">1.92%</span>
+                </td>
+                <td class="num">
+                    <strong>5987.5</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: +2310</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 2800</span><br>
+                    <span class="muted" style="font-size:12px;">全: 3200</span>
+                </td>
+                <td class="num up">
+                    <strong>964</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">国内约1500万吨 / 约2000万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">国内高硫资源偏紧，主要靠进口</span>
+                </td>
+                <td><small>最新价(3764)处于成本线(3200)与现金成本(2800)上方，估值中性</small></td>
+                <td><small>估值中性，散户不参与灰色震荡，拿着现金不动</small></td>
+            </tr>
+            <tr class="weak">
+                <td class="rank">19</td>
+                <td>
+                    <strong>鸡蛋2609</strong><br>
+                    <span class="muted" style="font-size:12px;">JD2609</span>
+                </td>
+                <td class="score">45</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge weak">观望/拿着不动</span>
+                        <span class="badge weak">中位震荡</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>4395</strong><br>
+                    <span class="up" style="font-size:12px;">1.29%</span>
+                </td>
+                <td class="num">
+                    <strong>10.53</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: +517</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 3100</span><br>
+                    <span class="muted" style="font-size:12px;">全: 3400</span>
+                </td>
+                <td class="num up">
+                    <strong>1295</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">约2200万吨 / 约2150万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">供求基本平衡，有季节性波动</span>
+                </td>
+                <td><small>最新价(4395)处于成本线(3400)与现金成本(3100)上方，估值中性</small></td>
+                <td><small>估值中性，散户不参与灰色震荡，拿着现金不动</small></td>
+            </tr>
+            <tr class="risk">
+                <td class="rank">20</td>
+                <td>
+                    <strong>甲醇2609</strong><br>
+                    <span class="muted" style="font-size:12px;">MA2609</span>
+                </td>
+                <td class="score">16.41</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge risk">大周期做空/摸顶</span>
+                        <span class="badge risk">绝对摸顶区</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>2996</strong><br>
+                    <span class="up" style="font-size:12px;">1.35%</span>
+                </td>
+                <td class="num">
+                    <strong>3356.67</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: +384</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 1900</span><br>
+                    <span class="muted" style="font-size:12px;">全: 2200</span>
+                </td>
+                <td class="num up">
+                    <strong>1096</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">约8600万吨 / 约9000万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">高产能低开工，港口高度看进口量</span>
+                </td>
+                <td><small>期货贴水现货，基差为+384，提供额外现期收敛拉力</small></td>
+                <td><small>企业暴利区，只空不买，突破近5日高点或行业利润继续走高认错</small></td>
+            </tr>
+            <tr class="risk">
+                <td class="rank">21</td>
+                <td>
+                    <strong>碳酸锂2609</strong><br>
+                    <span class="muted" style="font-size:12px;">LC2609</span>
+                </td>
+                <td class="score">8.98</td>
+                <td>
+                    <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+                        <span class="badge risk">大周期做空/摸顶</span>
+                        <span class="badge risk">绝对摸顶区</span>
+                    </div>
+                </td>
+                <td class="num">
+                    <strong>167400</strong><br>
+                    <span class="up" style="font-size:12px;">1.27%</span>
+                </td>
+                <td class="num">
+                    <strong>164000</strong><br>
+                    <span class="muted" style="font-size:12px;">基差: -3400</span>
+                </td>
+                <td class="num">
+                    <span style="font-size:12px;">现: 55000</span><br>
+                    <span class="muted" style="font-size:12px;">全: 75000</span>
+                </td>
+                <td class="num up">
+                    <strong>112400</strong>
+                </td>
+                <td>
+                    <span style="font-size:13px; font-weight:700;">国内约60万吨 / 约75万吨</span><br>
+                    <span class="muted" style="font-size:11px; display:inline-block; line-height:1.2; margin-top:2px;">全球供给过剩，去库周期中</span>
+                </td>
+                <td><small>估值中性，建议观望</small></td>
+                <td><small>企业暴利区，只空不买，突破近5日高点或行业利润继续走高认错</small></td>
+            </tr></tbody>
+            </table>
+        </section>
+        <h2>品种明细</h2>
+        <section class="details">
+            <details class="detail-card long">
+                <summary>
+                    <span><strong>SR</strong> 白糖2609 SR2609</span>
+                    <span><span class="badge long">大周期做多/抄底</span><b class="score-pill">90.2</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>5314</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="up">0.04%</td></tr>
+                            <tr><th>现货价格</th><td>5335</td></tr>
+                            <tr><th>现金成本</th><td>5500</td></tr>
+                            <tr><th>生产成本</th><td>6000</td></tr>
+                            <tr><th>基差</th><td class="up">21</td></tr>
+                            <tr><th>产业利润</th><td class="down">-186</td></tr>
+                            <tr><th>利润率</th><td>-3.38%</td></tr>
+                            <tr><th>年产量</th><td>1280万吨(25/26榨季)</td></tr>
+                            <tr><th>年消费量</th><td>1573万吨</td></tr>
+                            <tr><th>供需格局</th><td>供需偏紧，严重依赖配额内外进口</td></tr>
+                            <tr><th>利润口径</th><td>白糖广西糖料蔗完全成本6000元/吨，甜菜糖/进口糖现金底线5500元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>绝对抄底区</td></tr>
+                            <tr><th>仓单</th><td>22500</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(5314)低于或贴近现金成本底线(5500)，具备极高安全垫，行业面临大面积亏损减产</li><li>期货贴水现货，基差为+21，提供额外现期收敛拉力</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>暂无主要风险</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">死守认错线，大周期持有不动，静待供给侧出清</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card long">
+                <summary>
+                    <span><strong>FG</strong> 玻璃2609 FG2609</span>
+                    <span><span class="badge long">大周期做多/抄底</span><b class="score-pill">90</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>990</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="down">-0.10%</td></tr>
+                            <tr><th>现货价格</th><td>12.85</td></tr>
+                            <tr><th>现金成本</th><td>1100</td></tr>
+                            <tr><th>生产成本</th><td>1250</td></tr>
+                            <tr><th>基差</th><td class="up">39</td></tr>
+                            <tr><th>产业利润</th><td class="down">-110</td></tr>
+                            <tr><th>利润率</th><td>-10.00%</td></tr>
+                            <tr><th>年产量</th><td>约5000万吨</td></tr>
+                            <tr><th>年消费量</th><td>约4800万吨</td></tr>
+                            <tr><th>供需格局</th><td>产能过剩，下游地产需求承压</td></tr>
+                            <tr><th>利润口径</th><td>玻璃纯碱/石英完全成本降至约1250元/吨，沙河龙头玻璃厂现金流底线约1100元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>绝对抄底区</td></tr>
+                            <tr><th>仓单</th><td>838</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(990)低于或贴近现金成本底线(1100)，具备极高安全垫，行业面临大面积亏损减产</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>暂无主要风险</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">死守认错线，大周期持有不动，静待供给侧出清</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card long">
+                <summary>
+                    <span><strong>LH</strong> 生猪2609 LH2609</span>
+                    <span><span class="badge long">大周期做多/抄底</span><b class="score-pill">90</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>11950</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="up">0.72%</td></tr>
+                            <tr><th>现货价格</th><td>9.52</td></tr>
+                            <tr><th>现金成本</th><td>13000</td></tr>
+                            <tr><th>生产成本</th><td>15000</td></tr>
+                            <tr><th>基差</th><td class="down">-2430</td></tr>
+                            <tr><th>产业利润</th><td class="down">-1050</td></tr>
+                            <tr><th>利润率</th><td>-8.08%</td></tr>
+                            <tr><th>年产量</th><td>猪肉约5400万吨</td></tr>
+                            <tr><th>年消费量</th><td>约5500万吨</td></tr>
+                            <tr><th>供需格局</th><td>生猪去产能周期尾声，供求趋紧</td></tr>
+                            <tr><th>利润口径</th><td>生猪规模化养殖平均完全成本约15000元/吨（15元/kg），现金流底线约13000元/吨（13元/kg）</td></tr>
+                            <tr><th>左侧定位</th><td>绝对抄底区</td></tr>
+                            <tr><th>仓单</th><td>700</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(11950)低于或贴近现金成本底线(13000)，具备极高安全垫，行业面临大面积亏损减产</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>暂无主要风险</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">死守认错线，大周期持有不动，静待供给侧出清</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card long">
+                <summary>
+                    <span><strong>V</strong> PVC2609 V2609</span>
+                    <span><span class="badge long">大周期做多/抄底</span><b class="score-pill">88.28</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>4689</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="down">-0.02%</td></tr>
+                            <tr><th>现货价格</th><td>4545</td></tr>
+                            <tr><th>现金成本</th><td>4900</td></tr>
+                            <tr><th>生产成本</th><td>5500</td></tr>
+                            <tr><th>基差</th><td class="down">-161</td></tr>
+                            <tr><th>产业利润</th><td class="down">-211</td></tr>
+                            <tr><th>利润率</th><td>-4.31%</td></tr>
+                            <tr><th>年产量</th><td>约2200万吨</td></tr>
+                            <tr><th>年消费量</th><td>约2000万吨</td></tr>
+                            <tr><th>供需格局</th><td>供大于求，依赖出口消化库存</td></tr>
+                            <tr><th>利润口径</th><td>PVC外购电石法完全生产成本约5500元/吨，西北一体化大厂边际现金成本底线4900元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>绝对抄底区</td></tr>
+                            <tr><th>仓单</th><td>107076</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(4689)低于或贴近现金成本底线(4900)，具备极高安全垫，行业面临大面积亏损减产</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>期货升水现货，基差为-161，透支左侧上涨空间</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">死守认错线，大周期持有不动，静待供给侧出清</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card long">
+                <summary>
+                    <span><strong>SA</strong> 纯碱2609 SA2609</span>
+                    <span><span class="badge long">大周期做多/抄底</span><b class="score-pill">77.68</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>1156</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="up">0.52%</td></tr>
+                            <tr><th>现货价格</th><td>1214.29</td></tr>
+                            <tr><th>现金成本</th><td>900</td></tr>
+                            <tr><th>生产成本</th><td>1200</td></tr>
+                            <tr><th>基差</th><td class="up">62</td></tr>
+                            <tr><th>产业利润</th><td class="up">256</td></tr>
+                            <tr><th>利润率</th><td>28.44%</td></tr>
+                            <tr><th>年产量</th><td>约3200万吨</td></tr>
+                            <tr><th>年消费量</th><td>约2900万吨</td></tr>
+                            <tr><th>供需格局</th><td>新增产能集中释放，供大于求</td></tr>
+                            <tr><th>利润口径</th><td>纯碱天然碱完全成本600-800，先进联碱完全成本1200，此处使用联碱完全成本与天然碱现金底防守</td></tr>
+                            <tr><th>左侧定位</th><td>生产成本线</td></tr>
+                            <tr><th>仓单</th><td>7680</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(1156)低于或逼近生产成本线(1200)，行业整体亏损，供给收缩拐点将至</li><li>期货贴水现货，基差为+62，提供额外现期收敛拉力</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>暂无主要风险</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">生产成本附近，左侧轻仓布局，跌破现金成本认错</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card long">
+                <summary>
+                    <span><strong>SP</strong> 纸浆2609 SP2609</span>
+                    <span><span class="badge long">大周期做多/抄底</span><b class="score-pill">76.18</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>4858</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="down">-0.33%</td></tr>
+                            <tr><th>现货价格</th><td>4983.33</td></tr>
+                            <tr><th>现金成本</th><td>4800</td></tr>
+                            <tr><th>生产成本</th><td>5500</td></tr>
+                            <tr><th>基差</th><td class="up">115</td></tr>
+                            <tr><th>产业利润</th><td class="up">58</td></tr>
+                            <tr><th>利润率</th><td>1.21%</td></tr>
+                            <tr><th>年产量</th><td>极低(主要进口针叶浆)</td></tr>
+                            <tr><th>年消费量</th><td>约4400万吨</td></tr>
+                            <tr><th>供需格局</th><td>高度依赖进口，供求平稳</td></tr>
+                            <tr><th>利润口径</th><td>针叶浆外盘进口折算完全成本约5500元/吨，部分低成本外商长协折算现金底线4800元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>生产成本线</td></tr>
+                            <tr><th>仓单</th><td>235809</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(4858)低于或逼近生产成本线(5500)，行业整体亏损，供给收缩拐点将至</li><li>期货贴水现货，基差为+115，提供额外现期收敛拉力</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>暂无主要风险</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">生产成本附近，左侧轻仓布局，跌破现金成本认错</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card long">
+                <summary>
+                    <span><strong>SH</strong> 烧碱2609 SH2609</span>
+                    <span><span class="badge long">大周期做多/抄底</span><b class="score-pill">75</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>2026</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="up">0.55%</td></tr>
+                            <tr><th>现货价格</th><td>622</td></tr>
+                            <tr><th>现金成本</th><td>2000</td></tr>
+                            <tr><th>生产成本</th><td>2400</td></tr>
+                            <tr><th>基差</th><td class="up">54</td></tr>
+                            <tr><th>产业利润</th><td class="up">26</td></tr>
+                            <tr><th>利润率</th><td>1.30%</td></tr>
+                            <tr><th>年产量</th><td>约4650万吨</td></tr>
+                            <tr><th>年消费量</th><td>约4400万吨</td></tr>
+                            <tr><th>供需格局</th><td>过剩格局，氧化铝实际消耗不及预期</td></tr>
+                            <tr><th>利润口径</th><td>烧碱折百完全生产成本约2400元/吨，氯碱平衡下的先进边际现金底线2000元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>生产成本线</td></tr>
+                            <tr><th>仓单</th><td>100</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(2026)低于或逼近生产成本线(2400)，行业整体亏损，供给收缩拐点将至</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>暂无主要风险</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">生产成本附近，左侧轻仓布局，跌破现金成本认错</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card long">
+                <summary>
+                    <span><strong>AO</strong> 氧化铝2609 AO2609</span>
+                    <span><span class="badge long">大周期做多/抄底</span><b class="score-pill">73.46</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>2889</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="up">0.73%</td></tr>
+                            <tr><th>现货价格</th><td>2800</td></tr>
+                            <tr><th>现金成本</th><td>2800</td></tr>
+                            <tr><th>生产成本</th><td>3200</td></tr>
+                            <tr><th>基差</th><td class="down">-89</td></tr>
+                            <tr><th>产业利润</th><td class="up">89</td></tr>
+                            <tr><th>利润率</th><td>3.18%</td></tr>
+                            <tr><th>年产量</th><td>约8200万吨</td></tr>
+                            <tr><th>年消费量</th><td>约8300万吨</td></tr>
+                            <tr><th>供需格局</th><td>受矿石紧缺制约，开工率受限</td></tr>
+                            <tr><th>利润口径</th><td>氧化铝国内完全成本在3200元/吨左右，国产矿石提炼的先进企业现金流底线2800元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>生产成本线</td></tr>
+                            <tr><th>仓单</th><td>410347</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(2889)低于或逼近生产成本线(3200)，行业整体亏损，供给收缩拐点将至</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>期货升水现货，基差为-89，透支左侧上涨空间</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">生产成本附近，左侧轻仓布局，跌破现金成本认错</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card long">
+                <summary>
+                    <span><strong>CJ</strong> 红枣2609 CJ2609</span>
+                    <span><span class="badge long">大周期做多/抄底</span><b class="score-pill">73.42</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>8880</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="down">-2.15%</td></tr>
+                            <tr><th>现货价格</th><td>8600</td></tr>
+                            <tr><th>现金成本</th><td>8300</td></tr>
+                            <tr><th>生产成本</th><td>9200</td></tr>
+                            <tr><th>基差</th><td class="down">-280</td></tr>
+                            <tr><th>产业利润</th><td class="up">580</td></tr>
+                            <tr><th>利润率</th><td>6.99%</td></tr>
+                            <tr><th>年产量</th><td>约26万吨</td></tr>
+                            <tr><th>年消费量</th><td>约28万吨</td></tr>
+                            <tr><th>供需格局</th><td>结转旧作库存高企，新季存在减产与天气炒作预期</td></tr>
+                            <tr><th>利润口径</th><td>红枣仓单注册完全成本约9000-9500元/吨，主产区灰枣初加工折算现金流底线8000-8500元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>生产成本线</td></tr>
+                            <tr><th>仓单</th><td>7859</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(8880)低于或逼近生产成本线(9200)，行业整体亏损，供给收缩拐点将至</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>期货升水现货，基差为-280，透支左侧上涨空间</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">生产成本附近，左侧轻仓布局，跌破现金成本认错</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card weak">
+                <summary>
+                    <span><strong>JM</strong> 焦煤2609 JM2609</span>
+                    <span><span class="badge weak">观望/拿着不动</span><b class="score-pill">55</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>1363</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="up">0.44%</td></tr>
+                            <tr><th>现货价格</th><td>1851.25</td></tr>
+                            <tr><th>现金成本</th><td>1000</td></tr>
+                            <tr><th>生产成本</th><td>1200</td></tr>
+                            <tr><th>基差</th><td class="up">487</td></tr>
+                            <tr><th>产业利润</th><td class="up">363</td></tr>
+                            <tr><th>利润率</th><td>36.30%</td></tr>
+                            <tr><th>年产量</th><td>约4.9亿吨</td></tr>
+                            <tr><th>年消费量</th><td>约5.5亿吨</td></tr>
+                            <tr><th>供需格局</th><td>结构性短缺，高度依赖蒙俄进口</td></tr>
+                            <tr><th>利润口径</th><td>焦煤国内主流原煤洗选完全成本约1200元/吨，山西主力煤企大井口现金成本底线1000元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>中位震荡</td></tr>
+                            <tr><th>仓单</th><td>0</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(1363)处于成本线(1200)与现金成本(1000)上方，估值中性</li><li>期货贴水现货，基差为+487，提供额外现期收敛拉力</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>暂无主要风险</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">估值中性，散户不参与灰色震荡，拿着现金不动</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card weak">
+                <summary>
+                    <span><strong>PP</strong> 聚丙烯2609 PP2609</span>
+                    <span><span class="badge weak">观望/拿着不动</span><b class="score-pill">50.79</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>8700</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="up">0.68%</td></tr>
+                            <tr><th>现货价格</th><td>9656.67</td></tr>
+                            <tr><th>现金成本</th><td>7000</td></tr>
+                            <tr><th>生产成本</th><td>7500</td></tr>
+                            <tr><th>基差</th><td class="up">1007</td></tr>
+                            <tr><th>产业利润</th><td class="up">1700</td></tr>
+                            <tr><th>利润率</th><td>24.29%</td></tr>
+                            <tr><th>年产量</th><td>约3400万吨</td></tr>
+                            <tr><th>年消费量</th><td>约3500万吨</td></tr>
+                            <tr><th>供需格局</th><td>处于产能扩张期，供求宽松</td></tr>
+                            <tr><th>利润口径</th><td>聚丙烯拉丝完全成本7500元/吨，油头与PDH先进装置边际现金底线7000元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>中位震荡</td></tr>
+                            <tr><th>仓单</th><td>17017</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(8700)处于成本线(7500)与现金成本(7000)上方，估值中性</li><li>期货贴水现货，基差为+1007，提供额外现期收敛拉力</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>暂无主要风险</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">估值中性，散户不参与灰色震荡，拿着现金不动</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card weak">
+                <summary>
+                    <span><strong>RM</strong> 菜粕2609 RM2609</span>
+                    <span><span class="badge weak">观望/拿着不动</span><b class="score-pill">47.29</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>2246</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="up">0.81%</td></tr>
+                            <tr><th>现货价格</th><td>2342</td></tr>
+                            <tr><th>现金成本</th><td>1950</td></tr>
+                            <tr><th>生产成本</th><td>2200</td></tr>
+                            <tr><th>基差</th><td class="up">103</td></tr>
+                            <tr><th>产业利润</th><td class="up">296</td></tr>
+                            <tr><th>利润率</th><td>15.18%</td></tr>
+                            <tr><th>年产量</th><td>国内约650万吨</td></tr>
+                            <tr><th>年消费量</th><td>约680万吨</td></tr>
+                            <tr><th>供需格局</th><td>多为进口菜籽压榨，看进口节奏</td></tr>
+                            <tr><th>利润口径</th><td>菜粕进口菜籽压榨完全折算成本约2200元/吨，油厂压榨加工现金运转底线1950元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>中位震荡</td></tr>
+                            <tr><th>仓单</th><td>2761</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(2246)处于成本线(2200)与现金成本(1950)上方，估值中性</li><li>期货贴水现货，基差为+103，提供额外现期收敛拉力</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>暂无主要风险</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">估值中性，散户不参与灰色震荡，拿着现金不动</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card weak">
+                <summary>
+                    <span><strong>OI</strong> 菜油2609 OI2609</span>
+                    <span><span class="badge weak">观望/拿着不动</span><b class="score-pill">46.44</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>9959</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="up">0.58%</td></tr>
+                            <tr><th>现货价格</th><td>10170</td></tr>
+                            <tr><th>现金成本</th><td>7800</td></tr>
+                            <tr><th>生产成本</th><td>8200</td></tr>
+                            <tr><th>基差</th><td class="up">287</td></tr>
+                            <tr><th>产业利润</th><td class="up">2159</td></tr>
+                            <tr><th>利润率</th><td>27.68%</td></tr>
+                            <tr><th>年产量</th><td>国内约300万吨</td></tr>
+                            <tr><th>年消费量</th><td>约380万吨</td></tr>
+                            <tr><th>供需格局</th><td>大豆菜籽压榨量大，油脂供求宽松</td></tr>
+                            <tr><th>利润口径</th><td>菜油进口压榨完全折算成本8200元/吨，港口精炼出库现金成本7800元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>中位震荡</td></tr>
+                            <tr><th>仓单</th><td>0</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(9959)处于成本线(8200)与现金成本(7800)上方，估值中性</li><li>期货贴水现货，基差为+287，提供额外现期收敛拉力</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>暂无主要风险</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">估值中性，散户不参与灰色震荡，拿着现金不动</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card weak">
+                <summary>
+                    <span><strong>BU</strong> 沥青2609 BU2609</span>
+                    <span><span class="badge weak">观望/拿着不动</span><b class="score-pill">45.87</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>4487</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="up">1.10%</td></tr>
+                            <tr><th>现货价格</th><td>4495</td></tr>
+                            <tr><th>现金成本</th><td>3100</td></tr>
+                            <tr><th>生产成本</th><td>3500</td></tr>
+                            <tr><th>基差</th><td class="up">78</td></tr>
+                            <tr><th>产业利润</th><td class="up">1387</td></tr>
+                            <tr><th>利润率</th><td>44.74%</td></tr>
+                            <tr><th>年产量</th><td>约3200万吨</td></tr>
+                            <tr><th>年消费量</th><td>约3100万吨</td></tr>
+                            <tr><th>供需格局</th><td>产能严重过剩，需求较为低迷</td></tr>
+                            <tr><th>利润口径</th><td>沥青国内主港原油折算完全加工成本约3500元/吨，炼厂边际副产品现金折算成本3100元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>中位震荡</td></tr>
+                            <tr><th>仓单</th><td>21120</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(4487)处于成本线(3500)与现金成本(3100)上方，估值中性</li><li>期货贴水现货，基差为+78，提供额外现期收敛拉力</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>暂无主要风险</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">估值中性，散户不参与灰色震荡，拿着现金不动</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card weak">
+                <summary>
+                    <span><strong>UR</strong> 尿素2609 UR2609</span>
+                    <span><span class="badge weak">观望/拿着不动</span><b class="score-pill">45.81</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>1793</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="down">-0.66%</td></tr>
+                            <tr><th>现货价格</th><td>1822.5</td></tr>
+                            <tr><th>现金成本</th><td>1350</td></tr>
+                            <tr><th>生产成本</th><td>1600</td></tr>
+                            <tr><th>基差</th><td class="up">29</td></tr>
+                            <tr><th>产业利润</th><td class="up">443</td></tr>
+                            <tr><th>利润率</th><td>32.81%</td></tr>
+                            <tr><th>年产量</th><td>约6200万吨</td></tr>
+                            <tr><th>年消费量</th><td>约5800万吨</td></tr>
+                            <tr><th>供需格局</th><td>供大于求，整体产能过剩</td></tr>
+                            <tr><th>利润口径</th><td>尿素新型煤气化完全成本线约1600元/吨，固定床与气头边际现金底线1350元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>中位震荡</td></tr>
+                            <tr><th>仓单</th><td>8239</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(1793)处于成本线(1600)与现金成本(1350)上方，估值中性</li><li>期货贴水现货，基差为+29，提供额外现期收敛拉力</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>暂无主要风险</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">估值中性，散户不参与灰色震荡，拿着现金不动</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card weak">
+                <summary>
+                    <span><strong>AP</strong> 苹果2610 AP2610</span>
+                    <span><span class="badge weak">观望/拿着不动</span><b class="score-pill">45.34</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>7400</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="down">-0.36%</td></tr>
+                            <tr><th>现货价格</th><td>7450</td></tr>
+                            <tr><th>现金成本</th><td>6000</td></tr>
+                            <tr><th>生产成本</th><td>7000</td></tr>
+                            <tr><th>基差</th><td class="up">50</td></tr>
+                            <tr><th>产业利润</th><td class="up">1400</td></tr>
+                            <tr><th>利润率</th><td>23.33%</td></tr>
+                            <tr><th>年产量</th><td>约4500万吨</td></tr>
+                            <tr><th>年消费量</th><td>约4300万吨</td></tr>
+                            <tr><th>供需格局</th><td>供需整体平衡，阶段性供给压力大</td></tr>
+                            <tr><th>利润口径</th><td>苹果生产完全成本约7000元/吨，果农冷库出货现金折算价约6000元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>中位震荡</td></tr>
+                            <tr><th>仓单</th><td>0</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(7400)处于成本线(7000)与现金成本(6000)上方，估值中性</li><li>期货贴水现货，基差为+50，提供额外现期收敛拉力</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>暂无主要风险</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">估值中性，散户不参与灰色震荡，拿着现金不动</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card weak">
+                <summary>
+                    <span><strong>PK</strong> 花生2610 PK2610</span>
+                    <span><span class="badge weak">观望/拿着不动</span><b class="score-pill">45.05</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>8392</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="up">0.31%</td></tr>
+                            <tr><th>现货价格</th><td>8400</td></tr>
+                            <tr><th>现金成本</th><td>7800</td></tr>
+                            <tr><th>生产成本</th><td>8200</td></tr>
+                            <tr><th>基差</th><td class="up">8</td></tr>
+                            <tr><th>产业利润</th><td class="up">592</td></tr>
+                            <tr><th>利润率</th><td>7.59%</td></tr>
+                            <tr><th>年产量</th><td>约1800万吨</td></tr>
+                            <tr><th>年消费量</th><td>约1750万吨</td></tr>
+                            <tr><th>供需格局</th><td>供需平稳，进口米有一定冲击</td></tr>
+                            <tr><th>利润口径</th><td>花生农户种植完全成本8200元/吨，主产区收购/中间环节周转现金底线7800元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>中位震荡</td></tr>
+                            <tr><th>仓单</th><td>0</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(8392)处于成本线(8200)与现金成本(7800)上方，估值中性</li><li>期货贴水现货，基差为+8，提供额外现期收敛拉力</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>暂无主要风险</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">估值中性，散户不参与灰色震荡，拿着现金不动</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card weak">
+                <summary>
+                    <span><strong>FU</strong> 燃料油2609 FU2609</span>
+                    <span><span class="badge weak">观望/拿着不动</span><b class="score-pill">45</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>3764</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="up">1.92%</td></tr>
+                            <tr><th>现货价格</th><td>5987.5</td></tr>
+                            <tr><th>现金成本</th><td>2800</td></tr>
+                            <tr><th>生产成本</th><td>3200</td></tr>
+                            <tr><th>基差</th><td class="up">2310</td></tr>
+                            <tr><th>产业利润</th><td class="up">964</td></tr>
+                            <tr><th>利润率</th><td>34.43%</td></tr>
+                            <tr><th>年产量</th><td>国内约1500万吨</td></tr>
+                            <tr><th>年消费量</th><td>约2000万吨</td></tr>
+                            <tr><th>供需格局</th><td>国内高硫资源偏紧，主要靠进口</td></tr>
+                            <tr><th>利润口径</th><td>高硫燃料油进口到岸完税成本约3200元/吨，中东/新加坡裂解现金流成本2800元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>中位震荡</td></tr>
+                            <tr><th>仓单</th><td>201390</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(3764)处于成本线(3200)与现金成本(2800)上方，估值中性</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>暂无主要风险</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">估值中性，散户不参与灰色震荡，拿着现金不动</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card weak">
+                <summary>
+                    <span><strong>JD</strong> 鸡蛋2609 JD2609</span>
+                    <span><span class="badge weak">观望/拿着不动</span><b class="score-pill">45</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>4395</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="up">1.29%</td></tr>
+                            <tr><th>现货价格</th><td>10.53</td></tr>
+                            <tr><th>现金成本</th><td>3100</td></tr>
+                            <tr><th>生产成本</th><td>3400</td></tr>
+                            <tr><th>基差</th><td class="up">517</td></tr>
+                            <tr><th>产业利润</th><td class="up">1295</td></tr>
+                            <tr><th>利润率</th><td>41.77%</td></tr>
+                            <tr><th>年产量</th><td>约2200万吨</td></tr>
+                            <tr><th>年消费量</th><td>约2150万吨</td></tr>
+                            <tr><th>供需格局</th><td>供求基本平衡，有季节性波动</td></tr>
+                            <tr><th>利润口径</th><td>鸡蛋饲料配比完全成本3400元/吨，老鸡淘汰折算现金存栏成本3100元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>中位震荡</td></tr>
+                            <tr><th>仓单</th><td>0</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>最新价(4395)处于成本线(3400)与现金成本(3100)上方，估值中性</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>暂无主要风险</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">估值中性，散户不参与灰色震荡，拿着现金不动</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card risk">
+                <summary>
+                    <span><strong>MA</strong> 甲醇2609 MA2609</span>
+                    <span><span class="badge risk">大周期做空/摸顶</span><b class="score-pill">16.41</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>2996</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="up">1.35%</td></tr>
+                            <tr><th>现货价格</th><td>3356.67</td></tr>
+                            <tr><th>现金成本</th><td>1900</td></tr>
+                            <tr><th>生产成本</th><td>2200</td></tr>
+                            <tr><th>基差</th><td class="up">384</td></tr>
+                            <tr><th>产业利润</th><td class="up">1096</td></tr>
+                            <tr><th>利润率</th><td>57.68%</td></tr>
+                            <tr><th>年产量</th><td>约8600万吨</td></tr>
+                            <tr><th>年消费量</th><td>约9000万吨</td></tr>
+                            <tr><th>供需格局</th><td>高产能低开工，港口高度看进口量</td></tr>
+                            <tr><th>利润口径</th><td>甲醇内地煤制完全成本降至2200元/吨左右，西北大装置边际现金底线1900元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>绝对摸顶区</td></tr>
+                            <tr><th>仓单</th><td>2920</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>期货贴水现货，基差为+384，提供额外现期收敛拉力</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>最新价(2996)超出生产成本线(2200)30%以上，行业利润极其丰厚，谨防供给快速释放</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">企业暴利区，只空不买，突破近5日高点或行业利润继续走高认错</p>
+                    </section>
+                </div>
+            </details>
+            <details class="detail-card risk">
+                <summary>
+                    <span><strong>LC</strong> 碳酸锂2609 LC2609</span>
+                    <span><span class="badge risk">大周期做空/摸顶</span><b class="score-pill">8.98</b></span>
+                </summary>
+                <div class="detail-grid">
+                    <section>
+                        <h3>核心指标</h3>
+                        <table class="mini">
+                            <tr><th>最新价</th><td>167400</td></tr>
+                            <tr><th>较昨结涨跌</th><td class="up">1.27%</td></tr>
+                            <tr><th>现货价格</th><td>164000</td></tr>
+                            <tr><th>现金成本</th><td>55000</td></tr>
+                            <tr><th>生产成本</th><td>75000</td></tr>
+                            <tr><th>基差</th><td class="down">-3400</td></tr>
+                            <tr><th>产业利润</th><td class="up">112400</td></tr>
+                            <tr><th>利润率</th><td>204.36%</td></tr>
+                            <tr><th>年产量</th><td>国内约60万吨</td></tr>
+                            <tr><th>年消费量</th><td>约75万吨</td></tr>
+                            <tr><th>供需格局</th><td>全球供给过剩，去库周期中</td></tr>
+                            <tr><th>利润口径</th><td>碳酸锂外购辉石完全成本已沉淀至75000元/吨，盐湖及自有锂矿先进现金成本线55000元/吨</td></tr>
+                            <tr><th>左侧定位</th><td>绝对摸顶区</td></tr>
+                            <tr><th>仓单</th><td>-</td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>研判依据</h3>
+                        <ul><li>估值中性，建议观望</li></ul>
+                        <h3>主要风险</h3>
+                        <ul><li>最新价(167400)超出生产成本线(75000)30%以上，行业利润极其丰厚，谨防供给快速释放</li><li>期货升水现货，基差为-3400，透支左侧上涨空间</li></ul>
+                        <h3>长线计划</h3>
+                        <p class="advice">企业暴利区，只空不买，突破近5日高点或行业利润继续走高认错</p>
+                    </section>
+                </div>
+            </details></section>
+        <footer>本报告只做研究辅助，不构成投资建议或交易指令。</footer>
+    </main>
+</body>
+</html>
