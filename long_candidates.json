@@ -1,72 +1,20 @@
 {
-    "update_time": "2026/6/11 02:33:55",
+    "update_time": "2026/6/12 22:18:21",
     "note": "自动评分纯粹以生产成本、现金底和现货基差为核心；已剔除技术指标。",
     "candidates": [
-        {
-            "code": "SR",
-            "name": "白糖2609",
-            "contract": "SR2609",
-            "close": 5314,
-            "previousSettlement": 5312,
-            "score": 90.2,
-            "action": "大周期做多/抄底",
-            "confidence": "高",
-            "signals": {
-                "productionCost": 6000,
-                "cashCost": 5500,
-                "close": 5314,
-                "basis": 21,
-                "basisRate": "0.39%",
-                "leftSide": {
-                    "state": "绝对抄底区",
-                    "advice": "死守认错线，大周期持有不动，静待供给侧出清",
-                    "tags": [
-                        "绝对抄底区"
-                    ],
-                    "bottom": {
-                        "score": 90.19759126834776,
-                        "action": "绝对抄底区",
-                        "rangePosition": null,
-                        "rangeLow": null,
-                        "rangeHigh": null
-                    },
-                    "top": {
-                        "score": 90.19759126834776,
-                        "action": "绝对抄底区",
-                        "upperShadowRatio": null
-                    }
-                },
-                "multiDay": {
-                    "tags": [
-                        "绝对抄底区"
-                    ],
-                    "notes": [
-                        "最新价(5314)低于或贴近现金成本底线(5500)，具备极高安全垫，行业面临大面积亏损减产",
-                        "期货贴水现货，基差为+21，提供额外现期收敛拉力"
-                    ]
-                },
-                "turnover": null
-            },
-            "reasons": [
-                "最新价(5314)低于或贴近现金成本底线(5500)，具备极高安全垫，行业面临大面积亏损减产",
-                "期货贴水现货，基差为+21，提供额外现期收敛拉力"
-            ],
-            "risks": [],
-            "qualityWarnings": []
-        },
         {
             "code": "FG",
             "name": "玻璃2609",
             "contract": "FG2609",
-            "close": 990,
-            "previousSettlement": 991,
+            "close": 1009,
+            "previousSettlement": 989,
             "score": 90,
             "action": "大周期做多/抄底",
             "confidence": "高",
             "signals": {
                 "productionCost": 1250,
                 "cashCost": 1100,
-                "close": 990,
+                "close": 1009,
                 "leftSide": {
                     "state": "绝对抄底区",
                     "advice": "死守认错线，大周期持有不动，静待供给侧出清",
@@ -91,13 +39,13 @@
                         "绝对抄底区"
                     ],
                     "notes": [
-                        "最新价(990)低于或贴近现金成本底线(1100)，具备极高安全垫，行业面临大面积亏损减产"
+                        "最新价(1009)低于或贴近现金成本底线(1100)，具备极高安全垫，行业面临大面积亏损减产"
                     ]
                 },
                 "turnover": null
             },
             "reasons": [
-                "最新价(990)低于或贴近现金成本底线(1100)，具备极高安全垫，行业面临大面积亏损减产"
+                "最新价(1009)低于或贴近现金成本底线(1100)，具备极高安全垫，行业面临大面积亏损减产"
             ],
             "risks": [],
             "qualityWarnings": [
@@ -108,15 +56,15 @@
             "code": "LH",
             "name": "生猪2609",
             "contract": "LH2609",
-            "close": 11950,
-            "previousSettlement": 11865,
+            "close": 12140,
+            "previousSettlement": 11880,
             "score": 90,
             "action": "大周期做多/抄底",
             "confidence": "高",
             "signals": {
                 "productionCost": 15000,
                 "cashCost": 13000,
-                "close": 11950,
+                "close": 12140,
                 "leftSide": {
                     "state": "绝对抄底区",
                     "advice": "死守认错线，大周期持有不动，静待供给侧出清",
@@ -141,13 +89,13 @@
                         "绝对抄底区"
                     ],
                     "notes": [
-                        "最新价(11950)低于或贴近现金成本底线(13000)，具备极高安全垫，行业面临大面积亏损减产"
+                        "最新价(12140)低于或贴近现金成本底线(13000)，具备极高安全垫，行业面临大面积亏损减产"
                     ]
                 },
                 "turnover": null
             },
             "reasons": [
-                "最新价(11950)低于或贴近现金成本底线(13000)，具备极高安全垫，行业面临大面积亏损减产"
+                "最新价(12140)低于或贴近现金成本底线(13000)，具备极高安全垫，行业面临大面积亏损减产"
             ],
             "risks": [],
             "qualityWarnings": [
@@ -155,20 +103,20 @@
             ]
         },
         {
-            "code": "V",
-            "name": "PVC2609",
-            "contract": "V2609",
-            "close": 4689,
-            "previousSettlement": 4690,
-            "score": 88.28,
+            "code": "SR",
+            "name": "白糖2609",
+            "contract": "SR2609",
+            "close": 5319,
+            "previousSettlement": 5299,
+            "score": 89.97,
             "action": "大周期做多/抄底",
             "confidence": "高",
             "signals": {
-                "productionCost": 5500,
-                "cashCost": 4900,
-                "close": 4689,
-                "basis": -161,
-                "basisRate": "-3.54%",
+                "productionCost": 6000,
+                "cashCost": 5500,
+                "close": 5319,
+                "basis": -3.33,
+                "basisRate": "-0.06%",
                 "leftSide": {
                     "state": "绝对抄底区",
                     "advice": "死守认错线，大周期持有不动，静待供给侧出清",
@@ -176,14 +124,14 @@
                         "绝对抄底区"
                     ],
                     "bottom": {
-                        "score": 88.28321603753466,
+                        "score": 89.96869712351946,
                         "action": "绝对抄底区",
                         "rangePosition": null,
                         "rangeLow": null,
                         "rangeHigh": null
                     },
                     "top": {
-                        "score": 88.28321603753466,
+                        "score": 89.96869712351946,
                         "action": "绝对抄底区",
                         "upperShadowRatio": null
                     }
@@ -193,13 +141,65 @@
                         "绝对抄底区"
                     ],
                     "notes": [
-                        "最新价(4689)低于或贴近现金成本底线(4900)，具备极高安全垫，行业面临大面积亏损减产"
+                        "最新价(5319)低于或贴近现金成本底线(5500)，具备极高安全垫，行业面临大面积亏损减产"
                     ]
                 },
                 "turnover": null
             },
             "reasons": [
-                "最新价(4689)低于或贴近现金成本底线(4900)，具备极高安全垫，行业面临大面积亏损减产"
+                "最新价(5319)低于或贴近现金成本底线(5500)，具备极高安全垫，行业面临大面积亏损减产"
+            ],
+            "risks": [
+                "期货升水现货，基差为-3.33，透支左侧上涨空间"
+            ],
+            "qualityWarnings": []
+        },
+        {
+            "code": "V",
+            "name": "PVC2609",
+            "contract": "V2609",
+            "close": 4779,
+            "previousSettlement": 4711,
+            "score": 88.32,
+            "action": "大周期做多/抄底",
+            "confidence": "高",
+            "signals": {
+                "productionCost": 5500,
+                "cashCost": 4900,
+                "close": 4779,
+                "basis": -161,
+                "basisRate": "-3.52%",
+                "leftSide": {
+                    "state": "绝对抄底区",
+                    "advice": "死守认错线，大周期持有不动，静待供给侧出清",
+                    "tags": [
+                        "绝对抄底区"
+                    ],
+                    "bottom": {
+                        "score": 88.31554718560368,
+                        "action": "绝对抄底区",
+                        "rangePosition": null,
+                        "rangeLow": null,
+                        "rangeHigh": null
+                    },
+                    "top": {
+                        "score": 88.31554718560368,
+                        "action": "绝对抄底区",
+                        "upperShadowRatio": null
+                    }
+                },
+                "multiDay": {
+                    "tags": [
+                        "绝对抄底区"
+                    ],
+                    "notes": [
+                        "最新价(4779)低于或贴近现金成本底线(4900)，具备极高安全垫，行业面临大面积亏损减产"
+                    ]
+                },
+                "turnover": null
+            },
+            "reasons": [
+                "最新价(4779)低于或贴近现金成本底线(4900)，具备极高安全垫，行业面临大面积亏损减产"
             ],
             "risks": [
                 "期货升水现货，基差为-161，透支左侧上涨空间"
@@ -210,17 +210,17 @@
             "code": "SA",
             "name": "纯碱2609",
             "contract": "SA2609",
-            "close": 1156,
-            "previousSettlement": 1150,
-            "score": 77.68,
+            "close": 1173,
+            "previousSettlement": 1153,
+            "score": 77.73,
             "action": "大周期做多/抄底",
             "confidence": "中",
             "signals": {
                 "productionCost": 1200,
                 "cashCost": 900,
-                "close": 1156,
-                "basis": 62,
-                "basisRate": "5.11%",
+                "close": 1173,
+                "basis": 64,
+                "basisRate": "5.27%",
                 "leftSide": {
                     "state": "生产成本线",
                     "advice": "生产成本附近，左侧轻仓布局，跌破现金成本认错",
@@ -228,14 +228,14 @@
                         "生产成本线"
                     ],
                     "bottom": {
-                        "score": 77.68166089965398,
+                        "score": 77.72804774083546,
                         "action": "生产成本线",
                         "rangePosition": null,
                         "rangeLow": null,
                         "rangeHigh": null
                     },
                     "top": {
-                        "score": 77.68166089965398,
+                        "score": 77.72804774083546,
                         "action": "生产成本线",
                         "upperShadowRatio": null
                     }
@@ -245,15 +245,15 @@
                         "生产成本线"
                     ],
                     "notes": [
-                        "最新价(1156)低于或逼近生产成本线(1200)，行业整体亏损，供给收缩拐点将至",
-                        "期货贴水现货，基差为+62，提供额外现期收敛拉力"
+                        "最新价(1173)低于或逼近生产成本线(1200)，行业整体亏损，供给收缩拐点将至",
+                        "期货贴水现货，基差为+64，提供额外现期收敛拉力"
                     ]
                 },
                 "turnover": null
             },
             "reasons": [
-                "最新价(1156)低于或逼近生产成本线(1200)，行业整体亏损，供给收缩拐点将至",
-                "期货贴水现货，基差为+62，提供额外现期收敛拉力"
+                "最新价(1173)低于或逼近生产成本线(1200)，行业整体亏损，供给收缩拐点将至",
+                "期货贴水现货，基差为+64，提供额外现期收敛拉力"
             ],
             "risks": [],
             "qualityWarnings": []
@@ -262,17 +262,17 @@
             "code": "SP",
             "name": "纸浆2609",
             "contract": "SP2609",
-            "close": 4858,
-            "previousSettlement": 4874,
-            "score": 76.18,
+            "close": 4942,
+            "previousSettlement": 4884,
+            "score": 75.88,
             "action": "大周期做多/抄底",
             "confidence": "中",
             "signals": {
                 "productionCost": 5500,
                 "cashCost": 4800,
-                "close": 4858,
-                "basis": 115,
-                "basisRate": "2.31%",
+                "close": 4942,
+                "basis": 87,
+                "basisRate": "1.75%",
                 "leftSide": {
                     "state": "生产成本线",
                     "advice": "生产成本附近，左侧轻仓布局，跌破现金成本认错",
@@ -280,14 +280,14 @@
                         "生产成本线"
                     ],
                     "bottom": {
-                        "score": 76.18361465623714,
+                        "score": 75.88021044111696,
                         "action": "生产成本线",
                         "rangePosition": null,
                         "rangeLow": null,
                         "rangeHigh": null
                     },
                     "top": {
-                        "score": 76.18361465623714,
+                        "score": 75.88021044111696,
                         "action": "生产成本线",
                         "upperShadowRatio": null
                     }
@@ -297,15 +297,15 @@
                         "生产成本线"
                     ],
                     "notes": [
-                        "最新价(4858)低于或逼近生产成本线(5500)，行业整体亏损，供给收缩拐点将至",
-                        "期货贴水现货，基差为+115，提供额外现期收敛拉力"
+                        "最新价(4942)低于或逼近生产成本线(5500)，行业整体亏损，供给收缩拐点将至",
+                        "期货贴水现货，基差为+87，提供额外现期收敛拉力"
                     ]
                 },
                 "turnover": null
             },
             "reasons": [
-                "最新价(4858)低于或逼近生产成本线(5500)，行业整体亏损，供给收缩拐点将至",
-                "期货贴水现货，基差为+115，提供额外现期收敛拉力"
+                "最新价(4942)低于或逼近生产成本线(5500)，行业整体亏损，供给收缩拐点将至",
+                "期货贴水现货，基差为+87，提供额外现期收敛拉力"
             ],
             "risks": [],
             "qualityWarnings": [
@@ -316,15 +316,15 @@
             "code": "SH",
             "name": "烧碱2609",
             "contract": "SH2609",
-            "close": 2026,
-            "previousSettlement": 2015,
+            "close": 2094,
+            "previousSettlement": 2061,
             "score": 75,
             "action": "大周期做多/抄底",
             "confidence": "中",
             "signals": {
                 "productionCost": 2400,
                 "cashCost": 2000,
-                "close": 2026,
+                "close": 2094,
                 "leftSide": {
                     "state": "生产成本线",
                     "advice": "生产成本附近，左侧轻仓布局，跌破现金成本认错",
@@ -349,13 +349,13 @@
                         "生产成本线"
                     ],
                     "notes": [
-                        "最新价(2026)低于或逼近生产成本线(2400)，行业整体亏损，供给收缩拐点将至"
+                        "最新价(2094)低于或逼近生产成本线(2400)，行业整体亏损，供给收缩拐点将至"
                     ]
                 },
                 "turnover": null
             },
             "reasons": [
-                "最新价(2026)低于或逼近生产成本线(2400)，行业整体亏损，供给收缩拐点将至"
+                "最新价(2094)低于或逼近生产成本线(2400)，行业整体亏损，供给收缩拐点将至"
             ],
             "risks": [],
             "qualityWarnings": [
@@ -363,74 +363,20 @@
             ]
         },
         {
-            "code": "AO",
-            "name": "氧化铝2609",
-            "contract": "AO2609",
-            "close": 2889,
-            "previousSettlement": 2868,
-            "score": 73.46,
-            "action": "大周期做多/抄底",
-            "confidence": "中",
-            "signals": {
-                "productionCost": 3200,
-                "cashCost": 2800,
-                "close": 2889,
-                "basis": -89,
-                "basisRate": "-3.18%",
-                "leftSide": {
-                    "state": "生产成本线",
-                    "advice": "生产成本附近，左侧轻仓布局，跌破现金成本认错",
-                    "tags": [
-                        "生产成本线"
-                    ],
-                    "bottom": {
-                        "score": 73.45967462789892,
-                        "action": "生产成本线",
-                        "rangePosition": null,
-                        "rangeLow": null,
-                        "rangeHigh": null
-                    },
-                    "top": {
-                        "score": 73.45967462789892,
-                        "action": "生产成本线",
-                        "upperShadowRatio": null
-                    }
-                },
-                "multiDay": {
-                    "tags": [
-                        "生产成本线"
-                    ],
-                    "notes": [
-                        "最新价(2889)低于或逼近生产成本线(3200)，行业整体亏损，供给收缩拐点将至"
-                    ]
-                },
-                "turnover": null
-            },
-            "reasons": [
-                "最新价(2889)低于或逼近生产成本线(3200)，行业整体亏损，供给收缩拐点将至"
-            ],
-            "risks": [
-                "期货升水现货，基差为-89，透支左侧上涨空间"
-            ],
-            "qualityWarnings": [
-                "仓单日期(2026-06-10)早于行情日期(2026-06-11)"
-            ]
-        },
-        {
             "code": "CJ",
             "name": "红枣2609",
             "contract": "CJ2609",
-            "close": 8880,
-            "previousSettlement": 9075,
-            "score": 73.42,
+            "close": 8900,
+            "previousSettlement": 8870,
+            "score": 73.31,
             "action": "大周期做多/抄底",
             "confidence": "中",
             "signals": {
                 "productionCost": 9200,
                 "cashCost": 8300,
-                "close": 8880,
-                "basis": -280,
-                "basisRate": "-3.26%",
+                "close": 8900,
+                "basis": -300,
+                "basisRate": "-3.49%",
                 "leftSide": {
                     "state": "生产成本线",
                     "advice": "生产成本附近，左侧轻仓布局，跌破现金成本认错",
@@ -438,14 +384,14 @@
                         "生产成本线"
                     ],
                     "bottom": {
-                        "score": 73.42342342342343,
+                        "score": 73.31460674157303,
                         "action": "生产成本线",
                         "rangePosition": null,
                         "rangeLow": null,
                         "rangeHigh": null
                     },
                     "top": {
-                        "score": 73.42342342342343,
+                        "score": 73.31460674157303,
                         "action": "生产成本线",
                         "upperShadowRatio": null
                     }
@@ -455,16 +401,68 @@
                         "生产成本线"
                     ],
                     "notes": [
-                        "最新价(8880)低于或逼近生产成本线(9200)，行业整体亏损，供给收缩拐点将至"
+                        "最新价(8900)低于或逼近生产成本线(9200)，行业整体亏损，供给收缩拐点将至"
                     ]
                 },
                 "turnover": null
             },
             "reasons": [
-                "最新价(8880)低于或逼近生产成本线(9200)，行业整体亏损，供给收缩拐点将至"
+                "最新价(8900)低于或逼近生产成本线(9200)，行业整体亏损，供给收缩拐点将至"
             ],
             "risks": [
-                "期货升水现货，基差为-280，透支左侧上涨空间"
+                "期货升水现货，基差为-300，透支左侧上涨空间"
+            ],
+            "qualityWarnings": []
+        },
+        {
+            "code": "AO",
+            "name": "氧化铝2609",
+            "contract": "AO2609",
+            "close": 2938,
+            "previousSettlement": 2922,
+            "score": 72.65,
+            "action": "大周期做多/抄底",
+            "confidence": "中",
+            "signals": {
+                "productionCost": 3200,
+                "cashCost": 2800,
+                "close": 2938,
+                "basis": -138,
+                "basisRate": "-4.93%",
+                "leftSide": {
+                    "state": "生产成本线",
+                    "advice": "生产成本附近，左侧轻仓布局，跌破现金成本认错",
+                    "tags": [
+                        "生产成本线"
+                    ],
+                    "bottom": {
+                        "score": 72.65146358066713,
+                        "action": "生产成本线",
+                        "rangePosition": null,
+                        "rangeLow": null,
+                        "rangeHigh": null
+                    },
+                    "top": {
+                        "score": 72.65146358066713,
+                        "action": "生产成本线",
+                        "upperShadowRatio": null
+                    }
+                },
+                "multiDay": {
+                    "tags": [
+                        "生产成本线"
+                    ],
+                    "notes": [
+                        "最新价(2938)低于或逼近生产成本线(3200)，行业整体亏损，供给收缩拐点将至"
+                    ]
+                },
+                "turnover": null
+            },
+            "reasons": [
+                "最新价(2938)低于或逼近生产成本线(3200)，行业整体亏损，供给收缩拐点将至"
+            ],
+            "risks": [
+                "期货升水现货，基差为-138，透支左侧上涨空间"
             ],
             "qualityWarnings": []
         },
@@ -472,17 +470,17 @@
             "code": "JM",
             "name": "焦煤2609",
             "contract": "JM2609",
-            "close": 1363,
-            "previousSettlement": 1357,
+            "close": 1372.5,
+            "previousSettlement": 1373,
             "score": 55,
             "action": "观望/拿着不动",
             "confidence": "低",
             "signals": {
                 "productionCost": 1200,
                 "cashCost": 1000,
-                "close": 1363,
-                "basis": 487,
-                "basisRate": "26.31%",
+                "close": 1372.5,
+                "basis": 480,
+                "basisRate": "25.93%",
                 "leftSide": {
                     "state": "中位震荡",
                     "advice": "估值中性，散户不参与灰色震荡，拿着现金不动",
@@ -507,36 +505,34 @@
                         "中位震荡"
                     ],
                     "notes": [
-                        "最新价(1363)处于成本线(1200)与现金成本(1000)上方，估值中性",
-                        "期货贴水现货，基差为+487，提供额外现期收敛拉力"
+                        "最新价(1372.5)处于成本线(1200)与现金成本(1000)上方，估值中性",
+                        "期货贴水现货，基差为+480，提供额外现期收敛拉力"
                     ]
                 },
                 "turnover": null
             },
             "reasons": [
-                "最新价(1363)处于成本线(1200)与现金成本(1000)上方，估值中性",
-                "期货贴水现货，基差为+487，提供额外现期收敛拉力"
+                "最新价(1372.5)处于成本线(1200)与现金成本(1000)上方，估值中性",
+                "期货贴水现货，基差为+480，提供额外现期收敛拉力"
             ],
             "risks": [],
-            "qualityWarnings": [
-                "仓单日期(2026-06-09)早于行情日期(2026-06-10)"
-            ]
+            "qualityWarnings": []
         },
         {
             "code": "PP",
             "name": "聚丙烯2609",
             "contract": "PP2609",
-            "close": 8700,
-            "previousSettlement": 8641,
-            "score": 50.79,
+            "close": 8659,
+            "previousSettlement": 8636,
+            "score": 51.32,
             "action": "观望/拿着不动",
             "confidence": "低",
             "signals": {
                 "productionCost": 7500,
                 "cashCost": 7000,
-                "close": 8700,
-                "basis": 1007,
-                "basisRate": "10.43%",
+                "close": 8659,
+                "basis": 1094,
+                "basisRate": "11.29%",
                 "leftSide": {
                     "state": "中位震荡",
                     "advice": "估值中性，散户不参与灰色震荡，拿着现金不动",
@@ -544,14 +540,14 @@
                         "中位震荡"
                     ],
                     "bottom": {
-                        "score": 50.78735632183908,
+                        "score": 51.31712668899411,
                         "action": "中位震荡",
                         "rangePosition": null,
                         "rangeLow": null,
                         "rangeHigh": null
                     },
                     "top": {
-                        "score": 50.78735632183908,
+                        "score": 51.31712668899411,
                         "action": "中位震荡",
                         "upperShadowRatio": null
                     }
@@ -561,15 +557,15 @@
                         "中位震荡"
                     ],
                     "notes": [
-                        "最新价(8700)处于成本线(7500)与现金成本(7000)上方，估值中性",
-                        "期货贴水现货，基差为+1007，提供额外现期收敛拉力"
+                        "最新价(8659)处于成本线(7500)与现金成本(7000)上方，估值中性",
+                        "期货贴水现货，基差为+1094，提供额外现期收敛拉力"
                     ]
                 },
                 "turnover": null
             },
             "reasons": [
-                "最新价(8700)处于成本线(7500)与现金成本(7000)上方，估值中性",
-                "期货贴水现货，基差为+1007，提供额外现期收敛拉力"
+                "最新价(8659)处于成本线(7500)与现金成本(7000)上方，估值中性",
+                "期货贴水现货，基差为+1094，提供额外现期收敛拉力"
             ],
             "risks": [],
             "qualityWarnings": []
@@ -578,17 +574,17 @@
             "code": "RM",
             "name": "菜粕2609",
             "contract": "RM2609",
-            "close": 2246,
-            "previousSettlement": 2228,
-            "score": 47.29,
+            "close": 2267,
+            "previousSettlement": 2255,
+            "score": 47.36,
             "action": "观望/拿着不动",
             "confidence": "低",
             "signals": {
                 "productionCost": 2200,
                 "cashCost": 1950,
-                "close": 2246,
-                "basis": 103,
-                "basisRate": "4.40%",
+                "close": 2267,
+                "basis": 107,
+                "basisRate": "4.52%",
                 "leftSide": {
                     "state": "中位震荡",
                     "advice": "估值中性，散户不参与灰色震荡，拿着现金不动",
@@ -596,14 +592,14 @@
                         "中位震荡"
                     ],
                     "bottom": {
-                        "score": 47.29296527159394,
+                        "score": 47.35994706660785,
                         "action": "中位震荡",
                         "rangePosition": null,
                         "rangeLow": null,
                         "rangeHigh": null
                     },
                     "top": {
-                        "score": 47.29296527159394,
+                        "score": 47.35994706660785,
                         "action": "中位震荡",
                         "upperShadowRatio": null
                     }
@@ -613,67 +609,15 @@
                         "中位震荡"
                     ],
                     "notes": [
-                        "最新价(2246)处于成本线(2200)与现金成本(1950)上方，估值中性",
-                        "期货贴水现货，基差为+103，提供额外现期收敛拉力"
+                        "最新价(2267)处于成本线(2200)与现金成本(1950)上方，估值中性",
+                        "期货贴水现货，基差为+107，提供额外现期收敛拉力"
                     ]
                 },
                 "turnover": null
             },
             "reasons": [
-                "最新价(2246)处于成本线(2200)与现金成本(1950)上方，估值中性",
-                "期货贴水现货，基差为+103，提供额外现期收敛拉力"
-            ],
-            "risks": [],
-            "qualityWarnings": []
-        },
-        {
-            "code": "OI",
-            "name": "菜油2609",
-            "contract": "OI2609",
-            "close": 9959,
-            "previousSettlement": 9902,
-            "score": 46.44,
-            "action": "观望/拿着不动",
-            "confidence": "低",
-            "signals": {
-                "productionCost": 8200,
-                "cashCost": 7800,
-                "close": 9959,
-                "basis": 287,
-                "basisRate": "2.82%",
-                "leftSide": {
-                    "state": "中位震荡",
-                    "advice": "估值中性，散户不参与灰色震荡，拿着现金不动",
-                    "tags": [
-                        "中位震荡"
-                    ],
-                    "bottom": {
-                        "score": 46.4409077216588,
-                        "action": "中位震荡",
-                        "rangePosition": null,
-                        "rangeLow": null,
-                        "rangeHigh": null
-                    },
-                    "top": {
-                        "score": 46.4409077216588,
-                        "action": "中位震荡",
-                        "upperShadowRatio": null
-                    }
-                },
-                "multiDay": {
-                    "tags": [
-                        "中位震荡"
-                    ],
-                    "notes": [
-                        "最新价(9959)处于成本线(8200)与现金成本(7800)上方，估值中性",
-                        "期货贴水现货，基差为+287，提供额外现期收敛拉力"
-                    ]
-                },
-                "turnover": null
-            },
-            "reasons": [
-                "最新价(9959)处于成本线(8200)与现金成本(7800)上方，估值中性",
-                "期货贴水现货，基差为+287，提供额外现期收敛拉力"
+                "最新价(2267)处于成本线(2200)与现金成本(1950)上方，估值中性",
+                "期货贴水现货，基差为+107，提供额外现期收敛拉力"
             ],
             "risks": [],
             "qualityWarnings": []
@@ -682,17 +626,17 @@
             "code": "BU",
             "name": "沥青2609",
             "contract": "BU2609",
-            "close": 4487,
-            "previousSettlement": 4438,
-            "score": 45.87,
+            "close": 4436,
+            "previousSettlement": 4473,
+            "score": 46.57,
             "action": "观望/拿着不动",
             "confidence": "低",
             "signals": {
                 "productionCost": 3500,
                 "cashCost": 3100,
-                "close": 4487,
-                "basis": 78,
-                "basisRate": "1.74%",
+                "close": 4436,
+                "basis": 139,
+                "basisRate": "3.03%",
                 "leftSide": {
                     "state": "中位震荡",
                     "advice": "估值中性，散户不参与灰色震荡，拿着现金不动",
@@ -700,14 +644,14 @@
                         "中位震荡"
                     ],
                     "bottom": {
-                        "score": 45.869177624247826,
+                        "score": 46.56672678088368,
                         "action": "中位震荡",
                         "rangePosition": null,
                         "rangeLow": null,
                         "rangeHigh": null
                     },
                     "top": {
-                        "score": 45.869177624247826,
+                        "score": 46.56672678088368,
                         "action": "中位震荡",
                         "upperShadowRatio": null
                     }
@@ -717,15 +661,67 @@
                         "中位震荡"
                     ],
                     "notes": [
-                        "最新价(4487)处于成本线(3500)与现金成本(3100)上方，估值中性",
-                        "期货贴水现货，基差为+78，提供额外现期收敛拉力"
+                        "最新价(4436)处于成本线(3500)与现金成本(3100)上方，估值中性",
+                        "期货贴水现货，基差为+139，提供额外现期收敛拉力"
                     ]
                 },
                 "turnover": null
             },
             "reasons": [
-                "最新价(4487)处于成本线(3500)与现金成本(3100)上方，估值中性",
-                "期货贴水现货，基差为+78，提供额外现期收敛拉力"
+                "最新价(4436)处于成本线(3500)与现金成本(3100)上方，估值中性",
+                "期货贴水现货，基差为+139，提供额外现期收敛拉力"
+            ],
+            "risks": [],
+            "qualityWarnings": []
+        },
+        {
+            "code": "OI",
+            "name": "菜油2609",
+            "contract": "OI2609",
+            "close": 9868,
+            "previousSettlement": 9887,
+            "score": 46.35,
+            "action": "观望/拿着不动",
+            "confidence": "低",
+            "signals": {
+                "productionCost": 8200,
+                "cashCost": 7800,
+                "close": 9868,
+                "basis": 266,
+                "basisRate": "2.62%",
+                "leftSide": {
+                    "state": "中位震荡",
+                    "advice": "估值中性，散户不参与灰色震荡，拿着现金不动",
+                    "tags": [
+                        "中位震荡"
+                    ],
+                    "bottom": {
+                        "score": 46.3477908390758,
+                        "action": "中位震荡",
+                        "rangePosition": null,
+                        "rangeLow": null,
+                        "rangeHigh": null
+                    },
+                    "top": {
+                        "score": 46.3477908390758,
+                        "action": "中位震荡",
+                        "upperShadowRatio": null
+                    }
+                },
+                "multiDay": {
+                    "tags": [
+                        "中位震荡"
+                    ],
+                    "notes": [
+                        "最新价(9868)处于成本线(8200)与现金成本(7800)上方，估值中性",
+                        "期货贴水现货，基差为+266，提供额外现期收敛拉力"
+                    ]
+                },
+                "turnover": null
+            },
+            "reasons": [
+                "最新价(9868)处于成本线(8200)与现金成本(7800)上方，估值中性",
+                "期货贴水现货，基差为+266，提供额外现期收敛拉力"
             ],
             "risks": [],
             "qualityWarnings": []
@@ -734,17 +730,17 @@
             "code": "UR",
             "name": "尿素2609",
             "contract": "UR2609",
-            "close": 1793,
-            "previousSettlement": 1805,
-            "score": 45.81,
+            "close": 1792,
+            "previousSettlement": 1795,
+            "score": 45.56,
             "action": "观望/拿着不动",
             "confidence": "低",
             "signals": {
                 "productionCost": 1600,
                 "cashCost": 1350,
-                "close": 1793,
-                "basis": 29,
-                "basisRate": "1.59%",
+                "close": 1792,
+                "basis": 20,
+                "basisRate": "1.10%",
                 "leftSide": {
                     "state": "中位震荡",
                     "advice": "估值中性，散户不参与灰色震荡，拿着现金不动",
@@ -752,14 +748,14 @@
                         "中位震荡"
                     ],
                     "bottom": {
-                        "score": 45.80870050195204,
+                        "score": 45.558035714285715,
                         "action": "中位震荡",
                         "rangePosition": null,
                         "rangeLow": null,
                         "rangeHigh": null
                     },
                     "top": {
-                        "score": 45.80870050195204,
+                        "score": 45.558035714285715,
                         "action": "中位震荡",
                         "upperShadowRatio": null
                     }
@@ -769,121 +765,15 @@
                         "中位震荡"
                     ],
                     "notes": [
-                        "最新价(1793)处于成本线(1600)与现金成本(1350)上方，估值中性",
-                        "期货贴水现货，基差为+29，提供额外现期收敛拉力"
+                        "最新价(1792)处于成本线(1600)与现金成本(1350)上方，估值中性",
+                        "期货贴水现货，基差为+20，提供额外现期收敛拉力"
                     ]
                 },
                 "turnover": null
             },
             "reasons": [
-                "最新价(1793)处于成本线(1600)与现金成本(1350)上方，估值中性",
-                "期货贴水现货，基差为+29，提供额外现期收敛拉力"
-            ],
-            "risks": [],
-            "qualityWarnings": []
-        },
-        {
-            "code": "AP",
-            "name": "苹果2610",
-            "contract": "AP2610",
-            "close": 7400,
-            "previousSettlement": 7427,
-            "score": 45.34,
-            "action": "观望/拿着不动",
-            "confidence": "低",
-            "signals": {
-                "productionCost": 7000,
-                "cashCost": 6000,
-                "close": 7400,
-                "basis": 50,
-                "basisRate": "0.67%",
-                "leftSide": {
-                    "state": "中位震荡",
-                    "advice": "估值中性，散户不参与灰色震荡，拿着现金不动",
-                    "tags": [
-                        "中位震荡"
-                    ],
-                    "bottom": {
-                        "score": 45.33783783783784,
-                        "action": "中位震荡",
-                        "rangePosition": null,
-                        "rangeLow": null,
-                        "rangeHigh": null
-                    },
-                    "top": {
-                        "score": 45.33783783783784,
-                        "action": "中位震荡",
-                        "upperShadowRatio": null
-                    }
-                },
-                "multiDay": {
-                    "tags": [
-                        "中位震荡"
-                    ],
-                    "notes": [
-                        "最新价(7400)处于成本线(7000)与现金成本(6000)上方，估值中性",
-                        "期货贴水现货，基差为+50，提供额外现期收敛拉力"
-                    ]
-                },
-                "turnover": null
-            },
-            "reasons": [
-                "最新价(7400)处于成本线(7000)与现金成本(6000)上方，估值中性",
-                "期货贴水现货，基差为+50，提供额外现期收敛拉力"
-            ],
-            "risks": [],
-            "qualityWarnings": [
-                "仓单日期(2026-05-29)早于行情日期(2026-06-10)"
-            ]
-        },
-        {
-            "code": "PK",
-            "name": "花生2610",
-            "contract": "PK2610",
-            "close": 8392,
-            "previousSettlement": 8366,
-            "score": 45.05,
-            "action": "观望/拿着不动",
-            "confidence": "低",
-            "signals": {
-                "productionCost": 8200,
-                "cashCost": 7800,
-                "close": 8392,
-                "basis": 8,
-                "basisRate": "0.10%",
-                "leftSide": {
-                    "state": "中位震荡",
-                    "advice": "估值中性，散户不参与灰色震荡，拿着现金不动",
-                    "tags": [
-                        "中位震荡"
-                    ],
-                    "bottom": {
-                        "score": 45.047664442326024,
-                        "action": "中位震荡",
-                        "rangePosition": null,
-                        "rangeLow": null,
-                        "rangeHigh": null
-                    },
-                    "top": {
-                        "score": 45.047664442326024,
-                        "action": "中位震荡",
-                        "upperShadowRatio": null
-                    }
-                },
-                "multiDay": {
-                    "tags": [
-                        "中位震荡"
-                    ],
-                    "notes": [
-                        "最新价(8392)处于成本线(8200)与现金成本(7800)上方，估值中性",
-                        "期货贴水现货，基差为+8，提供额外现期收敛拉力"
-                    ]
-                },
-                "turnover": null
-            },
-            "reasons": [
-                "最新价(8392)处于成本线(8200)与现金成本(7800)上方，估值中性",
-                "期货贴水现货，基差为+8，提供额外现期收敛拉力"
+                "最新价(1792)处于成本线(1600)与现金成本(1350)上方，估值中性",
+                "期货贴水现货，基差为+20，提供额外现期收敛拉力"
             ],
             "risks": [],
             "qualityWarnings": []
@@ -892,15 +782,15 @@
             "code": "FU",
             "name": "燃料油2609",
             "contract": "FU2609",
-            "close": 3764,
-            "previousSettlement": 3693,
+            "close": 3602,
+            "previousSettlement": 3678,
             "score": 45,
             "action": "观望/拿着不动",
             "confidence": "低",
             "signals": {
                 "productionCost": 3200,
                 "cashCost": 2800,
-                "close": 3764,
+                "close": 3602,
                 "leftSide": {
                     "state": "中位震荡",
                     "advice": "估值中性，散户不参与灰色震荡，拿着现金不动",
@@ -925,33 +815,33 @@
                         "中位震荡"
                     ],
                     "notes": [
-                        "最新价(3764)处于成本线(3200)与现金成本(2800)上方，估值中性"
+                        "最新价(3602)处于成本线(3200)与现金成本(2800)上方，估值中性"
                     ]
                 },
                 "turnover": null
             },
             "reasons": [
-                "最新价(3764)处于成本线(3200)与现金成本(2800)上方，估值中性"
+                "最新价(3602)处于成本线(3200)与现金成本(2800)上方，估值中性"
             ],
             "risks": [],
             "qualityWarnings": [
                 "基差口径需校验：现货口径与燃料油期货交割规格可能不一致，需确认硫含量/地区/单位",
-                "仓单日期(2025-12-31)早于行情日期(2026-06-10)"
+                "仓单日期(2025-12-31)早于行情日期(2026-06-12)"
             ]
         },
         {
             "code": "JD",
             "name": "鸡蛋2609",
             "contract": "JD2609",
-            "close": 4395,
-            "previousSettlement": 4339,
+            "close": 4416,
+            "previousSettlement": 4369,
             "score": 45,
             "action": "观望/拿着不动",
             "confidence": "低",
             "signals": {
                 "productionCost": 3400,
                 "cashCost": 3100,
-                "close": 4395,
+                "close": 4416,
                 "leftSide": {
                     "state": "中位震荡",
                     "advice": "估值中性，散户不参与灰色震荡，拿着现金不动",
@@ -976,35 +866,141 @@
                         "中位震荡"
                     ],
                     "notes": [
-                        "最新价(4395)处于成本线(3400)与现金成本(3100)上方，估值中性"
+                        "最新价(4416)处于成本线(3400)与现金成本(3100)上方，估值中性"
                     ]
                 },
                 "turnover": null
             },
             "reasons": [
-                "最新价(4395)处于成本线(3400)与现金成本(3100)上方，估值中性"
+                "最新价(4416)处于成本线(3400)与现金成本(3100)上方，估值中性"
             ],
             "risks": [],
             "qualityWarnings": [
                 "基差口径需校验：现货常见口径为元/斤，需换算至期货合约报价口径",
-                "仓单日期(2026-05-29)早于行情日期(2026-06-10)"
+                "仓单日期(2026-05-29)早于行情日期(2026-06-12)"
+            ]
+        },
+        {
+            "code": "PK",
+            "name": "花生2610",
+            "contract": "PK2610",
+            "close": 8426,
+            "previousSettlement": 8396,
+            "score": 44.85,
+            "action": "观望/拿着不动",
+            "confidence": "低",
+            "signals": {
+                "productionCost": 8200,
+                "cashCost": 7800,
+                "close": 8426,
+                "basis": -26,
+                "basisRate": "-0.31%",
+                "leftSide": {
+                    "state": "中位震荡",
+                    "advice": "估值中性，散户不参与灰色震荡，拿着现金不动",
+                    "tags": [
+                        "中位震荡"
+                    ],
+                    "bottom": {
+                        "score": 44.84571564206029,
+                        "action": "中位震荡",
+                        "rangePosition": null,
+                        "rangeLow": null,
+                        "rangeHigh": null
+                    },
+                    "top": {
+                        "score": 44.84571564206029,
+                        "action": "中位震荡",
+                        "upperShadowRatio": null
+                    }
+                },
+                "multiDay": {
+                    "tags": [
+                        "中位震荡"
+                    ],
+                    "notes": [
+                        "最新价(8426)处于成本线(8200)与现金成本(7800)上方，估值中性"
+                    ]
+                },
+                "turnover": null
+            },
+            "reasons": [
+                "最新价(8426)处于成本线(8200)与现金成本(7800)上方，估值中性"
+            ],
+            "risks": [
+                "期货升水现货，基差为-26，透支左侧上涨空间"
+            ],
+            "qualityWarnings": []
+        },
+        {
+            "code": "AP",
+            "name": "苹果2610",
+            "contract": "AP2610",
+            "close": 7698,
+            "previousSettlement": 7533,
+            "score": 43.39,
+            "action": "观望/拿着不动",
+            "confidence": "低",
+            "signals": {
+                "productionCost": 7000,
+                "cashCost": 6000,
+                "close": 7698,
+                "basis": -248,
+                "basisRate": "-3.33%",
+                "leftSide": {
+                    "state": "中位震荡",
+                    "advice": "估值中性，散户不参与灰色震荡，拿着现金不动",
+                    "tags": [
+                        "中位震荡"
+                    ],
+                    "bottom": {
+                        "score": 43.389191997921536,
+                        "action": "中位震荡",
+                        "rangePosition": null,
+                        "rangeLow": null,
+                        "rangeHigh": null
+                    },
+                    "top": {
+                        "score": 43.389191997921536,
+                        "action": "中位震荡",
+                        "upperShadowRatio": null
+                    }
+                },
+                "multiDay": {
+                    "tags": [
+                        "中位震荡"
+                    ],
+                    "notes": [
+                        "最新价(7698)处于成本线(7000)与现金成本(6000)上方，估值中性"
+                    ]
+                },
+                "turnover": null
+            },
+            "reasons": [
+                "最新价(7698)处于成本线(7000)与现金成本(6000)上方，估值中性"
+            ],
+            "risks": [
+                "期货升水现货，基差为-248，透支左侧上涨空间"
+            ],
+            "qualityWarnings": [
+                "仓单日期(2026-05-29)早于行情日期(2026-06-12)"
             ]
         },
         {
             "code": "MA",
             "name": "甲醇2609",
             "contract": "MA2609",
-            "close": 2996,
-            "previousSettlement": 2956,
-            "score": 16.41,
+            "close": 3028,
+            "previousSettlement": 3023,
+            "score": 17.2,
             "action": "大周期做空/摸顶",
             "confidence": "低",
             "signals": {
                 "productionCost": 2200,
                 "cashCost": 1900,
-                "close": 2996,
-                "basis": 384,
-                "basisRate": "11.44%",
+                "close": 3028,
+                "basis": 436,
+                "basisRate": "12.65%",
                 "leftSide": {
                     "state": "绝对摸顶区",
                     "advice": "企业暴利区，只空不买，突破近5日高点或行业利润继续走高认错",
@@ -1012,14 +1008,14 @@
                         "绝对摸顶区"
                     ],
                     "bottom": {
-                        "score": 16.408544726301734,
+                        "score": 17.199471598414796,
                         "action": "绝对摸顶区",
                         "rangePosition": null,
                         "rangeLow": null,
                         "rangeHigh": null
                     },
                     "top": {
-                        "score": 16.408544726301734,
+                        "score": 17.199471598414796,
                         "action": "绝对摸顶区",
                         "upperShadowRatio": null
                     }
@@ -1029,16 +1025,16 @@
                         "绝对摸顶区"
                     ],
                     "notes": [
-                        "期货贴水现货，基差为+384，提供额外现期收敛拉力"
+                        "期货贴水现货，基差为+436，提供额外现期收敛拉力"
                     ]
                 },
                 "turnover": null
             },
             "reasons": [
-                "期货贴水现货，基差为+384，提供额外现期收敛拉力"
+                "期货贴水现货，基差为+436，提供额外现期收敛拉力"
             ],
             "risks": [
-                "最新价(2996)超出生产成本线(2200)30%以上，行业利润极其丰厚，谨防供给快速释放"
+                "最新价(3028)超出生产成本线(2200)30%以上，行业利润极其丰厚，谨防供给快速释放"
             ],
             "qualityWarnings": []
         },
@@ -1046,17 +1042,17 @@
             "code": "LC",
             "name": "碳酸锂2609",
             "contract": "LC2609",
-            "close": 167400,
-            "previousSettlement": 165300,
-            "score": 8.98,
+            "close": 175300,
+            "previousSettlement": 171360,
+            "score": 9.06,
             "action": "大周期做空/摸顶",
             "confidence": "低",
             "signals": {
                 "productionCost": 75000,
                 "cashCost": 55000,
-                "close": 167400,
-                "basis": -3400,
-                "basisRate": "-2.07%",
+                "close": 175300,
+                "basis": -3300,
+                "basisRate": "-1.92%",
                 "leftSide": {
                     "state": "绝对摸顶区",
                     "advice": "企业暴利区，只空不买，突破近5日高点或行业利润继续走高认错",
@@ -1064,14 +1060,14 @@
                         "绝对摸顶区"
                     ],
                     "bottom": {
-                        "score": 8.98446833930705,
+                        "score": 9.05875641756988,
                         "action": "绝对摸顶区",
                         "rangePosition": null,
                         "rangeLow": null,
                         "rangeHigh": null
                     },
                     "top": {
-                        "score": 8.98446833930705,
+                        "score": 9.05875641756988,
                         "action": "绝对摸顶区",
                         "upperShadowRatio": null
                     }
@@ -1086,8 +1082,8 @@
             },
             "reasons": [],
             "risks": [
-                "最新价(167400)超出生产成本线(75000)30%以上，行业利润极其丰厚，谨防供给快速释放",
-                "期货升水现货，基差为-3400，透支左侧上涨空间"
+                "最新价(175300)超出生产成本线(75000)30%以上，行业利润极其丰厚，谨防供给快速释放",
+                "期货升水现货，基差为-3300，透支左侧上涨空间"
             ],
             "qualityWarnings": []
         }
