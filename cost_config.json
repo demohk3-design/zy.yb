@@ -1,9 +1,0 @@
-{
-    "_note": "可选本地成本口径。没有 QHKCH_TOKEN 时，脚本会用这里的 productionCost 估算产业利润；不确定的品种不要乱填。",
-    "_example": {
-        "productionCost": 0,
-        "priceBasis": "close",
-        "date": "YYYY-MM-DD",
-        "note": "成本口径说明，例如：华东现金成本/山东联碱成本/进口矿完全成本"
-    }
-}
