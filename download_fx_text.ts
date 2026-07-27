@@ -376,6 +376,20 @@ async function main() {
   const oldestTargetKey = dateKey(targetDates[targetDates.length - 1]);
   console.log("多机构走列表抓取 - 目标日期:", targetDates);
 
+  const cleanPatterns = [
+    /^fx_ai_context_.*\.md$/,
+    /^fx_report_details_.*\.json$/,
+    /^fx_report_details_.*\.jsonl$/,
+    /^download_fx_text_list\.json$/,
+    /^download_fx_text_missing_from_list\.json$/
+  ];
+  for (const fileName of readdirSync(OUTPUT_DIR)) {
+    if (cleanPatterns.some(p => p.test(fileName))) {
+      unlinkSync(join(OUTPUT_DIR, fileName));
+    }
+  }
+  console.log("[🧹] 已清理 context 目录中的旧文件");
+
   const matchedReports: ReportTask[] = [];
   const seenDocIds = new Set<number>();
   let page = 1;
