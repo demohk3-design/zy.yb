@@ -1,0 +1,19 @@
+{
+  "name": "fx-yb-monorepo",
+  "private": true,
+  "packageManager": "bun@1.1.0",
+  "workspaces": [
+    "admin",
+    "server",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "bun run dev:server",
+    "dserver": "bun run --cwd server dev",
+    "dadmin": "bun run --cwd admin dev",
+    "build:admin": "bun run --cwd admin build",
+    "typecheck": "bun run typecheck:server && bun run typecheck:admin",
+    "typecheck:server": "bun run --cwd server typecheck",
+    "typecheck:admin": "bun run --cwd admin typecheck"
+  }
+}
