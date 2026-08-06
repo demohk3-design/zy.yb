@@ -92,6 +92,14 @@ function htmlToText(html: string): string {
     .join("\n");
 }
 
+// 免费预览摘要通常位于 aria-hidden=true 的容器里。
+// 选择包含较长 ul 内容的容器，避免把导航、页脚和“你可能感兴趣”混入正文。
+function extractReportContentHtml(html: string): string {
+  const candidates = html.match(/<div\b[^>]*aria-hidden\s*=\s*["']true["'][^>]*>[\s\S]*?<\/div>/gi) ?? [];
+  const summary = candidates.find((block) => /<ul\b/i.test(block) && htmlToText(block).length > 100);
+  return summary ?? html;
+}
+
 function extractParagraphs(rawText: string): string[] {
   const endMarkers = [
     "点击免费查看", "你可能感兴趣", "相关报告", "在线客服", "回到首页", "退出登录",
@@ -103,6 +111,7 @@ function extractParagraphs(rawText: string): string[] {
     if (!cleanLine) continue;
     if (endMarkers.some((marker) => cleanLine.includes(marker))) break;
     if (cleanLine.length < 12) continue;
+    if (cleanLine.includes("您的浏览器禁用了JavaScript")) continue;
     if (cleanLine.includes("免责声明") || cleanLine.includes("版权所有") || cleanLine.includes("不构成个人投资建议")) continue;
     paragraphs.push(cleanLine);
   }
@@ -267,6 +276,12 @@ export function buildAiContext(dateFormatted: string, details: ReportDetail[], k
 // ---------- 抓取核心 ----------
 const USER_AGENT =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+const REQUEST_HEADERS: Record<string, string> = {
+  "User-Agent": USER_AGENT,
+  "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+  "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+  "Referer": `${config.fetch.baseUrl}/`,
+};
 
 async function fetchReportList(targetDates: string[], onProgress?: (page: number, total: number) => void): Promise<ReportTask[]> {
   const targetDateSet = new Set(targetDates);
@@ -280,7 +295,7 @@ async function fetchReportList(targetDates: string[], onProgress?: (page: number
   while (!shouldStop && page <= config.fetch.maxPages) {
     try {
       const res = await fetch(`${config.fetch.baseUrl}/category/${config.fetch.categoryId}?page=${page}`, {
-        headers: { "User-Agent": USER_AGENT },
+        headers: REQUEST_HEADERS,
       });
       const text = await res.text();
       const match = text.match(/<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/);
@@ -326,11 +341,13 @@ async function fetchReportList(targetDates: string[], onProgress?: (page: number
 async function fetchReportDetail(report: ReportTask, keywordList: string[]): Promise<ReportDetail> {
   const detailUrl = `${config.fetch.baseUrl}/detail/${report.docId}`;
   try {
-    const res = await fetch(detailUrl, { headers: { "User-Agent": USER_AGENT } });
+    const res = await fetch(detailUrl, { headers: REQUEST_HEADERS });
+    if (!res.ok) throw new Error(`详情页 HTTP ${res.status}`);
     const html = await res.text();
-    const rawText = htmlToText(html);
+    const contentHtml = extractReportContentHtml(html);
+    const rawText = htmlToText(contentHtml);
     const paragraphs = extractParagraphs(rawText);
-    const bullets = extractBullets(html);
+    const bullets = extractBullets(contentHtml);
     const keywordSource = [report.title, rawText, bullets.join("\n")].join("\n");
     return {
       ...report,

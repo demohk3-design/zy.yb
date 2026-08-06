@@ -14,6 +14,12 @@ const TARGET_KEYWORDS = [
 ];
 
 const BASE_URL = "https://www.fxbaogao.com";
+const REQUEST_HEADERS: Record<string, string> = {
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+  "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+  "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+  "Referer": `${BASE_URL}/`,
+};
 const CATEGORY_ID = 20;
 const MAX_PAGES = 300;
 const OUTPUT_DIR = existsSync(join(process.cwd(), "context")) ? join(process.cwd(), "context") : process.cwd();
@@ -93,6 +99,14 @@ function htmlToText(html: string): string {
     .join("\n");
 }
 
+// 详情页正文并不总在同一个 class 中，但免费预览摘要通常位于 aria-hidden=true 的容器里。
+// 选择包含较长 ul 内容的容器，避免把导航和推荐报告混进正文。
+function extractReportContentHtml(html: string): string {
+  const candidates = html.match(/<div\b[^>]*aria-hidden\s*=\s*["']true["'][^>]*>[\s\S]*?<\/div>/gi) ?? [];
+  const summary = candidates.find(block => /<ul\b/i.test(block) && htmlToText(block).length > 100);
+  return summary ?? html;
+}
+
 function extractParagraphs(rawText: string): string[] {
   const endMarkers = ["点击免费查看", "你可能感兴趣", "相关报告", "在线客服", "回到首页", "退出登录", "AIGC工具", "关于我们", "服务协议", "扫码关注", "我的报告"];
   const paragraphs: string[] = [];
@@ -102,6 +116,7 @@ function extractParagraphs(rawText: string): string[] {
     if (!cleanLine) continue;
     if (endMarkers.some(marker => cleanLine.includes(marker))) break;
     if (cleanLine.length < 12) continue;
+    if (cleanLine.includes("您的浏览器禁用了JavaScript")) continue;
     if (cleanLine.includes("免责声明") || cleanLine.includes("版权所有") || cleanLine.includes("不构成个人投资建议")) continue;
     paragraphs.push(cleanLine);
   }
@@ -266,15 +281,13 @@ async function fetchReportDetail(report: ReportTask): Promise<ReportDetail> {
   const detailUrl = `${BASE_URL}/detail/${report.docId}`;
 
   try {
-    const res = await fetch(detailUrl, {
-      headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-      }
-    });
+    const res = await fetch(detailUrl, { headers: REQUEST_HEADERS });
+    if (!res.ok) throw new Error(`详情页 HTTP ${res.status}`);
     const html = await res.text();
-    const rawText = htmlToText(html);
+    const contentHtml = extractReportContentHtml(html);
+    const rawText = htmlToText(contentHtml);
     const paragraphs = extractParagraphs(rawText);
-    const bullets = extractBullets(html);
+    const bullets = extractBullets(contentHtml);
     const keywordSource = [report.title, rawText, bullets.join("\n")].join("\n");
 
     return {
@@ -401,9 +414,7 @@ async function main() {
     console.log(`正在读取列表第 ${page} 页...`);
     try {
       const res = await fetch(`${BASE_URL}/category/${CATEGORY_ID}?page=${page}`, {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-        }
+        headers: REQUEST_HEADERS,
       });
       const text = await res.text();
 
