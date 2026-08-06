@@ -1,6 +1,6 @@
 import { existsSync, readdirSync, unlinkSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { eq, lt, sql } from "drizzle-orm";
+import { eq, lt, and, like, sql } from "drizzle-orm";
 import { sqliteDb } from "@/db/db";
 import { fetchRuns, reports, keywords } from "@/db/schema";
 import { config } from "@/config";
@@ -454,6 +454,21 @@ export async function cleanupOldData(days: number = config.retentionDays): Promi
   const cutoffDate = new Date(Date.now() - days * 86400000);
   const cutoff = dateFilePart(cutoffDate.toISOString());
 
+  // 0. 删除详情页 HTTP 404 的历史无效记录（内容不存在，无分析价值）
+  const notFoundCount = (
+    await sqliteDb
+      .select({ count: sql<number>`count(*)` })
+      .from(reports)
+      .where(and(eq(reports.fetchStatus, "failed"), like(reports.error, "%HTTP 404%")))
+  )[0]?.count;
+  if (notFoundCount && notFoundCount > 0) {
+    await sqliteDb
+      .delete(reports)
+      .where(and(eq(reports.fetchStatus, "failed"), like(reports.error, "%HTTP 404%")))
+      .run();
+    console.log(`[清理] 已删除详情页 404 的无效记录 ${notFoundCount} 条`);
+  }
+
   // 1. 删除数据库中的过期报告
   const countResult = await sqliteDb
     .select({ count: sql<number>`count(*)` })
@@ -534,6 +549,13 @@ export async function runFetch(runId: number) {
       const dayDetails: ReportDetail[] = [];
       for (const report of list) {
         const detail = await fetchReportDetail(report, keywordList);
+        // 详情页 HTTP 404：内容不存在，没必要入库，直接跳过
+        if (detail.fetchStatus === "failed" && /HTTP 404/.test(detail.error ?? "")) {
+          await sqliteDb.delete(reports).where(eq(reports.docId, detail.docId));
+          updateRun({ message: `[跳过] 详情页不存在 [${detail.orgName}] ${detail.title}` });
+          await sleep(config.fetch.detailDelayMs);
+          continue;
+        }
         dayDetails.push(detail);
         if (detail.fetchStatus === "ok") {
           okCount++;
