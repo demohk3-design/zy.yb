@@ -37,7 +37,7 @@ export const reportsRoutes = new Elysia({ prefix: "/reports" })
       const fetchStatus = typeof query.fetchStatus === "string" ? query.fetchStatus.trim() : "";
       const startDate = typeof query.startDate === "string" && query.startDate.trim() ? query.startDate.trim() : "";
       const endDate = typeof query.endDate === "string" && query.endDate.trim() ? query.endDate.trim() : "";
-      const sortField = typeof query.sortField === "string" ? query.sortField : "pubDateKey";
+      const sortField = typeof query.sortField === "string" ? query.sortField : "docId";
       const sortOrder = typeof query.sortOrder === "string" ? query.sortOrder : "descend";
 
       const conditions: any[] = [];
@@ -72,6 +72,7 @@ export const reportsRoutes = new Elysia({ prefix: "/reports" })
       // 白名单排序字段
       const sortableFields: Record<string, any> = {
         id: reports.id,
+        docId: reports.docId,
         pubDateKey: reports.pubDateKey,
         orgName: reports.orgName,
         title: reports.title,
