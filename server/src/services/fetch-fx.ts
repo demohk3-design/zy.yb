@@ -95,11 +95,22 @@ function htmlToText(html: string): string {
 // 免费预览摘要通常位于 aria-hidden=true 的容器里。
 // 选择包含较长 ul 内容的容器，避免把导航、页脚和“你可能感兴趣”混入正文。
 function extractReportContentHtml(html: string): string {
+  // 该站点目前把详情页的免费预览正文放在“报告封面”图片后面的 <p> 中，
+  // /view 页面则是 PDF 阅读器入口，通常只有登录/阅读提示。
+  const coverIndex = html.search(/<img\b[^>]*alt\s*=\s*["']报告封面["'][^>]*>/i);
+  if (coverIndex >= 0) {
+    const afterCover = html.slice(coverIndex);
+    const preview = afterCover.match(/<p\b[^>]*>([\s\S]*?)<\/p>/i);
+    if (preview?.[1] && htmlToText(preview[1]).length > 100) {
+      return preview[1];
+    }
+  }
+
+  // 兼容其他报告模板：免费预览摘要可能位于 aria-hidden=true 的容器里。
   const candidates = html.match(/<div\b[^>]*aria-hidden\s*=\s*["']true["'][^>]*>[\s\S]*?<\/div>/gi) ?? [];
   const summary = candidates.find((block) => /<ul\b/i.test(block) && htmlToText(block).length > 100);
   return summary ?? html;
 }
-
 function extractParagraphs(rawText: string): string[] {
   const endMarkers = [
     "点击免费查看", "你可能感兴趣", "相关报告", "在线客服", "回到首页", "退出登录",
