@@ -97,26 +97,18 @@ export default function ContextsPage() {
     }
   };
 
-  const openReport = async (name: string) => {
-    setReportOpen(true);
-    setReport(null);
-    try {
-      const res = await apiRequest<{ name: string; content: string }>(["/ai/content", "get"], { name });
-      setReport(res.data ?? null);
-    } catch {
-      // interceptor shows error
-    }
-  };
-
   // 按品种生成：汇总该品种最近全部日期的投喂包
   const generateReport = async (keyword: string) => {
     setGenerating(keyword);
     try {
       const res = await apiRequest<{ fileName: string; content: string }>(["/ai/generate", "post"], { keyword });
       message.success(`已生成 ${res.data?.fileName}`);
-      setReport({ name: res.data?.fileName ?? "", content: res.data?.content ?? "" });
-      setReportOpen(true);
       refreshReports();
+      // 生成成功后新窗口直接打开 HTML 报告
+      const fileName = res.data?.fileName;
+      if (fileName) {
+        window.open(`/reports/${fileName}`, "_blank", "noopener,noreferrer");
+      }
     } catch {
       // interceptor shows error
     } finally {
@@ -289,18 +281,21 @@ export default function ContextsPage() {
             {
               title: "文件名",
               dataIndex: "name",
-              render: (v: string) => (
-                <Button type="link" style={{ padding: 0 }} onClick={() => openReport(v)}>
-                  {v}
-                </Button>
-              ),
+              render: (v: string) => {
+                const htmlName = v.replace(/\.md$/, ".html");
+                return (
+                  <a href={`/reports/${htmlName}`} target="_blank" rel="noreferrer" title="新窗口打开">
+                    {htmlName}
+                  </a>
+                );
+              },
             },
             {
               title: "数据日期",
               dataIndex: "name",
               width: 120,
               render: (v: string) => {
-                const m = v.match(/_(\d{4}-\d{2}-\d{2})\.md$/);
+                const m = v.match(/_(\d{4}-\d{2}-\d{2})\.(?:md|html)$/);
                 return m ? m[1] : "-";
               },
             },

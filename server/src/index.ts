@@ -1,14 +1,18 @@
 import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
 import { sql } from "drizzle-orm";
+import { existsSync } from "node:fs";
+import { resolve } from "node:path";
 import { config } from "./config";
 import { initDb, sqliteDb, sqliteConnection } from "./db/db";
 import { seedKeywordsIfEmpty, cleanupOldData } from "./services/fetch-fx";
+import { ensureReportHtml } from "./services/ai";
 import { adminRoutes } from "./modules/admin";
 
 initDb();
 void seedKeywordsIfEmpty();
 void cleanupOldData();
+void ensureReportHtml();
 
 export const app = new Elysia()
   .decorate("db", sqliteDb)
@@ -39,6 +43,22 @@ export const app = new Elysia()
     }),
   )
   .use(adminRoutes)
+  // 静态服务：AI 生成的研报 HTML（新窗口直接打开）
+  .get("/reports/:file", ({ params, set }) => {
+    const file = params.file;
+    if (!/^[\w\u4e00-\u9fa5_-]+\.html$/.test(file)) {
+      set.status = 400;
+      return "非法文件名";
+    }
+    const reportsRoot = resolve(config.paths.reports);
+    const filePath = resolve(reportsRoot, file);
+    if (!filePath.startsWith(reportsRoot) || !existsSync(filePath)) {
+      set.status = 404;
+      return "文件不存在";
+    }
+    set.headers["content-type"] = "text/html; charset=utf-8";
+    return Bun.file(filePath);
+  })
   .get("/health", async () => {
     try {
       sqliteDb.run(sql`SELECT 1`);

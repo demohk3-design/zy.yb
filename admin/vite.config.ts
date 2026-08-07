@@ -28,6 +28,10 @@ export default defineConfig(({ mode }) => {
           target: env.API_PROXY_TARGET || "http://localhost:3100",
           changeOrigin: false,
         },
+        "/reports": {
+          target: env.API_PROXY_TARGET || "http://localhost:3100",
+          changeOrigin: false,
+        },
       },
     },
   };

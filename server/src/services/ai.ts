@@ -1,6 +1,7 @@
-import { existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, statSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { config } from "@/config";
+import { mdToHtml, reportHtmlPage } from "@/services/report-html";
 
 // AI 研报生成的 system 提示词：约束输出结构，且只允许基于素材撰写
 const SYSTEM_PROMPT = `你是资深的期货研究员，精通国内商品期货的基本面、技术面与资金面分析。
@@ -88,8 +89,12 @@ export async function generateReportWithAI(keyword: string): Promise<GeneratedRe
   }
 
   mkdirSync(config.paths.reports, { recursive: true });
-  const fileName = `${safeKeyword}_${latestDate}.md`;
-  await Bun.write(join(config.paths.reports, fileName), content);
+  // 直接生成 HTML 文件（不再保存 .md 中间产物）
+  const title = content.match(/^#\s+(.+)$/m)?.[1] ?? `${keyword}期货研报`;
+  const fileName = `${safeKeyword}_${latestDate}.html`;
+  const html = reportHtmlPage(title, mdToHtml(content), new Date().toLocaleString("zh-CN"));
+  await Bun.write(join(config.paths.reports, fileName), html);
+
   return { fileName, content };
 }
 
@@ -97,10 +102,32 @@ export async function generateReportWithAI(keyword: string): Promise<GeneratedRe
 export function listGeneratedReports(): { name: string; size: number; mtime: Date }[] {
   if (!existsSync(config.paths.reports)) return [];
   return readdirSync(config.paths.reports)
-    .filter((name) => name.endsWith(".md"))
+    .filter((name) => name.endsWith(".html"))
     .map((name) => {
       const stat = statSync(join(config.paths.reports, name));
       return { name, size: stat.size, mtime: new Date(stat.mtimeMs) };
     })
     .sort((a, b) => b.mtime.getTime() - a.mtime.getTime());
+}
+
+// 为历史 md 研报补齐同名 HTML 页面（旧文件无 html，补一次即可）
+export function ensureReportHtml(): number {
+  if (!existsSync(config.paths.reports)) return 0;
+  let created = 0;
+  for (const name of readdirSync(config.paths.reports)) {
+    if (!name.endsWith(".md")) continue;
+    const htmlName = name.replace(/\.md$/, ".html");
+    if (existsSync(join(config.paths.reports, htmlName))) continue;
+    try {
+      const content = readFileSync(join(config.paths.reports, name), "utf8");
+      const title = content.match(/^#\s+(.+)$/m)?.[1] ?? name.replace(/\.md$/, "");
+      const html = reportHtmlPage(title, mdToHtml(content), "（历史报告，已自动转换）");
+      writeFileSync(join(config.paths.reports, htmlName), html, "utf8");
+      created++;
+    } catch {
+      // 单个文件失败不影响其余
+    }
+  }
+  if (created > 0) console.log(`[研报] 已为 ${created} 份历史研报补齐 HTML 页面`);
+  return created;
 }
