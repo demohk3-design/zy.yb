@@ -205,11 +205,21 @@ export default function ContextsPage() {
       message.warning("浏览器拦截了新标签页，请允许此站点打开弹窗");
     }
     try {
-      const res = await apiRequest<{ fileName: string; content: string }>(["/ai/generate", "post"], {
+      const res = await apiRequest<{
+        fileName: string;
+        content: string;
+        tradePlan: { executable: boolean; bias?: string; anchorPrice?: number; reason?: string };
+      }>(["/ai/generate", "post"], {
         keyword,
         aliases,
       });
-      message.success(`已生成 ${res.data?.fileName}`);
+      const tradePlan = res.data?.tradePlan;
+      if (tradePlan?.executable) {
+        const anchorText = tradePlan.anchorPrice !== undefined ? `，锚点 ${tradePlan.anchorPrice}` : "";
+        message.success(`已生成 ${res.data?.fileName}；交易计划：${tradePlan.bias ?? "已校验"}${anchorText}`);
+      } else {
+        message.warning(`报告已生成，但交易计划仅供观察：${tradePlan?.reason ?? "数据未通过校验"}`);
+      }
       refreshReports();
       // 生成完成后复用预开的新标签页，直接展示 HTML 报告。
       const fileName = res.data?.fileName;
