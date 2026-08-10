@@ -40,7 +40,7 @@ type KeywordGroup = {
 };
 
 // 品种分类（固定输出，位置稳定便于查找）
-// 核心 33 个品种及顺序严格对齐 agent.md L24-28；其余为抓取中实际出现的品种/别名
+// 页面品种与别名统一在此维护；agent.md 只负责报告结构，不再重复写死品种池
 const CATEGORY_LIST: { name: string; color: string; varieties: { name: string; aliases: string[] }[] }[] = [
   {
     name: "黑色建材与铁合金",
@@ -193,6 +193,21 @@ export default function ContextsPage() {
   // 按品种生成：汇总该品种最近全部日期的投喂包（aliases 为全部原始关键词，兼容别名文件）
   const generateReport = async (keyword: string, aliases: string[]) => {
     setGenerating(keyword);
+    // 在点击事件同步阶段预开窗口，避免模型生成完成后被浏览器拦截弹窗。
+    const reportWindow = window.open(
+      "about:blank",
+      "_blank",
+      "popup=yes,width=1280,height=900",
+    );
+    if (reportWindow) {
+      reportWindow.document.title = `${keyword}研报生成中`;
+      const statusText = reportWindow.document.createElement("p");
+      statusText.style.cssText = "font-family: sans-serif; padding: 24px;";
+      statusText.textContent = `正在生成${keyword}研报，请稍候……`;
+      reportWindow.document.body.replaceChildren(statusText);
+    } else {
+      message.warning("浏览器拦截了报告窗口，请允许此站点打开弹窗");
+    }
     try {
       const res = await apiRequest<{ fileName: string; content: string }>(["/ai/generate", "post"], {
         keyword,
@@ -200,12 +215,19 @@ export default function ContextsPage() {
       });
       message.success(`已生成 ${res.data?.fileName}`);
       refreshReports();
-      // 生成成功后新窗口直接打开 HTML 报告
+      // 生成完成后复用预开的新窗口，直接展示 HTML 报告。
       const fileName = res.data?.fileName;
       if (fileName) {
-        window.open(`/reports/${fileName}`, "_blank", "noopener,noreferrer");
+        const reportUrl = `/reports/${encodeURIComponent(fileName)}`;
+        if (reportWindow && !reportWindow.closed) {
+          reportWindow.location.href = reportUrl;
+          reportWindow.focus();
+        } else {
+          window.open(reportUrl, "_blank", "noopener,noreferrer");
+        }
       }
     } catch {
+      if (reportWindow && !reportWindow.closed) reportWindow.close();
       // interceptor shows error
     } finally {
       setGenerating(undefined);

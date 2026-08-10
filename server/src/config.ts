@@ -44,7 +44,7 @@ export const config = {
   // AI 研报生成（OpenAI 兼容接口，可通过环境变量覆盖）
   ai: {
     // 注意：密钥请优先通过环境变量 OPENAI_API_KEY 提供，避免提交到 git
-    apiKey: env.OPENAI_API_KEY || "sk-fe97795d517eb0d0ff62b2490540a03a80e70db4c6d2be4f283b010881cf8963",
+    apiKey: env.OPENAI_API_KEY || "",
     baseUrl: env.AI_BASE_URL || "https://one-model.com",
     // 账号可用模型（/v1/models）：mimo-v2.5 / ling-3.0-flash / deepseek-v4-flash
     model: env.AI_MODEL || "deepseek-v4-flash",
@@ -52,6 +52,10 @@ export const config = {
 
   paths: {
     root: serverRoot,
+    // 项目根目录的报告规范；生成报告时每次读取，修改规范无需重启服务
+    agentGuide: env.AGENT_GUIDE_PATH
+      ? resolve(env.AGENT_GUIDE_PATH)
+      : resolve(serverRoot, "../agent.md"),
     // 投喂包/原料输出目录（原脚本输出到项目根 context/）
     context: env.CONTEXT_DIR
       ? resolve(env.CONTEXT_DIR)
