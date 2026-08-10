@@ -7,6 +7,15 @@ export type PriceAnchor = {
   sourceLine: string;
 };
 
+export type SwingRange = {
+  low: number;
+  high: number;
+  decimals: number;
+  side: TradeBias;
+  sourceLine: string;
+  explicit: boolean;
+};
+
 type TradeLeg = {
   side: "做多" | "做空";
   entryLow: number;
@@ -106,6 +115,7 @@ export function extractVerifiedInstitutionPlan(
 
   for (const line of lines) {
     if (!terms.some((term) => containsTargetTerm(line, term))) continue;
+    if (/日内|隔夜|超短线|短线交易/.test(line)) continue;
     const hasLongSignal = /做多|买入|低多|逢低多|回调多/.test(line);
     const hasShortSignal = /做空|卖出|高空|逢高空|反弹空/.test(line);
     if (hasLongSignal === hasShortSignal) continue;
@@ -223,6 +233,54 @@ export function extractLatestPriceAnchor(
   return null;
 }
 
+/**
+ * 提取适合周/月级别交易的机构运行区间或支撑压力区间。
+ * 只接受包含目标品种和“区间/策略/支撑/压力”等语义的原文，避免把日期或其他品种数字当成交易区间。
+ */
+export function extractSwingRange(
+  context: string,
+  keyword?: string,
+  aliases: string[] = [],
+): SwingRange | null {
+  const terms = targetTermsOf(keyword, aliases);
+  const lines = context.split(/\r?\n/).map(cleanSourceLine).filter(Boolean);
+  const rangePattern = /([\d,]+(?:\.\d+)?)\s*(万)?\s*(?:-|—|~|～|至|到)\s*([\d,]+(?:\.\d+)?)\s*(万)?/g;
+
+  for (const line of lines) {
+    if (terms.length > 0 && !terms.some((term) => containsTargetTerm(line, term))) continue;
+    if (!/(区间|支撑|压力|策略|单边|高抛低吸|反弹空|逢高空|做空|回调多|逢低多|做多|空配|多配|运行)/.test(line)) continue;
+
+    for (const match of line.matchAll(rangePattern)) {
+      const matchEnd = (match.index ?? 0) + (match[0]?.length ?? 0);
+      const suffix = line.slice(matchEnd, matchEnd + 4);
+      // 排除“8-9月”“2026-2030年”等时间范围，它们不是价格区间。
+      if (/^\s*(?:年|月|日|个月|交易日)/.test(suffix)) continue;
+      const first = parseQuotedNumber(match[1] ?? "");
+      const second = parseQuotedNumber(match[3] ?? "");
+      if (!first || !second) continue;
+      const commonUnit = match[4] === "万" || match[2] === "万" ? 10_000 : 1;
+      const low = Math.min(first.value, second.value) * commonUnit;
+      const high = Math.max(first.value, second.value) * commonUnit;
+      if (!(high > low) || high / low > 2.5) continue;
+
+      const hasLong = /做多|回调多|逢低多|低多|偏多|多配|看多/.test(line);
+      const hasShort = /做空|反弹空|逢高空|高空|偏空|空配|看空/.test(line);
+      const side: TradeBias = hasLong === hasShort
+        ? "震荡观望"
+        : hasLong ? "偏多" : "偏空";
+      return {
+        low,
+        high,
+        decimals: Math.max(first.decimals, second.decimals),
+        side,
+        sourceLine: line,
+        explicit: true,
+      };
+    }
+  }
+  return null;
+}
+
 /** 只读取报告结论区的结构化字段，不扫描全文猜方向。 */
 export function extractTradeBias(markdown: string): TradeBias {
   const plain = markdown.replace(/\*\*/g, "");
@@ -249,46 +307,131 @@ function rewardRisk(side: TradeLeg["side"], entry: number, stop: number, target:
   return reward / risk;
 }
 
-function buildLeg(side: TradeLeg["side"], anchor: PriceAnchor, v: number): TradeLeg {
-  const p = anchor.price;
-  const decimals = anchor.decimals;
+function buildSwingLeg(range: SwingRange, side: TradeLeg["side"]): TradeLeg & { rangeLow: number; rangeHigh: number } {
+  const low = range.low;
+  const high = range.high;
+  const width = high - low;
+  const decimals = range.decimals;
+
   if (side === "做多") {
-    const entryLow = roundPrice(p * (1 - 0.6 * v), decimals);
-    const entryHigh = roundPrice(p * (1 - 0.3 * v), decimals);
-    const stop = roundPrice(p * (1 - 1.2 * v), decimals);
-    const target1 = roundPrice(p * (1 + 0.8 * v), decimals);
-    const target2 = roundPrice(p * (1 + 1.6 * v), decimals);
+    const entryLow = roundPrice(low + width * 0.08, decimals);
+    const entryHigh = roundPrice(low + width * 0.36, decimals);
+    const stop = roundPrice(low - width * 0.12, decimals);
+    const target1 = roundPrice(low + width * 0.60, decimals);
+    const target2 = roundPrice(low + width * 0.92, decimals);
     const entry = (entryLow + entryHigh) / 2;
     return {
-      side,
-      entryLow,
-      entryHigh,
-      stop,
-      target1,
-      target2,
+      side, entryLow, entryHigh, stop, target1, target2,
       rewardRisk1: rewardRisk(side, entry, stop, target1),
       rewardRisk2: rewardRisk(side, entry, stop, target2),
-      trigger: "价格回落进入区间后出现止跌确认再挂多；直接上冲不追单",
+      trigger: "周/月逻辑未破坏，价格回落至分批建仓带并出现周线止跌或日线反转确认；未回调到位不追多",
+      rangeLow: low,
+      rangeHigh: high,
     };
   }
 
-  const entryLow = roundPrice(p * (1 + 0.3 * v), decimals);
-  const entryHigh = roundPrice(p * (1 + 0.6 * v), decimals);
-  const stop = roundPrice(p * (1 + 1.2 * v), decimals);
-  const target1 = roundPrice(p * (1 - 0.8 * v), decimals);
-  const target2 = roundPrice(p * (1 - 1.6 * v), decimals);
+  const entryLow = roundPrice(high - width * 0.36, decimals);
+  const entryHigh = roundPrice(high - width * 0.08, decimals);
+  const stop = roundPrice(high + width * 0.12, decimals);
+  const target1 = roundPrice(low + width * 0.40, decimals);
+  const target2 = roundPrice(low + width * 0.08, decimals);
   const entry = (entryLow + entryHigh) / 2;
   return {
-    side,
-    entryLow,
-    entryHigh,
-    stop,
-    target1,
-    target2,
+    side, entryLow, entryHigh, stop, target1, target2,
     rewardRisk1: rewardRisk(side, entry, stop, target1),
     rewardRisk2: rewardRisk(side, entry, stop, target2),
-    trigger: "价格反弹进入区间后出现滞涨确认再挂空；直接下跌不追单",
+    trigger: "周/月逻辑未破坏，价格反弹至分批建仓带并出现周线滞涨或日线反转确认；未反弹到位不追空",
+    rangeLow: low,
+    rangeHigh: high,
   };
+}
+
+function buildProxyRange(anchor: PriceAnchor): SwingRange {
+  // 没有周/月 OHLC 或 ATR 时，只能用最近日变动的 20 个交易日平方根放大作为低置信度代理。
+  // 这不是实时波动率，必须在报告中明确标注，并要求下单前人工复核。
+  const dailyPct = Math.abs(anchor.dailyChangePct ?? 1.25);
+  const swingPct = clamp(dailyPct * Math.sqrt(20), 5, 15) / 100;
+  return {
+    low: roundPrice(anchor.price * (1 - swingPct), anchor.decimals),
+    high: roundPrice(anchor.price * (1 + swingPct), anchor.decimals),
+    decimals: anchor.decimals,
+    side: "震荡观望",
+    sourceLine: `以价格锚点 ${formatPrice(anchor.price, anchor.decimals)} 和最近日变动 ${dailyPct.toFixed(2)}% 推算约一个月波动代理（${(swingPct * 100).toFixed(2)}%）`,
+    explicit: false,
+  };
+}
+
+function stagedEntryText(leg: TradeLeg & { rangeLow: number; rangeHigh: number }, side: TradeLeg["side"]): string {
+  const width = leg.rangeHigh - leg.rangeLow;
+  const precision = Math.max(0, String(leg.entryLow).split(".")[1]?.length ?? 0);
+  if (side === "做多") {
+    const a = roundPrice(leg.rangeLow + width * 0.28, precision);
+    const b = roundPrice(leg.rangeLow + width * 0.36, precision);
+    const c = roundPrice(leg.rangeLow + width * 0.16, precision);
+    const e = roundPrice(leg.rangeLow + width * 0.28, precision);
+    const f = roundPrice(leg.rangeLow + width * 0.08, precision);
+    const g = roundPrice(leg.rangeLow + width * 0.16, precision);
+    return `首仓30%：${formatPrice(a, precision)}～${formatPrice(b, precision)}；二仓40%：${formatPrice(c, precision)}～${formatPrice(e, precision)}；三仓30%：${formatPrice(f, precision)}～${formatPrice(g, precision)}`;
+  }
+  const a = roundPrice(leg.rangeHigh - width * 0.36, precision);
+  const b = roundPrice(leg.rangeHigh - width * 0.24, precision);
+  const c = roundPrice(leg.rangeHigh - width * 0.24, precision);
+  const e = roundPrice(leg.rangeHigh - width * 0.12, precision);
+  const f = roundPrice(leg.rangeHigh - width * 0.12, precision);
+  const g = roundPrice(leg.rangeHigh - width * 0.08, precision);
+  return `首仓30%：${formatPrice(a, precision)}～${formatPrice(b, precision)}；二仓40%：${formatPrice(c, precision)}～${formatPrice(e, precision)}；三仓30%：${formatPrice(f, precision)}～${formatPrice(g, precision)}`;
+}
+
+function buildPlanMarkdown(anchor: PriceAnchor, bias: TradeBias, latestDate: string, freshness: Freshness, explicitRange: SwingRange | null): string {
+  const range = explicitRange ?? buildProxyRange(anchor);
+  const effectiveBias = bias === "偏多" || bias === "偏空" ? bias : range.side;
+  const legs = effectiveBias === "偏多"
+    ? [buildSwingLeg(range, "做多")]
+    : effectiveBias === "偏空"
+      ? [buildSwingLeg(range, "做空")]
+      : [buildSwingLeg(range, "做多"), buildSwingLeg(range, "做空")];
+  const sourceLabel = range.explicit ? "机构原文运行/支撑压力区间；中" : "中期波动代理；低";
+  const staleWarning = freshness.executable
+    ? ""
+    : "\n\n> **素材已超过执行窗口：以下区间仅供复盘，刷新近期数据并重新生成后再评估。**";
+  const rows = legs.map((leg) => {
+    const trigger = freshness.executable ? leg.trigger : `仅观察；${leg.trigger}`;
+    return `| ${leg.side} | ${formatPrice(leg.entryLow, anchor.decimals)}～${formatPrice(leg.entryHigh, anchor.decimals)} | ${formatPrice(leg.stop, anchor.decimals)} | ${formatPrice(leg.target1, anchor.decimals)} | ${formatPrice(leg.target2, anchor.decimals)} | ${leg.rewardRisk1.toFixed(2)} / ${leg.rewardRisk2.toFixed(2)} | ${trigger} |`;
+  });
+  const staged = legs.map((leg) => `- **${leg.side}分批建仓：** ${stagedEntryText(leg, leg.side)}。总建仓带：${formatPrice(leg.entryLow, anchor.decimals)}～${formatPrice(leg.entryHigh, anchor.decimals)}。`).join("\n");
+  const invalidation = legs.map((leg) => leg.side === "做多"
+    ? `做多在 ${formatPrice(leg.stop, anchor.decimals)} 下方硬止损；若周线收盘跌破关键成本/基本面支撑，月线多头逻辑失效。`
+    : `做空在 ${formatPrice(leg.stop, anchor.decimals)} 上方硬止损；若周线收盘突破关键压力/基本面转强，月线空头逻辑失效。`).join(" ");
+  const position = freshness.executable ? "分三批建仓，首仓不超过计划仓位30%；单笔总风险建议控制在账户权益0.5%～1%以内" : "仅观察";
+  const executionLevel = freshness.executable
+    ? "周/月级别条件计划；先等价格进入建仓带，再按周线逻辑确认执行，不因单日波动追单"
+    : "仅观察；刷新数据后重新计算，禁止按旧区间直接挂单";
+  const proxyNote = range.explicit
+    ? `- **中期参考区间：** ${formatPrice(range.low, anchor.decimals)}～${formatPrice(range.high, anchor.decimals)}（${range.sourceLine}）`
+    : `- **中期参考区间：** ${formatPrice(range.low, anchor.decimals)}～${formatPrice(range.high, anchor.decimals)}（${range.sourceLine}；仅为低置信度代理，不等同于机构点位）`;
+
+  return `### 周/月级别建仓与风控（程序二次计算并校验）
+
+- **AI 方向判断：** ${bias}
+- **交易周期：** 周线开仓，计划持有约 2～12 周；月线基本面逻辑未破坏前，不因单日波动随意平仓
+- **数据时效状态：** ${freshness.label}
+- **价格锚点：** P=${formatPrice(anchor.price, anchor.decimals)}（${latestDate} 投喂包；${anchor.sourceLine}）
+${proxyNote}
+- **计划来源与置信度：** ${sourceLabel}
+- **执行级别：** ${executionLevel}
+- **仓位纪律：** ${position}
+- **手数计算：** \`floor(单笔允许亏损金额 ÷（入场均价到硬止损的价差 × 合约乘数 + 预估手续费与滑点）)\`；缺少账户、合约乘数和费用时不编造具体手数
+
+| 方向 | 总建仓区间 | 硬止损 | 第一止盈 | 第二止盈 | 盈亏比 R1/R2 | 周/月级别触发条件 |
+|---|---:|---:|---:|---:|---:|---|
+${rows.join("\n")}
+
+${staged}
+- **计划失效条件：** ${invalidation}
+- **止盈与持仓管理：** 第一止盈兑现后减仓30%～50%，剩余仓位止损上移至成本；第二止盈附近观察周线结构，若趋势延续再用前一周高/低点移动止损。
+- **禁止事项：** 硬止损后不得补仓摊低；价格未进入建仓带不得追单；没有实时行情时不得把本表当成自动下单指令。
+
+> **${range.explicit ? "区间来自投喂包中的机构/关键价位信息，但最终建仓、止损和止盈为程序按周/月级别规则推演，非实时行情指令。" : "AI 中期推演区间，非机构原文；由于素材没有周/月 OHLC 或 ATR，置信度低。"} 下单前必须确认当前主力合约、最新价格、最小变动价位、手续费、滑点和交易时段。**${staleWarning}`;
 }
 
 function formatPrice(value: number, decimals: number): string {
@@ -339,66 +482,14 @@ export function evaluateFreshness(latestDate: string, now = new Date()): Freshne
   if (businessDaysOld < 0) {
     return { executable: false, businessDaysOld, label: `素材日期 ${latestDate} 晚于当前日期 ${today}，禁止直接执行` };
   }
-  if (businessDaysOld === 0) {
-    return { executable: true, businessDaysOld, label: `最近交易日数据（${latestDate}）；执行前仍需核对最新盘面` };
+  if (businessDaysOld <= 5) {
+    return { executable: true, businessDaysOld, label: `近 ${businessDaysOld} 个交易日内的周/月级别素材（${latestDate}）；执行前必须核对最新盘面` };
   }
   return {
     executable: false,
     businessDaysOld,
-    label: `已滞后 ${businessDaysOld} 个交易日（素材 ${latestDate}，当前 ${today}），过期，仅供观察`,
+    label: `已滞后 ${businessDaysOld} 个交易日（素材 ${latestDate}，当前 ${today}），超过周/月计划执行窗口，仅供观察`,
   };
-}
-
-function buildPlanMarkdown(anchor: PriceAnchor, bias: TradeBias, latestDate: string, freshness: Freshness): string {
-  const volatilityPct = clamp(Math.abs(anchor.dailyChangePct ?? 1.5), 1, 3);
-  const v = volatilityPct / 100;
-  const legs = bias === "偏多"
-    ? [buildLeg("做多", anchor, v)]
-    : bias === "偏空"
-      ? [buildLeg("做空", anchor, v)]
-      : [buildLeg("做多", anchor, v), buildLeg("做空", anchor, v)];
-
-  const rows = legs.map((leg) => {
-    const entry = `${formatPrice(leg.entryLow, anchor.decimals)}～${formatPrice(leg.entryHigh, anchor.decimals)}`;
-    const rr = `${leg.rewardRisk1.toFixed(2)} / ${leg.rewardRisk2.toFixed(2)}`;
-    const trigger = freshness.executable ? leg.trigger : `仅观察；刷新当日行情后重新计算。原触发逻辑：${leg.trigger}`;
-    return `| ${leg.side} | ${entry} | ${formatPrice(leg.stop, anchor.decimals)} | ${formatPrice(leg.target1, anchor.decimals)} | ${formatPrice(leg.target2, anchor.decimals)} | ${rr} | ${trigger} |`;
-  });
-
-  const invalidation = legs.map((leg) => {
-    if (leg.side === "做多") {
-      return `做多方案在最新盘面已跌破 ${formatPrice(leg.stop, anchor.decimals)}，或未回调便直接突破第一止盈时失效，不追单。`;
-    }
-    return `做空方案在最新盘面已突破 ${formatPrice(leg.stop, anchor.decimals)}，或未反弹便直接跌破第一止盈时失效，不追单。`;
-  }).join(" ");
-
-  const executionLevel = freshness.executable
-    ? "条件挂单参考；满足触发条件且复核当前主力合约最新价后方可执行"
-    : "仅观察；必须先刷新投喂包并重新生成报告，禁止按旧点位直接挂单";
-  const position = freshness.executable ? "轻仓；单笔实际亏损上限应由账户风险额度决定" : "仅观察";
-  const staleWarning = freshness.executable
-    ? ""
-    : "\n\n> **数据已过期：以下点位只保留作复盘参考，不构成当前可执行挂单。请刷新数据后重新生成报告。**";
-
-  return `### 挂单与风控（程序二次计算并校验）
-
-- **AI 方向判断：** ${bias}
-- **数据时效状态：** ${freshness.label}
-- **价格锚点：** P=${formatPrice(anchor.price, anchor.decimals)}（${latestDate} 投喂包；${anchor.sourceLine}）
-- **波动参数：** v=${volatilityPct.toFixed(2)}%（日涨跌幅绝对值限制在 1%～3%；缺失时使用 1.50%）
-- **计划来源与置信度：** 程序波动公式；低。当前没有实时行情、盘口和统一结构化机构点位
-- **执行级别：** ${executionLevel}
-- **默认仓位：** ${position}
-- **手数计算：** \`floor(单笔允许亏损金额 ÷（入场均价到止损的价差 × 合约乘数 + 预估手续费与滑点）)\`；因缺少账户与合约参数，系统不自动编手数
-
-| 方向 | 挂单区间 | 硬止损 | 第一止盈 | 第二止盈 | 盈亏比 R1/R2 | 触发条件 |
-|---|---:|---:|---:|---:|---:|---|
-${rows.join("\n")}
-
-- **计划失效条件：** ${invalidation}
-- **风控动作：** 第一止盈可减仓，剩余仓位止损上移至成本附近；硬止损触发后不得补仓摊低成本。
-
-> **AI 推演区间，非机构原文。该计划使用研报中的价格锚点而非实时行情；下单前必须确认当前主力合约、最新价格、最小变动价位和交易时段。**${staleWarning}`;
 }
 
 function buildInstitutionPlanMarkdown(
@@ -411,8 +502,8 @@ function buildInstitutionPlanMarkdown(
   const rr1 = rewardRisk(plan.side, entry, plan.stop, plan.target1);
   const rr2 = rewardRisk(plan.side, entry, plan.stop, plan.target2);
   const trigger = plan.side === "做多"
-    ? "价格进入机构入场区间并出现止跌确认后执行；直接上冲不追单"
-    : "价格进入机构入场区间并出现滞涨确认后执行；直接下跌不追单";
+    ? "价格进入机构入场区间并出现周线止跌确认后分批执行；直接上冲不追单"
+    : "价格进入机构入场区间并出现周线滞涨确认后分批执行；直接下跌不追单";
   const executionLevel = freshness.executable
     ? "机构完整方案已逐项核验；执行前仍须核对当前合约、最新价与交易时段"
     : "仅观察；机构方案已过期，刷新数据后再评估";
@@ -420,14 +511,14 @@ function buildInstitutionPlanMarkdown(
     ? ""
     : "\n\n> **数据已过期：机构原文点位仅供复盘，禁止按旧方案直接挂单。**";
 
-  return `### 挂单与风控（机构完整方案逐项核验）
+  return `### 周/月级别建仓与风控（机构完整方案逐项核验）
 
 - **AI 方向判断：** ${bias}
 - **数据时效状态：** ${freshness.label}
 - **计划来源与置信度：** 机构原文完整方案；高（方向、入场区间、止损、两个目标均在目标品种同一原文行中核验）
 - **原文依据：** ${plan.sourceLine}
 - **执行级别：** ${executionLevel}
-- **默认仓位：** ${freshness.executable ? "轻仓；实际手数由账户风险额度、合约乘数、手续费和滑点决定" : "仅观察"}
+- **仓位纪律：** ${freshness.executable ? "分三批建仓，首仓不超过计划仓位30%；实际手数由账户风险额度、合约乘数、手续费和滑点决定" : "仅观察"}
 - **手数计算：** \`floor(单笔允许亏损金额 ÷（入场均价到止损的价差 × 合约乘数 + 预估手续费与滑点）)\`；因缺少账户与合约参数，系统不自动编手数
 
 | 方向 | 挂单区间 | 硬止损 | 第一止盈 | 第二止盈 | 盈亏比 R1/R2 | 触发条件 |
@@ -442,12 +533,12 @@ function buildInstitutionPlanMarkdown(
 
 function buildNoTradePlanMarkdown(latestDate: string, reason: string): string {
   const freshness = evaluateFreshness(latestDate);
-  return `### 挂单与风控（程序二次校验：禁止挂单）
+  return `### 周/月级别建仓与风控（程序二次校验：禁止挂单）
 
 - **数据时效状态：** ${freshness.label}
 - **执行结论：** 数据不足，暂不挂单
 - **阻断原因：** ${reason}
-- **需要补充：** 目标品种当日主力/活跃合约价格、涨跌幅、合约代码、最小变动价位及当前交易时段
+- **需要补充：** 目标品种近期主力/活跃合约价格、周/月运行区间或 OHLC/ATR、合约代码、最小变动价位及当前交易时段
 
 > **服务端没有验证到目标品种自己的可靠价格锚点，因此已覆盖模型可能生成的点位，避免串用品种价格或让模型自由编价。**`;
 }
@@ -457,7 +548,7 @@ function replaceTradePlan(markdown: string, plan: string): string {
     .replace(/^- \*\*价格锚点与波动参数：\*\*.*\r?\n?/m, "")
     .replace(/^- \*\*区间性质与置信度：\*\*.*\r?\n?/m, "");
 
-  const existingPlan = /###\s+挂单与风控[^\n]*[\s\S]*?(?=\n##\s+1[.、])/;
+  const existingPlan = /###\s+(?:挂单与风控|周\/月级别建仓与风控)[^\n]*[\s\S]*?(?=\n##\s+1[.、])/;
   if (existingPlan.test(content)) return content.replace(existingPlan, plan);
 
   const sectionOne = content.search(/\n##\s+1[.、]/);
@@ -503,7 +594,8 @@ export function applyValidatedTradePlan(
     };
   }
 
-  const plan = buildPlanMarkdown(anchor, bias, latestDate, freshness);
+  const swingRange = extractSwingRange(latestContext, keyword, aliases);
+  const plan = buildPlanMarkdown(anchor, bias, latestDate, freshness, swingRange);
   return {
     content: replaceTradePlan(markdown, plan),
     applied: true,

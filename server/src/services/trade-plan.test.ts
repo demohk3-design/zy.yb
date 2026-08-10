@@ -3,6 +3,7 @@ import {
   applyValidatedTradePlan,
   evaluateFreshness,
   extractLatestPriceAnchor,
+  extractSwingRange,
   extractTradeBias,
   extractVerifiedInstitutionPlan,
 } from "./trade-plan";
@@ -56,7 +57,10 @@ describe("trade plan validation", () => {
     expect(result.applied).toBeTrue();
     expect(result.executable).toBeTrue();
     expect(result.bias).toBe("偏空");
-    expect(result.content).toContain("| 做空 | 4,521～4,534 | 4,561 | 4,471 | 4,435 | 1.69 / 2.76 |");
+    expect(result.content).toContain("### 周/月级别建仓与风控");
+    expect(result.content).toContain("| 做空 | 4,570～4,696 | 4,786 | 4,462 | 4,318 | 1.12 / 2.06 |");
+    expect(result.content).toContain("分批建仓");
+    expect(result.content).toContain("计划持有约 2～12 周");
     expect(result.content).not.toContain("模型漏填");
   });
 
@@ -87,11 +91,25 @@ describe("trade plan validation", () => {
     expect(result.content).not.toContain("模型漏填");
   });
 
-  test("旧交易日数据只允许观察", () => {
-    const freshness = evaluateFreshness("2026-08-07", new Date("2026-08-10T04:00:00Z"));
-    expect(freshness.executable).toBeFalse();
-    expect(freshness.businessDaysOld).toBe(1);
-    expect(freshness.label).toContain("过期，仅供观察");
+  test("周/月计划允许最近五个交易日内执行，但更旧素材仅供观察", () => {
+    const recent = evaluateFreshness("2026-08-07", new Date("2026-08-10T04:00:00Z"));
+    expect(recent.executable).toBeTrue();
+    expect(recent.businessDaysOld).toBe(1);
+    expect(recent.label).toContain("周/月级别素材");
+
+    const stale = evaluateFreshness("2026-08-01", new Date("2026-08-10T04:00:00Z"));
+    expect(stale.executable).toBeFalse();
+    expect(stale.businessDaysOld).toBe(6);
+    expect(stale.label).toContain("超过周/月计划执行窗口");
+  });
+
+
+  test("优先提取目标品种的机构中期运行区间", () => {
+    const context = "* PVC基本面偏弱，反弹空配。V【4400-4600】；TA【5680-5850】。";
+    const range = extractSwingRange(context, "PVC");
+    expect(range?.low).toBe(4400);
+    expect(range?.high).toBe(4600);
+    expect(range?.side).toBe("偏空");
   });
 
   test("方向只从结论字段或主策略读取，不被正文多空词污染", () => {
