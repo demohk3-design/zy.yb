@@ -20,8 +20,11 @@ export type GeneratedReport = {
 };
 
 // 读取某品种最近数日的 AI 投喂包（按日期倒序，汇总全部），调用 LLM 生成研报，并保存到 reports/ 目录
-export async function generateReportWithAI(keyword: string): Promise<GeneratedReport> {
+// aliases：该品种的全部原始关键词（含标准名），用于匹配文件名（如 螺纹/螺纹钢）
+export async function generateReportWithAI(keyword: string, aliases: string[] = [keyword]): Promise<GeneratedReport> {
   const safeKeyword = keyword.replace(/[\\/:*?"<>|]/g, "_");
+  const aliasSet = new Set(aliases.map((a) => a.trim()).filter(Boolean));
+  aliasSet.add(keyword);
   const dir = config.paths.context;
   if (!existsSync(dir)) {
     throw new Error("context 目录不存在，请先抓取数据");
@@ -31,7 +34,8 @@ export async function generateReportWithAI(keyword: string): Promise<GeneratedRe
   const files = readdirSync(dir)
     .map((name) => {
       const match = name.match(/^fx_ai_context_(.+?)_(\d{4}-\d{2}-\d{2})\.md$/);
-      if (!match || match[1] !== safeKeyword) return null;
+      const fileKey = match?.[1];
+      if (!match || !fileKey || !aliasSet.has(fileKey)) return null;
       return { name, date: match[2], path: join(dir, name) };
     })
     .filter((item): item is { name: string; date: string; path: string } => item !== null)

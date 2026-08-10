@@ -14,8 +14,11 @@ export const aiRoutes = new Elysia({ prefix: "/ai" })
         set.status = 400;
         return { code: 400, message: "参数错误：需要 keyword（品种）" };
       }
+      const aliases = Array.isArray(body.aliases)
+        ? body.aliases.filter((a): a is string => typeof a === "string")
+        : [];
       try {
-        const result = await generateReportWithAI(keyword);
+        const result = await generateReportWithAI(keyword, aliases);
         return { code: 0, data: result, message: `已生成 ${result.fileName}`, flag: true };
       } catch (e: any) {
         set.status = 500;
@@ -23,7 +26,10 @@ export const aiRoutes = new Elysia({ prefix: "/ai" })
       }
     },
     {
-      body: t.Object({ keyword: t.String() }),
+      body: t.Object({
+        keyword: t.String(),
+        aliases: t.Optional(t.Array(t.String())),
+      }),
     },
   )
   .get("/files", async () => {
