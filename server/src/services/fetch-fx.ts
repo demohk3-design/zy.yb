@@ -254,6 +254,75 @@ function truncateText(text: string, maxLength: number): string {
   return `${text.slice(0, maxLength)}\n...[已截断，完整内容见 JSONL 原料库]`;
 }
 
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function containsKeyword(text: string, keyword: string): boolean {
+  const trimmed = keyword.trim();
+  const escaped = escapeRegExp(trimmed);
+  if (!escaped) return false;
+  // PVC、PP、EG 等英文简称必须按字母数字边界匹配，避免命中其他英文单词内部。
+  if (/^[a-z0-9]+$/i.test(trimmed)) {
+    return new RegExp(`(^|[^a-z0-9])${escaped}(?=$|[^a-z0-9])`, "i").test(text);
+  }
+  return text.toLowerCase().includes(trimmed.toLowerCase());
+}
+
+function isDatedSectionHeader(text: string): boolean {
+  return /^\s*\d{4}[\/.-]\d{1,2}[\/.-]\d{1,2}\s*\S.{0,40}$/.test(text.trim());
+}
+
+function selectKeywordSnippets(item: ReportDetail, keyword?: string): string[] {
+  const fallback = item.bullets.length > 0 ? item.bullets : item.paragraphs;
+  if (!keyword?.trim()) return fallback.slice(0, 20);
+
+  const selected: string[] = [];
+  const seen = new Set<string>();
+  const add = (text: string | undefined) => {
+    const value = text?.trim();
+    if (!value || seen.has(value) || selected.length >= 30) return;
+    seen.add(value);
+    selected.push(value);
+  };
+
+  for (const source of [item.paragraphs, item.bullets]) {
+    const targetSectionHeaders = source
+      .map((text, index) => (isDatedSectionHeader(text) && containsKeyword(text, keyword) ? index : -1))
+      .filter((index) => index >= 0);
+
+    if (targetSectionHeaders.length > 0) {
+      // 多品种日报优先按“日期 + 品种”小节提取，并在下一个品种标题前停止，
+      // 防止 PVC 投喂包继续混入苯乙烯、甲醇等相邻品种行情。
+      for (const headerIndex of targetSectionHeaders) {
+        const nextHeaderIndex = source.findIndex((text, index) => index > headerIndex && isDatedSectionHeader(text));
+        const endIndex = Math.min(
+          source.length - 1,
+          headerIndex + 6,
+          nextHeaderIndex >= 0 ? nextHeaderIndex - 1 : source.length - 1,
+        );
+        for (let index = headerIndex; index <= endIndex; index++) add(source[index]);
+      }
+    } else {
+      // 普通单品种研报没有固定小节标题时，每个关键词命中点保留前 1 段、后 5 段。
+      const hitIndexes = source
+        .map((text, index) => (containsKeyword(text, keyword) ? index : -1))
+        .filter((index) => index >= 0);
+      for (const hitIndex of hitIndexes) {
+        for (let index = Math.max(0, hitIndex - 1); index <= Math.min(source.length - 1, hitIndex + 5); index++) {
+          add(source[index]);
+        }
+        if (selected.length >= 30) break;
+      }
+    }
+    if (selected.length >= 30) break;
+  }
+
+  // 极少数报告只在标题中命中关键词；此时保留原摘要，避免生成空投喂包。
+  return selected.length > 0 ? selected : fallback.slice(0, 20);
+}
+
 export function buildAiContext(dateFormatted: string, details: ReportDetail[], keyword?: string): string {
   const selected = keyword
     ? details.filter((item) => item.matchedKeywords.includes(keyword))
@@ -266,7 +335,7 @@ export function buildAiContext(dateFormatted: string, details: ReportDetail[], k
   markdown += `* **用途**：供 AI 基于已抓取研报原料进行综合分析，完整原料见同日 JSONL 文件。\n\n---\n\n`;
 
   for (const item of selected) {
-    const snippets = item.bullets.length > 0 ? item.bullets : item.paragraphs.slice(0, 12);
+    const snippets = selectKeywordSnippets(item, keyword);
     markdown += `## ${item.orgName} | ${item.title}\n\n`;
     markdown += `* **docId**：${item.docId}\n`;
     markdown += `* **来源**：${item.detailUrl}\n`;

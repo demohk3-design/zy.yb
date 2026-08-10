@@ -193,12 +193,8 @@ export default function ContextsPage() {
   // 按品种生成：汇总该品种最近全部日期的投喂包（aliases 为全部原始关键词，兼容别名文件）
   const generateReport = async (keyword: string, aliases: string[]) => {
     setGenerating(keyword);
-    // 在点击事件同步阶段预开窗口，避免模型生成完成后被浏览器拦截弹窗。
-    const reportWindow = window.open(
-      "about:blank",
-      "_blank",
-      "popup=yes,width=1280,height=900",
-    );
+    // 在点击事件同步阶段预开新标签页，避免模型生成完成后被浏览器拦截。
+    const reportWindow = window.open("about:blank", "_blank");
     if (reportWindow) {
       reportWindow.document.title = `${keyword}研报生成中`;
       const statusText = reportWindow.document.createElement("p");
@@ -206,7 +202,7 @@ export default function ContextsPage() {
       statusText.textContent = `正在生成${keyword}研报，请稍候……`;
       reportWindow.document.body.replaceChildren(statusText);
     } else {
-      message.warning("浏览器拦截了报告窗口，请允许此站点打开弹窗");
+      message.warning("浏览器拦截了新标签页，请允许此站点打开弹窗");
     }
     try {
       const res = await apiRequest<{ fileName: string; content: string }>(["/ai/generate", "post"], {
@@ -215,7 +211,7 @@ export default function ContextsPage() {
       });
       message.success(`已生成 ${res.data?.fileName}`);
       refreshReports();
-      // 生成完成后复用预开的新窗口，直接展示 HTML 报告。
+      // 生成完成后复用预开的新标签页，直接展示 HTML 报告。
       const fileName = res.data?.fileName;
       if (fileName) {
         const reportUrl = `/reports/${encodeURIComponent(fileName)}`;

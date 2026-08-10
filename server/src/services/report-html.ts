@@ -33,10 +33,10 @@ export function mdToHtml(md: string): string {
       r
         .split("|")
         .map((c) => c.trim())
-        .filter((c, i, arr) => !(i === arr.length - 1 && c === "")),
+        .filter((c, i, arr) => !((i === 0 || i === arr.length - 1) && c === "")),
     );
-    // 去掉表头分隔行（---）
-    const body = rows.filter((r) => !r.every((c) => /^-{1,}$/.test(c)));
+    // 去掉 Markdown 表头分隔行，兼容 ---、:---、---:、:---:。
+    const body = rows.filter((r) => !r.every((c) => /^:?-{3,}:?$/.test(c)));
     let t = "<table><thead><tr>";
     const headerRow = body[0];
     if (headerRow) {
